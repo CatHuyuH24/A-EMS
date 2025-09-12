@@ -1,45 +1,80 @@
-# Project Title
+# A-EMS (AI-Driven Enterprise Management System)
 
-_A brief description of your project._
+A-EMS is a web application designed to be a "Digital Chief of Staff" for CEOs and senior leadership. It provides comprehensive insights and data-driven decision-making capabilities in real-time through an intuitive dashboard and an AI-powered chat assistant.
 
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
+- [Project Vision](#project-vision)
+- [Technology Stack](#technology-stack)
+- [Directory Structure](#directory-structure)
+- [Getting Started](#getting-started)
 - [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
 
 ## Introduction
 
-Describe the purpose and goals of the project.
+This project aims to build a powerful enterprise management system from the ground up, leveraging a modern technology stack and an AI-driven development process. The core features include a real-time executive dashboard and an interactive AI assistant (powered by DeepSeek) to query business data using natural language.
 
-## Installation
+## Project Vision
 
-```bash
-# Steps to install dependencies
+To create a "Digital Chief of Staff" - an intelligent virtual assistant that empowers leaders with a holistic view of their business, surfaces deep insights, and facilitates real-time, data-informed decisions.
+
+## Technology Stack
+
+- **Backend:** Microservices architecture using Python & FastAPI.
+- **Frontend:** Next.js, TypeScript, Tailwind CSS, and Recharts for data visualization.
+- **Database:** PostgreSQL.
+- **Infrastructure:** Docker and Docker Compose for containerization and orchestration.
+- **AI:** DeepSeek for natural language processing and insights.
+
+## Directory Structure
+
+The project is organized into the following main directories:
+
+```
+/
+├── backend/         # Python/FastAPI Microservices
+├── frontend/        # Next.js/TypeScript Application
+├── infra/           # Docker Compose and infrastructure configurations
+├── docs/            # All project documentation
+└── README.md
 ```
 
-## Usage
+For more details, please refer to the [Project Information and Scope](./docs/Project_Info_Scope.md) document.
 
-Instructions and examples for using the project.
+## Getting Started
 
-## Features
+### Prerequisites
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Docker
+- Node.js
+- Python
+
+### Installation & Running
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/CatHuyuH24/A-EMS.git
+    cd A-EMS
+    ```
+
+2.  **Launch the application stack:**
+    _This command will build and start the frontend, backend, and database containers._
+
+    ```bash
+    docker-compose -f infra/docker-compose.yml up --build
+    ```
+
+3.  **Access the application:**
+    - **Frontend:** `http://localhost:3000`
+    - **Backend API:** `http://localhost:8000`
 
 ## Contributing
 
-Guidelines for contributing to the project.
+Please read the [contributing guidelines](./docs/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
 
-Specify the license here.
-
-## Contact
-
-Your name and contact information.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
