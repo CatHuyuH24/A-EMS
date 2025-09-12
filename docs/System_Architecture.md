@@ -60,10 +60,10 @@ graph TD
 2.  **API Gateway:** A single entry point for all client requests. It routes traffic to the appropriate microservice and handles cross-cutting concerns like authentication and rate limiting.
 3.  **Backend Microservices (Python/FastAPI):**
     - **Auth Service:** Manages user identity, authentication (e.g., JWT), and authorization.
-    - **Sales Service:** Manages all sales-related data, including revenue, deals, and performance metrics.
-    - **Finance Service:** Manages financial KPIs, expenses, and cash flow data.
-    - **HR Service:** Manages employee data, headcount, and recruitment metrics.
-    - **AI Orchestrator Service:** Acts as a bridge between the user's query and the DeepSeek AI model. It fetches context from other services (like Sales or Finance) before querying the AI.
+    - **Sales Service:** Comprehensive sales data management including pipeline, forecasting, customer analytics, and territory performance.
+    - **Finance Service:** Complete financial management including KPIs, cash flow, budgeting, expense tracking, revenue recognition, and profitability analysis.
+    - **HR Service:** Full HR analytics covering headcount, recruitment, performance management, compensation, engagement, and training metrics.
+    - **AI Orchestrator Service:** Acts as a bridge between the user's query and the DeepSeek AI model. It fetches context from other services and performs intelligent data aggregation before querying the AI.
 4.  **PostgreSQL Database:** The primary relational database. While shown as a single instance for simplicity, in a true microservice architecture, each service might have its own dedicated database or schema.
 5.  **DeepSeek AI:** An external, third-party service that provides the core natural language processing and generation capabilities.
 

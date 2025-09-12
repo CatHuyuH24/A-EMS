@@ -87,9 +87,178 @@ This interface should feel familiar, like modern messaging apps.
 +----------------------------------------------------------------------+
 ```
 
-## 3. Color Palette & Typography
+## 3. Design System & Style Guide
 
-- **Primary Color:** A professional, trustworthy blue or dark gray.
-- **Accent Color:** A brighter color (e.g., green, teal) for calls-to-action and highlighting data.
-- **Typography:** A clean, sans-serif font like Inter, Lato, or Nunito for maximum readability.
-- **Charts:** Use a color-blind friendly palette for all data visualizations.
+### 3.1. Color Palette
+
+- **Primary Colors:**
+
+  - Brand Blue: `#1E40AF` (Primary actions, navigation)
+  - Dark Blue: `#1E3A8A` (Hover states, selected states)
+  - Light Blue: `#3B82F6` (Secondary elements)
+
+- **Semantic Colors:**
+
+  - Success Green: `#10B981` (Positive KPIs, success messages)
+  - Warning Amber: `#F59E0B` (Alerts, warnings)
+  - Error Red: `#EF4444` (Errors, declining metrics)
+  - Info Cyan: `#06B6D4` (Information, neutral status)
+
+- **Neutral Colors:**
+  - Gray 900: `#111827` (Primary text)
+  - Gray 700: `#374151` (Secondary text)
+  - Gray 500: `#6B7280` (Tertiary text, placeholder)
+  - Gray 300: `#D1D5DB` (Borders, dividers)
+  - Gray 100: `#F3F4F6` (Background, cards)
+  - White: `#FFFFFF` (Primary background)
+
+### 3.2. Typography
+
+- **Primary Font:** Inter (Sans-serif)
+
+  - Headers: Inter 600-700 (Semibold-Bold)
+  - Body: Inter 400-500 (Regular-Medium)
+  - Small Text: Inter 400 (Regular)
+
+- **Typography Scale:**
+  - H1: 2.5rem (40px) - Page titles
+  - H2: 2rem (32px) - Section headers
+  - H3: 1.5rem (24px) - Subsection headers
+  - H4: 1.25rem (20px) - Card titles
+  - Body Large: 1.125rem (18px) - Important body text
+  - Body: 1rem (16px) - Regular body text
+  - Body Small: 0.875rem (14px) - Secondary text
+  - Caption: 0.75rem (12px) - Labels, captions
+
+### 3.3. Spacing System
+
+- **Base Unit:** 4px
+- **Common Spacing Values:**
+  - xs: 4px (1 unit)
+  - sm: 8px (2 units)
+  - md: 16px (4 units)
+  - lg: 24px (6 units)
+  - xl: 32px (8 units)
+  - 2xl: 48px (12 units)
+  - 3xl: 64px (16 units)
+
+### 3.4. Component Guidelines
+
+#### KPI Cards
+
+- **Size:** Minimum 280px width × 160px height
+- **Padding:** 24px
+- **Border Radius:** 12px
+- **Shadow:** 0 1px 3px rgba(0, 0, 0, 0.1)
+- **Typography:**
+  - Title: Body Small (14px), Gray 700
+  - Value: H2 (32px), Gray 900
+  - Change: Body Small (14px), Success/Error color
+
+#### Charts & Visualizations
+
+- **Color Palette (Accessible):**
+
+  - Primary: `#3B82F6` (Blue)
+  - Secondary: `#10B981` (Green)
+  - Tertiary: `#F59E0B` (Amber)
+  - Quaternary: `#EF4444` (Red)
+  - Quinary: `#8B5CF6` (Purple)
+  - Senary: `#06B6D4` (Cyan)
+
+- **Grid Lines:** Gray 200, 1px stroke
+- **Axes:** Gray 600, 12px font
+- **Legends:** Body Small, Gray 700
+- **Tooltips:** White background, Gray 900 text, subtle shadow
+
+#### Buttons
+
+- **Primary Button:**
+
+  - Background: Brand Blue `#1E40AF`
+  - Text: White
+  - Padding: 12px 24px
+  - Border Radius: 8px
+  - Hover: Dark Blue `#1E3A8A`
+
+- **Secondary Button:**
+  - Background: Gray 100 `#F3F4F6`
+  - Text: Gray 700 `#374151`
+  - Border: 1px Gray 300
+  - Hover: Gray 200
+
+#### Data Tables
+
+- **Header:** Gray 100 background, Gray 900 text, 14px font
+- **Rows:** White/Gray 50 alternating, Gray 700 text, 16px font
+- **Borders:** Gray 200, 1px
+- **Padding:** 16px vertical, 12px horizontal
+- **Hover:** Gray 50 background
+
+### 3.5. Layout Specifications
+
+#### Dashboard Grid System
+
+- **Container:** 12-column CSS Grid
+- **Breakpoints:**
+  - Desktop: 1024px+ (4 columns for KPIs)
+  - Tablet: 768px-1023px (2 columns for KPIs)
+  - Mobile: < 768px (1 column)
+
+#### Sidebar Navigation
+
+- **Width:** 280px (collapsed: 72px)
+- **Background:** White
+- **Border:** 1px Gray 200 right border
+- **Navigation Items:**
+  - Padding: 12px 16px
+  - Hover: Gray 50 background
+  - Active: Light Blue background, Brand Blue text
+  - Icon Size: 20px
+
+### 3.6. Responsive Design Standards
+
+#### Mobile-First Approach
+
+- **Base styles:** Mobile (320px+)
+- **Tablet:** 768px+ (md breakpoint)
+- **Desktop:** 1024px+ (lg breakpoint)
+- **Large Desktop:** 1280px+ (xl breakpoint)
+
+#### Adaptive Components
+
+- **KPI Cards:** Stack vertically on mobile, 2x2 grid on tablet, 4x1 on desktop
+- **Charts:** Reduce height on mobile, adjust font sizes
+- **Tables:** Horizontal scroll on mobile with sticky first column
+- **Sidebar:** Collapsible on tablet, overlay on mobile
+
+### 3.7. Accessibility Standards
+
+#### WCAG 2.1 AA Compliance
+
+- **Color Contrast:** Minimum 4.5:1 for normal text, 3:1 for large text
+- **Focus Indicators:** 2px blue outline with 2px offset
+- **Alt Text:** All images and charts must have descriptive alt text
+- **Keyboard Navigation:** All interactive elements must be keyboard accessible
+
+#### Screen Reader Support
+
+- **Semantic HTML:** Proper heading hierarchy, landmarks
+- **ARIA Labels:** For complex widgets and charts
+- **Live Regions:** For dynamic content updates
+- **Skip Links:** For main navigation
+
+### 3.8. Animation & Interaction Guidelines
+
+#### Micro-interactions
+
+- **Hover Transitions:** 150ms ease-in-out
+- **Button Press:** Scale 0.98 transform
+- **Loading States:** Subtle pulse animation
+- **Page Transitions:** 300ms slide animations
+
+#### Data Updates
+
+- **Chart Animations:** 800ms ease-out transitions
+- **KPI Updates:** Highlight with subtle background flash
+- **Real-time Data:** Smooth value transitions, not instant jumps

@@ -1,17 +1,6 @@
-# Endpoint Status Tra---
+# Endpoint Status Tracker
 
-## Data Services
-
-| Method | Endpoint             | Description                  | Status        | Notes |
-| ------ | -------------------- | ---------------------------- | ------------- | ----- |
-| GET    | `/sales/overview`    | Get key sales metrics        | `Not Started` |       |
-| GET    | `/sales/performance` | Get sales trend data         | `Not Started` |       |
-| GET    | `/finance/kpis`      | Get top-level financial KPIs | `Not Started` |       |
-| GET    | `/hr/headcount`      | Get employee headcount       | `Not Started` |       |
-
----
-
-## AI Orchestrator Servicedocument tracks the development status of all API endpoints for the A-EMS project.
+This document tracks the development status of all API endpoints for the A-EMS project.
 
 **Status Legend:**
 
@@ -32,13 +21,40 @@
 
 ---
 
-## Data API Service
+## Data Services
 
-| Method | Endpoint                | Description             | Status        | Notes |
-| ------ | ----------------------- | ----------------------- | ------------- | ----- |
-| GET    | `/data/kpis`            | Get main dashboard KPIs | `Not Started` |       |
-| GET    | `/data/sales-over-time` | Get sales trend data    | `Not Started` |       |
-| GET    | `/data/sales-by-region` | Get sales breakdown     | `Not Started` |       |
+### Sales Service
+
+| Method | Endpoint             | Description               | Status        | Notes |
+| ------ | -------------------- | ------------------------- | ------------- | ----- |
+| GET    | `/sales/overview`    | Get key sales metrics     | `Not Started` |       |
+| GET    | `/sales/performance` | Get sales trend data      | `Not Started` |       |
+| GET    | `/sales/pipeline`    | Get sales pipeline data   | `Not Started` |       |
+| GET    | `/sales/customers`   | Get customer analytics    | `Not Started` |       |
+| GET    | `/sales/forecast`    | Get sales forecast        | `Not Started` |       |
+| GET    | `/sales/territories` | Get territory performance | `Not Started` |       |
+
+### Finance Service
+
+| Method | Endpoint                       | Description                  | Status        | Notes |
+| ------ | ------------------------------ | ---------------------------- | ------------- | ----- |
+| GET    | `/finance/kpis`                | Get top-level financial KPIs | `Not Started` |       |
+| GET    | `/finance/cash-flow`           | Get cash flow analysis       | `Not Started` |       |
+| GET    | `/finance/expenses`            | Get expense breakdown        | `Not Started` |       |
+| GET    | `/finance/budget`              | Get budget vs actual         | `Not Started` |       |
+| GET    | `/finance/revenue-recognition` | Get revenue recognition data | `Not Started` |       |
+| GET    | `/finance/profitability`       | Get profitability analysis   | `Not Started` |       |
+
+### HR Service
+
+| Method | Endpoint           | Description               | Status        | Notes |
+| ------ | ------------------ | ------------------------- | ------------- | ----- |
+| GET    | `/hr/headcount`    | Get employee headcount    | `Not Started` |       |
+| GET    | `/hr/recruitment`  | Get recruitment metrics   | `Not Started` |       |
+| GET    | `/hr/performance`  | Get performance analytics | `Not Started` |       |
+| GET    | `/hr/compensation` | Get compensation data     | `Not Started` |       |
+| GET    | `/hr/engagement`   | Get engagement metrics    | `Not Started` |       |
+| GET    | `/hr/training`     | Get training analytics    | `Not Started` |       |
 
 ---
 

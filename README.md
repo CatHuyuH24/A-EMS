@@ -33,11 +33,21 @@ A-EMS is a web application designed to be a "Digital Chief of Staff" for CEOs an
 
 ## Introduction
 
-This project aims to build a powerful enterprise management system from the ground up, leveraging a modern technology stack and an AI-driven development process. The core features include a real-time executive dashboard and an interactive AI assistant (powered by DeepSeek) to query business data using natural language.
+This project aims to build a comprehensive enterprise management system from the ground up, leveraging a modern technology stack and an AI-driven development process. The system provides:
+
+- **Real-time Executive Dashboard** with comprehensive analytics across Sales, Finance, and HR domains
+- **Advanced AI Assistant** (powered by DeepSeek) for natural language business intelligence queries
+- **Microservices Architecture** with domain-specific services for scalability and maintainability
+- **Interactive Data Visualizations** with real-time updates and mobile responsiveness
 
 ## Project Vision
 
-To create a "Digital Chief of Staff" - an intelligent virtual assistant that empowers leaders with a holistic view of their business, surfaces deep insights, and facilitates real-time, data-informed decisions.
+To create a "Digital Chief of Staff" - an intelligent virtual assistant that empowers leaders with:
+- Holistic business insights across all operational domains
+- Predictive analytics and forecasting capabilities
+- Natural language query interface for complex data analysis
+- Real-time performance monitoring and alerting
+- Data-driven decision support with actionable recommendations
 
 ## Technology Stack
 

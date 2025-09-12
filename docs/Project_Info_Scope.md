@@ -8,9 +8,24 @@
 
 ## 2. Core Features
 
-1.  **Executive Dashboard:** A comprehensive, real-time visualization of key business metrics (KPIs), financial health, operational performance, and market trends.
-2.  **AI Chat Assistant (DeepSeek Integration):** An interactive chat interface allowing users to ask natural language questions about their business data and receive immediate, insightful answers.
-3.  **Microservices Backend:** A scalable and resilient backend architecture to support data processing, API services, and AI model integration.
+1.  **Executive Dashboard:** A comprehensive, real-time visualization of key business metrics across all domains:
+
+    - **Sales Analytics:** Revenue tracking, pipeline management, customer analytics, territory performance, and sales forecasting
+    - **Financial Management:** KPIs monitoring, cash flow analysis, budget tracking, expense management, revenue recognition, and profitability analysis
+    - **HR Analytics:** Workforce metrics, recruitment analytics, performance management, compensation analysis, engagement tracking, and training effectiveness
+
+2.  **AI Chat Assistant (DeepSeek Integration):** An advanced conversational interface allowing users to:
+
+    - Ask natural language questions about any business domain
+    - Request custom visualizations and analysis
+    - Get predictive insights and recommendations
+    - Maintain conversation context for follow-up questions
+
+3.  **Microservices Backend:** A scalable architecture supporting:
+    - Domain-specific data services (Sales, Finance, HR)
+    - Intelligent AI orchestration and data aggregation
+    - Real-time data processing and updates
+    - Advanced analytics and reporting capabilities
 
 ## 3. Technology Stack
 
@@ -23,11 +38,17 @@
 
 ### In-Scope:
 
-- Development of the frontend application with a focus on the Executive Dashboard and AI chat interface.
-- Implementation of a microservices-based backend to handle authentication, data ingestion, and API endpoints.
-- Containerization of the entire application stack using Docker.
-- Integration with the DeepSeek AI to enable natural language queries.
-- Initial setup of a PostgreSQL database.
+- Development of comprehensive executive dashboard with domain-specific analytics (Sales, Finance, HR)
+- Advanced AI chat interface with contextual understanding and visualization capabilities
+- Implementation of microservices-based backend with domain-specific services:
+  - Sales Service: Pipeline, forecasting, customer analytics, territory management
+  - Finance Service: KPIs, cash flow, budgeting, expense tracking, profitability analysis
+  - HR Service: Workforce analytics, recruitment, performance, compensation, engagement
+- Containerization of the entire application stack using Docker
+- Integration with DeepSeek AI for intelligent business insights and recommendations
+- Advanced data visualization with interactive charts and real-time updates
+- Comprehensive user authentication and role-based access control
+- Mobile-responsive design with accessibility compliance
 
 ### Out-of-Scope (for initial phase):
 
