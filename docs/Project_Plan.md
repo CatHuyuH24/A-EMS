@@ -34,14 +34,13 @@ This project will be executed in phases, with AI assisting at each step.
 
 ### Phase 2: Backend Microservice Development
 
-- **Objective:** Build the core backend services.
+- **Objective:** Build the core backend services for each business domain.
 - **AI-Driven Workflow:**
-  1.  **Boilerplate Generation:** Use AI to generate boilerplate code for FastAPI microservices, including Dockerfiles and basic CRUD endpoints.
-  2.  **Logic Implementation:** Implement business logic for each service (e.g., authentication, data processing) with AI providing code snippets, suggestions, and bug fixes.
-  3.  **Database Integration:** Generate SQLAlchemy models and database interaction logic.
-  4.  **Unit & Integration Testing:** Generate test cases and testing scripts to ensure service reliability.
 
-### Phase 3: Frontend Development
+  1.  **Boilerplate Generation:** Use AI to generate boilerplate code for each FastAPI microservice (`Sales`, `Finance`, `HR`, etc.), including Dockerfiles and basic endpoints based on `API_Specification.md`.
+  2.  **Logic Implementation:** Implement business logic for each service with AI providing code snippets, suggestions, and bug fixes.
+  3.  **Database Integration:** Generate SQLAlchemy models and database interaction logic for each service, potentially within its own schema.
+  4.  **Unit & Integration Testing:** Generate test cases and testing scripts to ensure each microservice is reliable and meets its API contract.### Phase 3: Frontend Development
 
 - **Objective:** Develop the user-facing Next.js application.
 - **AI-Driven Workflow:**

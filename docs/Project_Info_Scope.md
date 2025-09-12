@@ -43,9 +43,13 @@ To ensure a clean and scalable project, the following directory structure is pro
 ```
 /
 ├── backend/                  # Python/FastAPI Microservices
-│   ├── services/             # Individual microservices (e.g., auth, data-api)
+│   ├── services/             # Individual microservices
+│   │   ├── auth_service/
+│   │   ├── sales_service/
+│   │   ├── finance_service/
+│   │   └── hr_service/
 │   ├── shared/               # Shared libraries/modules
-│   └── Dockerfile
+│   └── Dockerfile            # Base Dockerfile for services
 ├── frontend/                 # Next.js/TypeScript Application
 │   ├── app/                  # Next.js 13+ app directory
 │   ├── components/           # React components

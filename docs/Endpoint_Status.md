@@ -1,6 +1,17 @@
-# Endpoint Status Tracker
+# Endpoint Status Tra---
 
-This document tracks the development status of all API endpoints for the A-EMS project.
+## Data Services
+
+| Method | Endpoint             | Description                  | Status        | Notes |
+| ------ | -------------------- | ---------------------------- | ------------- | ----- |
+| GET    | `/sales/overview`    | Get key sales metrics        | `Not Started` |       |
+| GET    | `/sales/performance` | Get sales trend data         | `Not Started` |       |
+| GET    | `/finance/kpis`      | Get top-level financial KPIs | `Not Started` |       |
+| GET    | `/hr/headcount`      | Get employee headcount       | `Not Started` |       |
+
+---
+
+## AI Orchestrator Servicedocument tracks the development status of all API endpoints for the A-EMS project.
 
 **Status Legend:**
 

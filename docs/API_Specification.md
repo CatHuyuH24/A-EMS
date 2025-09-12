@@ -58,45 +58,83 @@ Handles user authentication and authorization.
 
 ---
 
-## 2. Data API Service (`/data`)
+## 2. Domain-Specific Data Services
 
-Provides access to core business data. All endpoints require authentication.
+To align with a microservices architecture, the general `/data` service is broken down into domain-specific services. Each service manages its own data and exposes a dedicated set of endpoints.
 
 ---
 
-### `GET /data/kpis`
+### 2.1. Sales Service (`/sales`)
 
-- **Description:** Retrieves a summary of main Key Performance Indicators for the dashboard.
+Provides access to sales-related data, trends, and forecasts.
+
+#### `GET /sales/overview`
+
+- **Description:** Retrieves key sales metrics for a given period.
 - **Query Parameters:**
-  - `period` (string, optional): e.g., "monthly", "quarterly", "yearly". Defaults to "monthly".
+  - `period` (string, optional): "daily", "weekly", "monthly". Defaults to "monthly".
 - **Success Response (200 OK):**
   ```json
   {
-    "kpis": [
-      { "name": "Total Revenue", "value": 1200000, "change": "+5.2%" },
-      { "name": "New Customers", "value": 10453, "change": "+2.1%" },
-      { "name": "Churn Rate", "value": "2.1%", "change": "-0.5%" }
+    "total_revenue": 1250000,
+    "new_deals": 45,
+    "win_rate": "28%",
+    "average_deal_size": 27777
+  }
+  ```
+
+#### `GET /sales/performance`
+
+- **Description:** Retrieves sales performance data over time for charts.
+- **Query Parameters:**
+  - `startDate` (string, ISO 8601)
+  - `endDate` (string, ISO 8601)
+  - `granularity` (string): "daily", "weekly", "monthly".
+- **Success Response (200 OK):**
+  ```json
+  {
+    "data": [
+      { "date": "2023-01-31", "revenue": 85000, "deals": 30 },
+      { "date": "2023-02-28", "revenue": 92000, "deals": 35 }
     ]
   }
   ```
 
 ---
 
-### `GET /data/sales-over-time`
+### 2.2. Finance Service (`/finance`)
 
-- **Description:** Retrieves data points for sales trends charts.
-- **Query Parameters:**
-  - `startDate` (string, ISO 8601): e.g., "2023-01-01"
-  - `endDate` (string, ISO 8601): e.g., "2023-12-31"
-  - `granularity` (string): "daily", "weekly", "monthly".
+Provides access to financial KPIs, cash flow, and expense data.
+
+#### `GET /finance/kpis`
+
+- **Description:** Retrieves top-level financial KPIs for the dashboard.
 - **Success Response (200 OK):**
   ```json
   {
-    "data": [
-      { "date": "2023-01-31", "sales": 85000 },
-      { "date": "2023-02-28", "sales": 92000 },
-      { "date": "2023-03-31", "sales": 110000 }
+    "kpis": [
+      { "name": "Gross Margin", "value": "65%", "change": "+1.2%" },
+      { "name": "Net Profit", "value": 450000, "change": "+8.1%" },
+      { "name": "Cash Flow", "value": 890000, "status": "healthy" }
     ]
+  }
+  ```
+
+---
+
+### 2.3. HR Service (`/hr`)
+
+Provides access to human resources data like headcount and recruitment.
+
+#### `GET /hr/headcount`
+
+- **Description:** Retrieves current employee headcount and turnover rates.
+- **Success Response (200 OK):**
+  ```json
+  {
+    "total_employees": 520,
+    "new_hires_this_month": 15,
+    "turnover_rate": "1.8%"
   }
   ```
 

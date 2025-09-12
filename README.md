@@ -1,4 +1,23 @@
-# A-EMS (AI-Driven Enterprise Management System)
+# A-EMS (AI-Driven Enter- **Backend:** Microservices architecture using Python & FastAPI. The backend is composed of domain-specific services (e.g., Auth, Sales, Finance) to ensure scalability and separation of concerns.
+
+- **Frontend:** Next.js, TypeScript, Tailwind CSS, and Recharts for data visualization.
+- **Database:** PostgreSQL.
+- **Infrastructure:** Docker and Docker Compose for containerization and orchestration.
+- **AI:** DeepSeek for natural language processing and insights.
+
+## Directory Structure
+
+The project is organized into a modular structure to support microservices development:
+
+````
+/
+├── backend/         # Contains all backend microservices
+│   └── services/    # Each business domain as a service
+├── frontend/        # Next.js/TypeScript Application
+├── infra/           # Docker Compose and infrastructure configurations
+├── docs/            # All project documentation
+└── README.md
+```ystem)
 
 A-EMS is a web application designed to be a "Digital Chief of Staff" for CEOs and senior leadership. It provides comprehensive insights and data-driven decision-making capabilities in real-time through an intuitive dashboard and an AI-powered chat assistant.
 
@@ -32,14 +51,16 @@ To create a "Digital Chief of Staff" - an intelligent virtual assistant that emp
 
 The project is organized into the following main directories:
 
-```
+````
+
 /
-├── backend/         # Python/FastAPI Microservices
-├── frontend/        # Next.js/TypeScript Application
-├── infra/           # Docker Compose and infrastructure configurations
-├── docs/            # All project documentation
+├── backend/ # Python/FastAPI Microservices
+├── frontend/ # Next.js/TypeScript Application
+├── infra/ # Docker Compose and infrastructure configurations
+├── docs/ # All project documentation
 └── README.md
-```
+
+````
 
 For more details, please refer to the [Project Information and Scope](./docs/Project_Info_Scope.md) document.
 
@@ -78,3 +99,4 @@ Please read the [contributing guidelines](./docs/CONTRIBUTING.md) for details on
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+````
