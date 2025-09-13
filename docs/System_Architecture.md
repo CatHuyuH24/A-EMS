@@ -27,14 +27,17 @@ graph TD
         E[Finance Service]
         F[HR Service]
         G[AI Orchestrator Service]
+        H[Products Service]
+        I[Risk Service]
+        J[Reports Service]
     end
 
     subgraph Data Persistence
-        H[PostgreSQL Database]
+        K[PostgreSQL Database]
     end
 
     subgraph External Services
-        I[DeepSeek AI]
+        L[DeepSeek AI]
     end
 
     A -- HTTPS --> B
@@ -43,15 +46,24 @@ graph TD
     B -- Route --> E
     B -- Route --> F
     B -- Route --> G
+    B -- Route --> H
+    B -- Route --> I
+    B -- Route --> J
 
-    C -- CRUD --> H
-    D -- CRUD --> H
-    E -- CRUD --> H
-    F -- CRUD --> H
+    C -- CRUD --> K
+    D -- CRUD --> K
+    E -- CRUD --> K
+    F -- CRUD --> K
+    H -- CRUD --> K
+    I -- CRUD --> K
+    J -- CRUD --> K
 
     G -- Fetches Data --> D
     G -- Fetches Data --> E
-    G -- Sends Prompt --> I
+    G -- Fetches Data --> F
+    G -- Fetches Data --> H
+    G -- Fetches Data --> I
+    G -- Sends Prompt --> L
 ```
 
 ### Components:
@@ -63,6 +75,9 @@ graph TD
     - **Sales Service:** Comprehensive sales data management including pipeline, forecasting, customer analytics, and territory performance.
     - **Finance Service:** Complete financial management including KPIs, cash flow, budgeting, expense tracking, revenue recognition, and profitability analysis.
     - **HR Service:** Full HR analytics covering headcount, recruitment, performance management, compensation, engagement, and training metrics.
+    - **Products Service:** Complete product management including inventory tracking, product analytics, lifecycle management, catalog management, and demand forecasting.
+    - **Risk Management Service:** Enterprise risk assessment including compliance monitoring, incident management, regulatory reporting, and risk analytics with early warning systems.
+    - **Reports Service:** Comprehensive reporting capabilities including custom report generation, scheduling, export functionality, and real-time dashboard visualization from multiple data sources.
     - **AI Orchestrator Service:** Acts as a bridge between the user's query and the DeepSeek AI model. It fetches context from other services and performs intelligent data aggregation before querying the AI.
 4.  **PostgreSQL Database:** The primary relational database. While shown as a single instance for simplicity, in a true microservice architecture, each service might have its own dedicated database or schema.
 5.  **DeepSeek AI:** An external, third-party service that provides the core natural language processing and generation capabilities.

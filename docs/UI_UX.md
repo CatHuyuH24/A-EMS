@@ -215,6 +215,16 @@ This interface should feel familiar, like modern messaging apps.
   - Hover: Gray 50 background
   - Active: Light Blue background, Brand Blue text
   - Icon Size: 20px
+- **Menu Structure:**
+  - Dashboard (Home icon)
+  - Sales (TrendingUp icon)
+  - Finance (DollarSign icon)
+  - HR (Users icon)
+  - Products (Package icon)
+  - Risk & Compliance (Shield icon)
+  - Reports (FileText icon)
+  - AI Assistant (Bot icon)
+  - Settings (Settings icon)
 
 ### 3.6. Responsive Design Standards
 

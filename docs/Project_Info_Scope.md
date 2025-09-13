@@ -13,6 +13,9 @@
     - **Sales Analytics:** Revenue tracking, pipeline management, customer analytics, territory performance, and sales forecasting
     - **Financial Management:** KPIs monitoring, cash flow analysis, budget tracking, expense management, revenue recognition, and profitability analysis
     - **HR Analytics:** Workforce metrics, recruitment analytics, performance management, compensation analysis, engagement tracking, and training effectiveness
+    - **Product Management:** Inventory tracking, product analytics, lifecycle management, catalog management, and demand forecasting
+    - **Risk & Compliance:** Enterprise risk assessment, compliance monitoring, incident management, regulatory reporting, and risk analytics
+    - **Business Intelligence:** Custom report generation, scheduled reporting, export capabilities, and real-time dashboard visualization
 
 2.  **AI Chat Assistant (DeepSeek Integration):** An advanced conversational interface allowing users to:
 
@@ -22,10 +25,11 @@
     - Maintain conversation context for follow-up questions
 
 3.  **Microservices Backend:** A scalable architecture supporting:
-    - Domain-specific data services (Sales, Finance, HR)
-    - Intelligent AI orchestration and data aggregation
+    - Domain-specific data services (Sales, Finance, HR, Products, Risk, Reports)
+    - Intelligent AI orchestration and data aggregation across all business domains
     - Real-time data processing and updates
-    - Advanced analytics and reporting capabilities
+    - Advanced analytics and comprehensive reporting capabilities
+    - Enterprise risk management and compliance monitoring
 
 ## 3. Technology Stack
 
@@ -38,14 +42,17 @@
 
 ### In-Scope:
 
-- Development of comprehensive executive dashboard with domain-specific analytics (Sales, Finance, HR)
+- Development of comprehensive executive dashboard with domain-specific analytics (Sales, Finance, HR, Products, Risk, Reports)
 - Advanced AI chat interface with contextual understanding and visualization capabilities
 - Implementation of microservices-based backend with domain-specific services:
   - Sales Service: Pipeline, forecasting, customer analytics, territory management
   - Finance Service: KPIs, cash flow, budgeting, expense tracking, profitability analysis
   - HR Service: Workforce analytics, recruitment, performance, compensation, engagement
+  - Products Service: Inventory management, product analytics, lifecycle tracking, demand forecasting
+  - Risk Service: Enterprise risk assessment, compliance monitoring, incident management, regulatory reporting
+  - Reports Service: Custom report generation, scheduling, export capabilities, real-time dashboards
 - Containerization of the entire application stack using Docker
-- Integration with DeepSeek AI for intelligent business insights and recommendations
+- Integration with DeepSeek AI for intelligent business insights across all domains and comprehensive reporting
 - Advanced data visualization with interactive charts and real-time updates
 - Comprehensive user authentication and role-based access control
 - Mobile-responsive design with accessibility compliance
@@ -68,7 +75,11 @@ To ensure a clean and scalable project, the following directory structure is pro
 │   │   ├── auth_service/
 │   │   ├── sales_service/
 │   │   ├── finance_service/
-│   │   └── hr_service/
+│   │   ├── hr_service/
+│   │   ├── products_service/
+│   │   ├── risk_service/
+│   │   ├── reports_service/
+│   │   └── ai_service/
 │   ├── shared/               # Shared libraries/modules
 │   └── Dockerfile            # Base Dockerfile for services
 ├── frontend/                 # Next.js/TypeScript Application

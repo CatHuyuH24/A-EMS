@@ -32,6 +32,22 @@ User stories define the features of A-EMS from the perspective of an end-user. T
 - **US-114:** As a CEO, I want to monitor compensation benchmarks and pay equity metrics to ensure competitive and fair compensation.
 - **US-115:** As a CEO, I want the dashboard data to refresh automatically or with a single click so I am always looking at the most current information.
 
+### Products Dashboard Stories
+
+- **US-116:** As a CEO, I want to see key product KPIs like Total Products, Inventory Value, Top Performers, and Stock Alerts on my dashboard so I can monitor product portfolio health.
+- **US-117:** As a CEO, I want to view inventory levels across all warehouses with low stock alerts so I can ensure product availability.
+- **US-118:** As a CEO, I want to see product performance analytics including sales trends, profitability, and customer satisfaction ratings.
+- **US-119:** As a CEO, I want to monitor product lifecycle stages to identify opportunities for innovation or retirement.
+- **US-120:** As a CEO, I want to view demand forecasting for key products to optimize inventory planning.
+
+### Risk & Compliance Dashboard Stories
+
+- **US-121:** As a CEO, I want to see our overall risk score and compliance status so I can understand enterprise risk exposure.
+- **US-122:** As a CEO, I want to view active risks by category (operational, financial, cybersecurity, compliance) to prioritize risk mitigation.
+- **US-123:** As a CEO, I want to monitor compliance status across all applicable regulations (GDPR, SOX, etc.) to avoid regulatory issues.
+- **US-124:** As a CEO, I want to see incident management metrics including open incidents and average resolution time.
+- **US-125:** As a CEO, I want to view early warning indicators and risk trends to proactively manage emerging threats.
+
 ---
 
 ## Epic: Advanced Analytics & Insights
@@ -55,6 +71,18 @@ User stories define the features of A-EMS from the perspective of an end-user. T
 - **US-207:** As a CEO, I want to analyze performance data across departments to identify high-performing teams and individuals.
 - **US-208:** As a CEO, I want to track training effectiveness and skill development to optimize our talent development programs.
 - **US-209:** As a CEO, I want to identify employees at risk of leaving so I can take proactive retention measures.
+
+### Product Analytics Stories
+
+- **US-210:** As a CEO, I want to analyze product profitability and performance trends to optimize my product portfolio strategy.
+- **US-211:** As a CEO, I want to understand customer preferences and product adoption patterns to guide product development.
+- **US-212:** As a CEO, I want to track inventory turnover and carrying costs to optimize supply chain efficiency.
+
+### Risk Analytics Stories
+
+- **US-213:** As a CEO, I want to conduct scenario analysis for different risk events to understand potential business impact.
+- **US-214:** As a CEO, I want to track the effectiveness of risk mitigation measures to ensure proper risk management.
+- **US-215:** As a CEO, I want to analyze compliance trends and audit findings to continuously improve our governance posture.
 
 ---
 
@@ -85,6 +113,43 @@ User stories define the features of A-EMS from the perspective of an end-user. T
 - **US-310:** As a CEO, I want to ask HR questions like "How is employee satisfaction trending?" and get insights into key drivers and action items.
 - **US-311:** As a CEO, I want to ask about hiring like "How effective is our recruitment process?" and get metrics on time-to-hire, cost-per-hire, and quality of hire.
 - **US-312:** As a CEO, I want to ask about performance like "Which departments are performing above expectations?" and get comparative analysis.
+
+### Products-Related AI Stories
+
+- **US-313:** As a CEO, I want to ask product questions like "Which products have the highest profit margins?" and get detailed profitability analysis.
+- **US-314:** As a CEO, I want to ask inventory questions like "Do we have any products at risk of stockout?" and get proactive inventory alerts.
+- **US-315:** As a CEO, I want to ask about product performance like "How are new product launches performing?" and get adoption and revenue metrics.
+
+### Risk-Related AI Stories
+
+- **US-316:** As a CEO, I want to ask risk questions like "What are our highest priority risks?" and get risk assessments with recommended actions.
+- **US-317:** As a CEO, I want to ask compliance questions like "Are we compliant with all regulations?" and get a comprehensive compliance status report.
+- **US-318:** As a CEO, I want to ask about incidents like "Have we had any security breaches this quarter?" and get incident summaries and response status.
+
+### Reports-Related AI Stories
+
+- **US-319:** As a CEO, I want to ask for custom reports like "Generate a quarterly executive summary" and have the system create and deliver the report.
+- **US-320:** As a CEO, I want to ask about reporting status like "When will the monthly financial report be ready?" and get generation progress and completion estimates.
+- **US-321:** As a CEO, I want to request report modifications like "Add product performance data to the monthly board report" and have the system update scheduled reports.
+
+---
+
+## Epic: Reports & Business Intelligence
+
+**As a CEO, I want comprehensive reporting capabilities so that I can generate, schedule, and distribute business reports for stakeholders and decision-making.**
+
+### Report Generation Stories
+
+- **US-401:** As a CEO, I want to see a catalog of all available reports organized by category (financial, operational, compliance) so I can quickly find the reports I need.
+- **US-402:** As a CEO, I want to generate custom reports by selecting data sources, date ranges, and filters so I can get targeted business insights.
+- **US-403:** As a CEO, I want to track report generation progress and receive notifications when reports are ready for download.
+- **US-404:** As a CEO, I want to download reports in multiple formats (PDF, Excel, CSV) to meet different sharing and analysis needs.
+
+### Scheduled Reports Stories
+
+- **US-405:** As a CEO, I want to schedule recurring reports (monthly board reports, quarterly reviews) so important reports are automatically generated and distributed.
+- **US-406:** As a CEO, I want to manage report recipients and delivery preferences so the right stakeholders receive the right reports at the right time.
+- **US-407:** As a CEO, I want to view the execution history of scheduled reports to ensure reliability and troubleshoot any issues.
 
 ---
 

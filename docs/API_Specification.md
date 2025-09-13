@@ -616,6 +616,531 @@ Provides comprehensive access to human resources data, including workforce analy
 
 ---
 
+### 2.4. Products Service (`/products`)
+
+Provides comprehensive access to product management, inventory tracking, and product analytics.
+
+#### `GET /products/overview`
+
+- **Description:** Retrieves key product metrics and KPIs including inventory levels, top performers, and stock alerts.
+- **Query Parameters:**
+  - `category` (string, optional): Filter by product category
+  - `status` (string, optional): "active", "discontinued", "out_of_stock"
+- **Success Response (200 OK):**
+  ```json
+  {
+    "total_products": 1250,
+    "active_products": 1180,
+    "out_of_stock": 15,
+    "low_stock_alerts": 45,
+    "total_inventory_value": 2500000,
+    "top_performing_products": [
+      {
+        "id": "PRD001",
+        "name": "Enterprise Suite",
+        "revenue": 890000,
+        "units_sold": 450
+      },
+      {
+        "id": "PRD002",
+        "name": "Professional Plan",
+        "revenue": 650000,
+        "units_sold": 320
+      }
+    ]
+  }
+  ```
+
+#### `GET /products/inventory`
+
+- **Description:** Retrieves detailed inventory management data including stock levels, warehouse locations, and movement history.
+- **Query Parameters:**
+  - `warehouse` (string, optional): Filter by warehouse location
+  - `alert_level` (string, optional): "low", "critical", "normal"
+- **Success Response (200 OK):**
+  ```json
+  {
+    "warehouses": [
+      {
+        "location": "Main Warehouse",
+        "total_products": 850,
+        "capacity_used": "78%"
+      },
+      {
+        "location": "Secondary Warehouse",
+        "total_products": 400,
+        "capacity_used": "45%"
+      }
+    ],
+    "inventory_items": [
+      {
+        "product_id": "PRD001",
+        "name": "Enterprise Suite",
+        "current_stock": 125,
+        "reserved": 25,
+        "available": 100,
+        "reorder_point": 50,
+        "status": "normal",
+        "last_restocked": "2023-09-01"
+      }
+    ],
+    "stock_movements": [
+      {
+        "date": "2023-09-12",
+        "type": "inbound",
+        "quantity": 50,
+        "reason": "purchase_order"
+      },
+      {
+        "date": "2023-09-10",
+        "type": "outbound",
+        "quantity": 15,
+        "reason": "sale"
+      }
+    ]
+  }
+  ```
+
+#### `GET /products/analytics`
+
+- **Description:** Retrieves product performance analytics including sales trends, profitability, and customer preferences.
+- **Query Parameters:**
+  - `period` (string, optional): "monthly", "quarterly", "yearly"
+  - `metric` (string, optional): "revenue", "units", "profit_margin"
+- **Success Response (200 OK):**
+  ```json
+  {
+    "performance_metrics": [
+      {
+        "product_id": "PRD001",
+        "name": "Enterprise Suite",
+        "revenue": 890000,
+        "units_sold": 450,
+        "profit_margin": 65.5,
+        "growth_rate": "+12%",
+        "customer_satisfaction": 4.6
+      }
+    ],
+    "category_analysis": [
+      { "category": "Software", "revenue_share": 78, "growth": "+15%" },
+      { "category": "Services", "revenue_share": 22, "growth": "+8%" }
+    ],
+    "demand_forecast": [
+      { "month": "2023-10", "predicted_demand": 120, "confidence": "high" },
+      { "month": "2023-11", "predicted_demand": 135, "confidence": "medium" }
+    ]
+  }
+  ```
+
+#### `GET /products/catalog`
+
+- **Description:** Retrieves product catalog with detailed product information, pricing, and availability.
+- **Query Parameters:**
+  - `search` (string, optional): Search term for product name or description
+  - `category` (string, optional): Filter by category
+  - `price_range` (string, optional): "under_100", "100_500", "over_500"
+- **Success Response (200 OK):**
+  ```json
+  {
+    "products": [
+      {
+        "id": "PRD001",
+        "name": "Enterprise Suite",
+        "description": "Comprehensive business management solution",
+        "category": "Software",
+        "price": 299.99,
+        "currency": "USD",
+        "availability": "in_stock",
+        "stock_quantity": 125,
+        "specifications": {
+          "version": "2.1",
+          "license_type": "annual",
+          "support_level": "premium"
+        },
+        "images": ["url1", "url2"],
+        "created_date": "2023-01-15",
+        "last_updated": "2023-09-01"
+      }
+    ],
+    "filters": {
+      "categories": ["Software", "Services", "Hardware"],
+      "price_ranges": ["under_100", "100_500", "over_500"]
+    }
+  }
+  ```
+
+#### `GET /products/lifecycle`
+
+- **Description:** Retrieves product lifecycle analytics including launch performance, maturity metrics, and retirement planning.
+- **Success Response (200 OK):**
+  ```json
+  {
+    "lifecycle_stages": [
+      {
+        "product_id": "PRD001",
+        "name": "Enterprise Suite",
+        "stage": "growth",
+        "days_in_market": 245,
+        "stage_metrics": {
+          "adoption_rate": "85%",
+          "market_penetration": "12%",
+          "customer_feedback": 4.6
+        }
+      }
+    ],
+    "retirement_candidates": [
+      {
+        "product_id": "PRD099",
+        "name": "Legacy Tool",
+        "reason": "low_demand",
+        "replacement_product": "PRD001"
+      }
+    ]
+  }
+  ```
+
+---
+
+### 2.5. Risk Management Service (`/risk`)
+
+Provides comprehensive risk assessment, compliance monitoring, and regulatory reporting capabilities.
+
+#### `GET /risk/overview`
+
+- **Description:** Retrieves enterprise risk dashboard with key risk indicators and compliance status.
+- **Query Parameters:**
+  - `risk_level` (string, optional): "low", "medium", "high", "critical"
+  - `category` (string, optional): "operational", "financial", "compliance", "cybersecurity"
+- **Success Response (200 OK):**
+  ```json
+  {
+    "overall_risk_score": 3.2,
+    "risk_trend": "decreasing",
+    "active_risks": 45,
+    "critical_risks": 3,
+    "compliance_status": "compliant",
+    "last_assessment": "2023-09-01",
+    "risk_categories": [
+      {
+        "category": "Operational",
+        "score": 2.8,
+        "count": 15,
+        "trend": "stable"
+      },
+      {
+        "category": "Financial",
+        "score": 3.5,
+        "count": 12,
+        "trend": "improving"
+      },
+      { "category": "Compliance", "score": 2.1, "count": 8, "trend": "stable" },
+      {
+        "category": "Cybersecurity",
+        "score": 4.2,
+        "count": 10,
+        "trend": "worsening"
+      }
+    ]
+  }
+  ```
+
+#### `GET /risk/assessments`
+
+- **Description:** Retrieves detailed risk assessments including risk register, impact analysis, and mitigation strategies.
+- **Query Parameters:**
+  - `status` (string, optional): "active", "closed", "monitoring"
+  - `owner` (string, optional): Filter by risk owner department
+- **Success Response (200 OK):**
+  ```json
+  {
+    "risk_assessments": [
+      {
+        "risk_id": "RSK001",
+        "title": "Data Breach Risk",
+        "category": "cybersecurity",
+        "probability": 0.3,
+        "impact": 4.5,
+        "risk_score": 1.35,
+        "status": "active",
+        "owner": "IT Department",
+        "mitigation_plan": "Implement additional security measures",
+        "due_date": "2023-10-15",
+        "last_reviewed": "2023-09-01"
+      }
+    ],
+    "mitigation_actions": [
+      {
+        "action_id": "ACT001",
+        "description": "Deploy advanced threat detection",
+        "status": "in_progress",
+        "completion": 65,
+        "due_date": "2023-09-30"
+      }
+    ]
+  }
+  ```
+
+#### `GET /risk/compliance`
+
+- **Description:** Retrieves compliance monitoring data including regulatory requirements, audit findings, and remediation status.
+- **Query Parameters:**
+  - `regulation` (string, optional): "GDPR", "SOX", "HIPAA", "PCI_DSS"
+  - `status` (string, optional): "compliant", "non_compliant", "pending"
+- **Success Response (200 OK):**
+  ```json
+  {
+    "compliance_summary": {
+      "overall_status": "compliant",
+      "compliance_score": 94.2,
+      "regulations_tracked": 12,
+      "active_violations": 2,
+      "pending_remediation": 3
+    },
+    "regulatory_requirements": [
+      {
+        "regulation": "GDPR",
+        "status": "compliant",
+        "last_audit": "2023-08-15",
+        "next_review": "2023-11-15",
+        "compliance_score": 98.5,
+        "findings": []
+      },
+      {
+        "regulation": "SOX",
+        "status": "pending",
+        "last_audit": "2023-07-01",
+        "next_review": "2023-10-01",
+        "compliance_score": 89.2,
+        "findings": [
+          {
+            "finding_id": "SOX001",
+            "severity": "medium",
+            "description": "Internal control documentation incomplete",
+            "remediation_plan": "Complete documentation by Q4",
+            "due_date": "2023-12-31"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+
+#### `GET /risk/incidents`
+
+- **Description:** Retrieves incident management data including security incidents, operational disruptions, and response metrics.
+- **Query Parameters:**
+  - `severity` (string, optional): "low", "medium", "high", "critical"
+  - `status` (string, optional): "open", "investigating", "resolved", "closed"
+- **Success Response (200 OK):**
+  ```json
+  {
+    "incident_summary": {
+      "total_incidents": 125,
+      "open_incidents": 8,
+      "avg_resolution_time": "4.2 hours",
+      "escalated_incidents": 2
+    },
+    "recent_incidents": [
+      {
+        "incident_id": "INC001",
+        "title": "System Performance Degradation",
+        "severity": "high",
+        "category": "operational",
+        "status": "investigating",
+        "reported_date": "2023-09-12T10:30:00Z",
+        "assigned_to": "IT Operations",
+        "impact": "Service slowdown affecting 30% of users",
+        "estimated_resolution": "2023-09-12T16:00:00Z"
+      }
+    ]
+  }
+  ```
+
+#### `GET /risk/monitoring`
+
+- **Description:** Retrieves real-time risk monitoring data including key risk indicators, early warning signals, and trend analysis.
+- **Success Response (200 OK):**
+  ```json
+  {
+    "monitoring_dashboard": {
+      "risk_indicators": [
+        {
+          "indicator": "System Uptime",
+          "current_value": 99.8,
+          "threshold": 99.5,
+          "status": "normal",
+          "trend": "stable"
+        },
+        {
+          "indicator": "Security Threats",
+          "current_value": 15,
+          "threshold": 10,
+          "status": "warning",
+          "trend": "increasing"
+        }
+      ],
+      "early_warnings": [
+        {
+          "warning_id": "WRN001",
+          "type": "threshold_breach",
+          "indicator": "Failed Login Attempts",
+          "severity": "medium",
+          "triggered_at": "2023-09-12T14:30:00Z"
+        }
+      ]
+    }
+  }
+  ```
+
+---
+
+### 2.6. Reports Service (`/reports`)
+
+Provides comprehensive reporting capabilities including report generation, scheduling, export, and distribution.
+
+#### `GET /reports`
+
+- **Description:** Retrieves list of available reports with metadata and access permissions.
+- **Query Parameters:**
+  - `category` (string, optional): "financial", "operational", "compliance", "custom"
+  - `access_level` (string, optional): "public", "restricted", "confidential"
+- **Success Response (200 OK):**
+  ```json
+  {
+    "available_reports": [
+      {
+        "report_id": "RPT001",
+        "name": "Monthly Financial Summary",
+        "category": "financial",
+        "description": "Comprehensive financial performance report",
+        "access_level": "restricted",
+        "last_generated": "2023-09-01T09:00:00Z",
+        "next_scheduled": "2023-10-01T09:00:00Z",
+        "available_formats": ["PDF", "Excel", "CSV"],
+        "data_sources": ["finance", "sales"],
+        "estimated_generation_time": "2 minutes"
+      }
+    ],
+    "report_categories": [
+      { "category": "financial", "count": 12 },
+      { "category": "operational", "count": 18 },
+      { "category": "compliance", "count": 8 },
+      { "category": "custom", "count": 5 }
+    ]
+  }
+  ```
+
+#### `POST /reports/generate`
+
+- **Description:** Generates a custom report based on specified parameters and data sources.
+- **Request Body:**
+  ```json
+  {
+    "report_name": "Q3 Performance Analysis",
+    "data_sources": ["sales", "finance", "hr"],
+    "date_range": {
+      "start_date": "2023-07-01",
+      "end_date": "2023-09-30"
+    },
+    "filters": {
+      "departments": ["sales", "marketing"],
+      "regions": ["north_america", "europe"]
+    },
+    "format": "PDF",
+    "delivery_method": "email",
+    "recipients": ["ceo@company.com", "cfo@company.com"]
+  }
+  ```
+- **Success Response (202 Accepted):**
+  ```json
+  {
+    "generation_id": "GEN_20230912_001",
+    "status": "queued",
+    "estimated_completion": "2023-09-12T15:30:00Z",
+    "progress_url": "/reports/status/GEN_20230912_001"
+  }
+  ```
+
+#### `GET /reports/status/{generation_id}`
+
+- **Description:** Retrieves the generation status of a requested report.
+- **Success Response (200 OK):**
+  ```json
+  {
+    "generation_id": "GEN_20230912_001",
+    "status": "completed",
+    "progress": 100,
+    "started_at": "2023-09-12T15:00:00Z",
+    "completed_at": "2023-09-12T15:25:00Z",
+    "download_url": "/reports/download/GEN_20230912_001",
+    "expires_at": "2023-09-19T15:25:00Z"
+  }
+  ```
+
+#### `GET /reports/download/{generation_id}`
+
+- **Description:** Downloads the generated report file.
+- **Success Response (200 OK):**
+  - Returns the report file as a binary download with appropriate content-type headers.
+
+#### `GET /reports/scheduled`
+
+- **Description:** Retrieves information about scheduled reports and their execution history.
+- **Success Response (200 OK):**
+  ```json
+  {
+    "scheduled_reports": [
+      {
+        "schedule_id": "SCH001",
+        "report_id": "RPT001",
+        "name": "Monthly Financial Summary",
+        "frequency": "monthly",
+        "next_execution": "2023-10-01T09:00:00Z",
+        "recipients": ["ceo@company.com", "cfo@company.com"],
+        "format": "PDF",
+        "status": "active"
+      }
+    ],
+    "execution_history": [
+      {
+        "execution_id": "EXE001",
+        "schedule_id": "SCH001",
+        "executed_at": "2023-09-01T09:00:00Z",
+        "status": "success",
+        "duration": "3 minutes",
+        "file_size": "2.5 MB"
+      }
+    ]
+  }
+  ```
+
+#### `POST /reports/schedule`
+
+- **Description:** Creates a new scheduled report with specified frequency and delivery options.
+- **Request Body:**
+  ```json
+  {
+    "report_id": "RPT001",
+    "frequency": "monthly",
+    "day_of_month": 1,
+    "time": "09:00",
+    "timezone": "UTC",
+    "format": "PDF",
+    "delivery_method": "email",
+    "recipients": ["ceo@company.com", "cfo@company.com"]
+  }
+  ```
+- **Success Response (201 Created):**
+  ```json
+  {
+    "schedule_id": "SCH002",
+    "status": "active",
+    "next_execution": "2023-10-01T09:00:00Z"
+  }
+  ```
+
+---
+
 ## 3. AI Orchestrator Service (`/ai`)
 
 Handles interactions with the AI assistant.

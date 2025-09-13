@@ -165,6 +165,118 @@ This document lists the criteria that must be met for user stories to be conside
 
 ---
 
+## Epic: Products Dashboard & Analytics
+
+### UAC for US-116: View Product KPIs
+
+- **Given** I am a logged-in user on the Executive Dashboard page,
+- **When** I navigate to the Products section,
+- **Then** I should see product KPI cards displaying Total Products, Inventory Value, Top Performers, and Stock Alerts.
+- **And** stock alert cards must show critical and low stock items with quantities and reorder recommendations.
+- **And** top performers must display product name, revenue contribution, and units sold.
+
+### UAC for US-117: View Inventory Levels
+
+- **Given** I am a logged-in user on the Products Dashboard page,
+- **When** the page loads,
+- **Then** I should see inventory levels across all warehouses with real-time stock quantities.
+- **And** warehouse capacity utilization must be displayed as percentage with visual indicators.
+- **And** low stock alerts must be prominently displayed with recommended actions.
+
+### UAC for US-210: Analyze Product Profitability
+
+- **Given** I am a logged-in user on the Product Analytics page,
+- **When** I select "Profitability Analysis",
+- **Then** I should see a table of products ranked by profit margin.
+- **And** each product must display revenue, cost, profit margin percentage, and trend indicator.
+- **And** I must be able to filter by product category, date range, and warehouse location.
+
+---
+
+## Epic: Risk Management & Compliance
+
+### UAC for US-121: View Risk Score
+
+- **Given** I am a logged-in user on the Executive Dashboard page,
+- **When** I navigate to the Risk section,
+- **Then** I should see our overall enterprise risk score with trend indicator.
+- **And** risk score must be color-coded (green: low, yellow: medium, red: high, critical: dark red).
+- **And** the score breakdown by category must be displayed in a donut chart.
+
+### UAC for US-122: View Active Risks by Category
+
+- **Given** I am a logged-in user on the Risk Dashboard page,
+- **When** the page loads,
+- **Then** I should see active risks categorized by type (operational, financial, cybersecurity, compliance).
+- **And** each risk must display title, severity level, owner, and mitigation status.
+- **And** risks must be sortable by severity, date created, and due date.
+
+### UAC for US-213: Conduct Scenario Analysis
+
+- **Given** I am a logged-in user on the Risk Analytics page,
+- **When** I select "Scenario Analysis",
+- **Then** I should be able to model different risk scenarios and view potential business impact.
+- **And** each scenario must show probability, financial impact, and recommended mitigation actions.
+- **And** I must be able to save scenarios and share them with stakeholders.
+
+---
+
+## Epic: Reports & Business Intelligence
+
+### UAC for US-401: View Report Catalog
+
+- **Given** I am a logged-in user on the Reports page,
+- **When** the page loads,
+- **Then** I should see a catalog of all available reports organized by category.
+- **And** each report must display name, description, data sources, and last generated timestamp.
+- **And** I must be able to search and filter reports by category, access level, and data source.
+
+### UAC for US-402: Generate Custom Reports
+
+- **Given** I am a logged-in user on the Reports page,
+- **When** I click "Create Custom Report",
+- **Then** I should be able to select data sources, date ranges, filters, and output format.
+- **And** the system must show an estimated generation time before I confirm the request.
+- **And** I must receive a confirmation with generation ID and progress tracking URL.
+
+### UAC for US-405: Schedule Recurring Reports
+
+- **Given** I am a logged-in user on the Reports page,
+- **When** I select "Schedule Report" for any available report,
+- **Then** I must be able to set frequency (daily, weekly, monthly), recipients, and delivery method.
+- **And** the system must show next execution time and provide schedule confirmation.
+- **And** scheduled reports must appear in my "Scheduled Reports" dashboard with management options.
+
+---
+
+## Enhanced AI Chat Assistant Criteria
+
+### UAC for US-313: Products-Related AI Queries
+
+- **Given** I am using the AI chat interface,
+- **When** I ask "Which products have the highest profit margins?",
+- **Then** the AI should provide a ranked list of products with specific profit margin percentages.
+- **And** the response must include revenue and cost data to support the calculation.
+- **And** the AI should offer to generate a detailed profitability report if requested.
+
+### UAC for US-316: Risk-Related AI Queries
+
+- **Given** I am using the AI chat interface,
+- **When** I ask "What are our highest priority risks?",
+- **Then** the AI should provide a prioritized list of active risks with severity levels.
+- **And** each risk must include impact assessment and current mitigation status.
+- **And** the AI should suggest next steps or actions for high-priority risks.
+
+### UAC for US-319: Report Generation AI Queries
+
+- **Given** I am using the AI chat interface,
+- **When** I ask "Generate a quarterly executive summary",
+- **Then** the AI should confirm report parameters (data sources, date range) and initiate generation.
+- **And** I must receive a generation ID and estimated completion time.
+- **And** the AI should notify me when the report is ready for download.
+
+---
+
 ## Cross-Functional Requirements
 
 ### Performance Criteria
