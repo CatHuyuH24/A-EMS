@@ -1,5 +1,7 @@
 # System Architecture
 
+_Last updated: 14/09/2025_
+
 ## 1. Guiding Principles
 
 - **Scalability:** The system must be able to handle growing amounts of data and user traffic.
@@ -71,7 +73,14 @@ graph TD
 1.  **Frontend (Next.js):** A single-page application (SPA) that serves as the user's entry point. It is responsible for rendering the UI, managing user state, and communicating with the backend via a central API Gateway.
 2.  **API Gateway:** A single entry point for all client requests. It routes traffic to the appropriate microservice and handles cross-cutting concerns like authentication and rate limiting.
 3.  **Backend Microservices (Python/FastAPI):**
-    - **Auth Service:** Manages user identity, authentication (e.g., JWT), and authorization.
+    - **Enhanced Auth Service:** Manages comprehensive user identity, authentication, and authorization including:
+      - JWT-based authentication with refresh tokens
+      - Multi-Factor Authentication (MFA) with TOTP and backup codes
+      - OAuth 2.0 / OIDC integration with Google
+      - Password management (change, reset, forgot password)
+      - Role-based access control (RBAC)
+      - Session management and token validation
+      - User provisioning and account lifecycle management
     - **Sales Service:** Comprehensive sales data management including pipeline, forecasting, customer analytics, and territory performance.
     - **Finance Service:** Complete financial management including KPIs, cash flow, budgeting, expense tracking, revenue recognition, and profitability analysis.
     - **HR Service:** Full HR analytics covering headcount, recruitment, performance management, compensation, engagement, and training metrics.
@@ -84,13 +93,46 @@ graph TD
 
 ## 3. Data Flow
 
-### Example 1: User Logs In
+### Example 1: Enhanced User Authentication Flow
+
+#### Standard Login
 
 1.  User enters credentials in the **Frontend**.
 2.  Frontend sends a request to the **API Gateway**, which routes it to the **Auth Service**.
 3.  **Auth Service** validates credentials against the **PostgreSQL Database**.
-4.  On success, it generates a JSON Web Token (JWT) and returns it to the user.
-5.  The **Frontend** stores the JWT for subsequent authenticated requests.
+4.  If MFA is enabled, **Auth Service** returns an MFA challenge requiring TOTP code.
+5.  User provides TOTP code, **Auth Service** validates it.
+6.  On success, it generates a JSON Web Token (JWT) and refresh token, returns them to the user.
+7.  The **Frontend** stores the JWT for subsequent authenticated requests.
+
+#### OAuth 2.0 Google Login
+
+1.  User clicks "Login with Google" in the **Frontend**.
+2.  Frontend redirects to Google OAuth authorization server.
+3.  User authenticates with Google and grants permissions.
+4.  Google redirects back to **Frontend** with authorization code.
+5.  Frontend sends authorization code to **Auth Service** via **API Gateway**.
+6.  **Auth Service** exchanges code for Google access token and user info.
+7.  **Auth Service** either creates new user or links to existing account.
+8.  **Auth Service** generates JWT and returns user session data.
+
+#### MFA Setup Flow
+
+1.  User navigates to MFA settings in **Frontend**.
+2.  Frontend requests TOTP setup from **Auth Service**.
+3.  **Auth Service** generates secret key and QR code, returns to **Frontend**.
+4.  User scans QR code with authenticator app and enters verification code.
+5.  **Auth Service** validates TOTP code and enables MFA for user.
+6.  **Auth Service** generates backup codes and returns them securely.
+
+#### Administrative User Registration
+
+1.  Administrator accesses user management interface in **Frontend**.
+2.  Administrator fills out new user form with role and permissions.
+3.  Frontend sends registration request to **Auth Service** via **API Gateway**.
+4.  **Auth Service** validates administrator permissions and creates user account.
+5.  **Auth Service** sends welcome email with temporary password to new user.
+6.  New user must change password and setup MFA on first login.
 
 ### Example 2: User Asks the AI a Question
 
@@ -101,6 +143,16 @@ graph TD
 5.  The prompt is sent to the external **DeepSeek AI API**.
 6.  DeepSeek processes the request and returns a natural language answer with analysis.
 7.  The **AI Orchestrator Service** forwards the answer back to the **Frontend**, which displays it to the user.
+
+### Example 3: Password Change Flow
+
+1.  User navigates to account settings in **Frontend**.
+2.  User enters current password and new password in form.
+3.  Frontend sends password change request to **Auth Service** via **API Gateway**.
+4.  **Auth Service** validates current password and enforces password policy.
+5.  **Auth Service** updates password hash in **PostgreSQL Database**.
+6.  **Auth Service** invalidates all existing sessions except current one.
+7.  **Auth Service** sends password change confirmation email to user.
 
 ## 4. Infrastructure & Deployment
 

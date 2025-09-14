@@ -1,5 +1,7 @@
 # User Acceptance Criteria (UAC)
 
+_Last updated: 14/09/2025_
+
 This document lists the criteria that must be met for user stories to be considered "done" or "accepted."
 
 ---
@@ -274,6 +276,138 @@ This document lists the criteria that must be met for user stories to be conside
 - **Then** the AI should confirm report parameters (data sources, date range) and initiate generation.
 - **And** I must receive a generation ID and estimated completion time.
 - **And** the AI should notify me when the report is ready for download.
+
+---
+
+## Epic: User Authentication & Security
+
+### UAC for US-501: Basic Login Functionality
+
+- **Given** I am on the A-EMS login page,
+- **When** I enter valid email and password credentials,
+- **Then** I should be successfully authenticated and redirected to the dashboard.
+- **And** I should receive a valid JWT token for subsequent API requests.
+- **And** my session should be maintained as I navigate the application.
+
+### UAC for US-502: Session Management
+
+- **Given** I am logged into the A-EMS application,
+- **When** I remain inactive for 30 minutes,
+- **Then** I should be automatically logged out for security.
+- **And** I should receive a warning notification 5 minutes before automatic logout.
+- **And** I should have the option to extend my session.
+
+### UAC for US-503: Secure Logout
+
+- **Given** I am logged into the A-EMS application,
+- **When** I click the logout button,
+- **Then** my session should be terminated server-side.
+- **And** I should be redirected to the login page.
+- **And** my JWT token should be invalidated and unusable for further requests.
+
+### UAC for US-505: Password Change
+
+- **Given** I am logged in and on the account settings page,
+- **When** I submit a password change form with current password and valid new password,
+- **Then** my password should be updated successfully.
+- **And** all other sessions except current should be terminated.
+- **And** I should receive an email confirmation of the password change.
+
+### UAC for US-506: Forgot Password
+
+- **Given** I am on the login page and have forgotten my password,
+- **When** I click "Forgot Password" and enter my email address,
+- **Then** I should receive a password reset email if the account exists.
+- **And** the reset link should be valid for only 1 hour.
+- **And** I should be able to set a new password using the reset link.
+
+### UAC for US-507: Password Requirements
+
+- **Given** I am creating or changing a password,
+- **When** I enter a password,
+- **Then** the system must enforce minimum 8 characters, including uppercase, lowercase, number, and special character.
+- **And** real-time validation feedback must be displayed.
+- **And** commonly used passwords should be rejected.
+
+### UAC for US-510: MFA Setup
+
+- **Given** I am logged in and want to enable two-factor authentication,
+- **When** I navigate to MFA setup in security settings,
+- **Then** I should be presented with a QR code and manual entry option.
+- **And** I should be able to scan the QR code with my authenticator app.
+- **And** I must successfully verify a TOTP code to complete setup.
+
+### UAC for US-511: MFA Login
+
+- **Given** I have MFA enabled and am logging in,
+- **When** I enter correct email and password,
+- **Then** I should be prompted for a 6-digit TOTP code.
+- **And** I should be able to enter the code from my authenticator app.
+- **And** successful verification should complete the login process.
+
+### UAC for US-513: MFA Backup Codes
+
+- **Given** I have completed MFA setup,
+- **When** the setup is confirmed,
+- **Then** I should receive 8 backup codes for emergency access.
+- **And** each backup code should be usable only once.
+- **And** I should be able to regenerate backup codes when needed.
+
+### UAC for US-517: Google OAuth Login
+
+- **Given** I am on the A-EMS login page,
+- **When** I click "Sign in with Google",
+- **Then** I should be redirected to Google's authentication page.
+- **And** after Google authentication, I should be redirected back to A-EMS.
+- **And** if my Google account is authorized, I should be logged in automatically.
+
+### UAC for US-519: Link Google Account
+
+- **Given** I am logged in with email/password and want to link Google,
+- **When** I connect my Google account in account settings,
+- **Then** my Google account should be successfully linked.
+- **And** I should be able to use either authentication method in the future.
+- **And** my existing A-EMS data and preferences should remain unchanged.
+
+### UAC for US-523: Admin User Creation
+
+- **Given** I am an administrator in the user management interface,
+- **When** I create a new user account with role and permissions,
+- **Then** the user account should be created successfully.
+- **And** the new user should receive a welcome email with setup instructions.
+- **And** the user should be required to set up MFA on first login if configured.
+
+### UAC for US-527: User Management Dashboard
+
+- **Given** I am an administrator,
+- **When** I access the user management interface,
+- **Then** I should see a list of all user accounts with search and filter capabilities.
+- **And** I should be able to view user details, status, and last login information.
+- **And** I should be able to activate, deactivate, or reset user accounts.
+
+### UAC for US-531: Session Monitoring
+
+- **Given** I am logged in and viewing my account settings,
+- **When** I access the security section,
+- **Then** I should see all my active sessions with device and location information.
+- **And** I should be able to terminate any individual session remotely.
+- **And** I should be able to terminate all other sessions except my current one.
+
+### UAC for US-536: Security Compliance
+
+- **Given** the A-EMS application is in operation,
+- **When** any communication occurs between frontend and backend,
+- **Then** all data must be encrypted using HTTPS/TLS 1.3 or higher.
+- **And** JWT tokens must be stored securely in httpOnly cookies.
+- **And** all authentication events must be logged for security auditing.
+
+### UAC for US-537: Brute Force Protection
+
+- **Given** someone attempts to log in to an account,
+- **When** there are 5 consecutive failed login attempts,
+- **Then** the account should be temporarily locked for 15 minutes.
+- **And** the legitimate user should receive an email notification of the lockout.
+- **And** administrators should be able to manually unlock accounts if needed.
 
 ---
 

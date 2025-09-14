@@ -1,5 +1,7 @@
 # User Stories
 
+_Last updated: 14/09/2025_
+
 User stories define the features of A-EMS from the perspective of an end-user. The primary user persona is the **CEO/Executive**.
 
 ---
@@ -155,8 +157,94 @@ User stories define the features of A-EMS from the perspective of an end-user. T
 
 ## Epic: User Authentication & Security
 
-**As a system administrator, I want secure user authentication so that only authorized personnel can access sensitive company data.**
+**As a system user, I want secure and convenient authentication options so that I can safely access the A-EMS application while maintaining strong security.**
 
-- **US-301:** As a user, I want to log in with my email and password to access the A-EMS application.
-- **US-302:** As a user, I want my session to remain active as I navigate the application but to be logged out after a period of inactivity.
-- **US-303:** As a system, all communication between the frontend and backend must be encrypted (HTTPS) to protect data in transit.
+### Basic Authentication Stories
+
+- **US-501:** As a user, I want to log in with my email and password to access the A-EMS application.
+- **US-502:** As a user, I want my session to remain active as I navigate the application but to be logged out after a period of inactivity for security.
+- **US-503:** As a user, I want to log out securely so that my session is properly terminated and cannot be accessed by others.
+- **US-504:** As a user, I want to see clear error messages when login fails so I can understand and correct authentication issues.
+
+### Password Management Stories
+
+- **US-505:** As a user, I want to change my password from within the application so I can maintain account security without external help.
+- **US-506:** As a user, I want to reset my password if I forget it so I can regain access to my account without administrator intervention.
+- **US-507:** As a user, I want password requirements to be clearly displayed so I can create a secure password that meets system standards.
+- **US-508:** As a user, I want to receive an email confirmation when my password is changed so I can detect unauthorized access attempts.
+- **US-509:** As a system, I want to enforce strong password policies (length, complexity, history) to maintain security standards.
+
+### Multi-Factor Authentication Stories
+
+- **US-510:** As a user, I want to enable two-factor authentication (2FA) to add an extra layer of security to my account.
+- **US-511:** As a user, I want to use an authenticator app (Google Authenticator, Authy) for generating time-based codes for secure login.
+- **US-512:** As a user, I want to scan a QR code to quickly set up my authenticator app without manual entry of complex keys.
+- **US-513:** As a user, I want backup codes for 2FA so I can still access my account if I lose my authenticator device.
+- **US-514:** As a user, I want to regenerate backup codes if I use them or suspect they may be compromised.
+- **US-515:** As a user, I want to disable 2FA temporarily in case of device issues, but with appropriate security verification.
+- **US-516:** As a user, I want to see my current 2FA status and remaining backup codes in my security settings.
+
+### OAuth 2.0 / Google Integration Stories
+
+- **US-517:** As a user, I want to sign in with my Google account so I can use existing credentials without creating a new password.
+- **US-518:** As a user, I want to see a clear "Sign in with Google" button that follows Google's branding guidelines.
+- **US-519:** As a user, I want to link my Google account to my existing A-EMS account so I can use either authentication method.
+- **US-520:** As a user, I want to unlink my Google account if I no longer want to use that authentication method.
+- **US-521:** As a user, I want to see which external accounts are linked to my profile in my account settings.
+- **US-522:** As a system, I want to securely handle OAuth tokens and user data according to Google's security requirements.
+
+### Administrative User Management Stories
+
+- **US-523:** As an administrator, I want to create new user accounts with appropriate roles and permissions.
+- **US-524:** As an administrator, I want to specify user roles (Executive, Manager, Analyst) during account creation to control access levels.
+- **US-525:** As an administrator, I want to require MFA for specific roles or sensitive positions to enforce security policies.
+- **US-526:** As an administrator, I want new users to receive a welcome email with initial setup instructions.
+- **US-527:** As an administrator, I want to view and manage all user accounts from a central interface.
+- **US-528:** As an administrator, I want to deactivate user accounts when employees leave the company.
+- **US-529:** As an administrator, I want to reset user passwords in emergency situations when they cannot access their accounts.
+- **US-530:** As an administrator, I want to view user login history and security events for audit purposes.
+
+### Session Management Stories
+
+- **US-531:** As a user, I want to see all my active sessions across different devices and browsers.
+- **US-532:** As a user, I want to terminate specific sessions remotely if I suspect unauthorized access.
+- **US-533:** As a user, I want to terminate all sessions except my current one for security purposes.
+- **US-534:** As a system, I want to automatically expire sessions after a period of inactivity to maintain security.
+- **US-535:** As a system, I want to maintain audit logs of all authentication events for security monitoring.
+
+### Security & Compliance Stories
+
+- **US-536:** As a system, all communication between frontend and backend must be encrypted (HTTPS) to protect data in transit.
+- **US-537:** As a system, I want to rate-limit authentication attempts to prevent brute force attacks.
+- **US-538:** As a system, I want to lock accounts after multiple failed login attempts to prevent unauthorized access.
+- **US-539:** As a system, I want to maintain detailed audit logs of all authentication and authorization events.
+- **US-540:** As a system, I want to comply with security best practices for JWT token handling and storage.
+
+---
+
+## Epic: AI Chat Assistant
+
+**As a CEO, I want an intelligent AI assistant so that I can get instant insights from our business data through natural language conversations.**
+
+### Basic Chat Functionality Stories
+
+- **US-301:** As a CEO, I want to open a chat interface and ask simple questions like "What was our revenue last month?" and receive clear, accurate answers with supporting data.
+- **US-302:** As a CEO, I want the AI to maintain context throughout our conversation so I can ask follow-up questions without repeating the full context.
+- **US-303:** As a CEO, I want the AI to tell me when it cannot answer a question or doesn't have sufficient data, so I know the system's limitations.
+
+### Advanced Query Stories
+
+- **US-304:** As a CEO, I want to ask comparative questions like "How do Q3 sales compare to Q2?" and get detailed analysis with key drivers of change.
+- **US-305:** As a CEO, I want to ask for specific visualizations like "Show me a chart of pipeline progression over the last 6 months" and have it rendered in the chat.
+- **US-306:** As a CEO, I want to ask about customer performance like "Which customers are at risk of churning?" and get actionable insights.
+
+### Finance-Specific AI Stories
+
+- **US-307:** As a CEO, I want to ask finance questions like "What were our main expense increases this quarter?" and get a breakdown by category with explanations.
+- **US-308:** As a CEO, I want to ask about cash flow like "How long will our current cash last at the current burn rate?" and get scenario-based projections.
+- **US-309:** As a CEO, I want to ask about profitability like "Which product lines are most profitable?" and get detailed analysis with recommendations.
+
+### HR-Specific AI Stories
+
+- **US-310:** As a CEO, I want to ask HR questions like "How is employee satisfaction trending?" and get insights into key drivers and action items.
+- **US-311:** As a CEO, I want to ask about hiring like "How effective is our recruitment process?" and get metrics on time-to-hire, cost-per-hire, and quality of hire.

@@ -1,5 +1,7 @@
 # User Journey
 
+_Last updated: 12/09/2025_
+
 This document maps out the typical journey of a user interacting with the A-EMS system.
 
 **Persona:** Alex, the CEO of a mid-sized tech company.

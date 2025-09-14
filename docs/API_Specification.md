@@ -1,4 +1,6 @@
-# API Specification (Initial Draft)
+# API Specification (Overall)
+
+_Last updated: 14/09/2025_
 
 This document provides a preliminary specification for the RESTful APIs that will power the A-EMS application. This is a living document and will be updated as development progresses.
 
@@ -38,13 +40,19 @@ Handles user authentication and authorization.
 
 ### `POST /auth/register`
 
-- **Description:** Registers a new user.
+- **Description:** Registers a new user. This endpoint is designed for administrative use and does not include UI registration forms. New users must be added through administrative interfaces or API calls.
+- **Authentication:** Requires admin-level JWT token in Authorization header.
 - **Request Body:**
   ```json
   {
     "email": "newuser@example.com",
     "password": "strongpassword456",
-    "full_name": "New User"
+    "full_name": "New User",
+    "role": "executive",
+    "department": "C-Suite",
+    "permissions": ["dashboard:read", "reports:read", "ai:chat"],
+    "require_mfa": true,
+    "send_welcome_email": true
   }
   ```
 - **Success Response (201 Created):**
@@ -52,7 +60,390 @@ Handles user authentication and authorization.
   {
     "id": "user_uuid_123",
     "email": "newuser@example.com",
-    "full_name": "New User"
+    "full_name": "New User",
+    "role": "executive",
+    "department": "C-Suite",
+    "permissions": ["dashboard:read", "reports:read", "ai:chat"],
+    "mfa_enabled": false,
+    "mfa_setup_required": true,
+    "created_at": "2025-09-14T10:30:00Z"
+  }
+  ```
+- **Error Response (403 Forbidden):**
+  ```json
+  {
+    "detail": "Insufficient permissions to create users"
+  }
+  ```
+- **Error Response (409 Conflict):**
+  ```json
+  {
+    "detail": "User with this email already exists"
+  }
+  ```
+
+---
+
+### `POST /auth/logout`
+
+- **Description:** Invalidates the current user session and JWT token.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:** Empty
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "Successfully logged out"
+  }
+  ```
+
+---
+
+### `GET /auth/verify`
+
+- **Description:** Verifies the validity of the current JWT token and returns user information.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Success Response (200 OK):**
+  ```json
+  {
+    "user": {
+      "id": "user_uuid_123",
+      "email": "user@example.com",
+      "full_name": "User Name",
+      "role": "executive",
+      "permissions": ["dashboard:read", "reports:read", "ai:chat"],
+      "mfa_enabled": true
+    },
+    "token_valid": true,
+    "expires_at": "2025-09-14T18:30:00Z"
+  }
+  ```
+
+---
+
+### `POST /auth/change-password`
+
+- **Description:** Changes the user's password. Requires current password verification.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "current_password": "oldpassword123",
+    "new_password": "newstrongpassword456",
+    "confirm_password": "newstrongpassword456"
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "Password updated successfully"
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "detail": "Current password is incorrect"
+  }
+  ```
+- **Error Response (422 Unprocessable Entity):**
+  ```json
+  {
+    "detail": "Password does not meet security requirements"
+  }
+  ```
+
+---
+
+### `POST /auth/forgot-password`
+
+- **Description:** Initiates password reset process by sending reset email.
+- **Request Body:**
+  ```json
+  {
+    "email": "user@example.com"
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "Password reset email sent if account exists"
+  }
+  ```
+
+---
+
+### `POST /auth/reset-password`
+
+- **Description:** Resets password using token from email.
+- **Request Body:**
+  ```json
+  {
+    "reset_token": "jwt_reset_token_from_email",
+    "new_password": "newstrongpassword789",
+    "confirm_password": "newstrongpassword789"
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "Password reset successfully"
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "detail": "Invalid or expired reset token"
+  }
+  ```
+
+---
+
+## 1.1. Multi-Factor Authentication (MFA)
+
+### `GET /auth/mfa/status`
+
+- **Description:** Returns current MFA configuration status for the authenticated user.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Success Response (200 OK):**
+  ```json
+  {
+    "mfa_enabled": true,
+    "methods": [
+      {
+        "type": "totp",
+        "enabled": true,
+        "backup_codes_remaining": 8
+      },
+      {
+        "type": "sms",
+        "enabled": false,
+        "phone_number": null
+      }
+    ],
+    "setup_required": false
+  }
+  ```
+
+---
+
+### `POST /auth/mfa/setup/totp`
+
+- **Description:** Initiates TOTP (Time-based One-Time Password) setup process.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Success Response (200 OK):**
+  ```json
+  {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "qr_code": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+    "manual_entry_key": "JBSWY3DPEHPK3PXP",
+    "backup_codes": [
+      "123456789",
+      "987654321",
+      "456789123",
+      "789123456",
+      "321654987",
+      "654987321",
+      "147258369",
+      "963852741"
+    ]
+  }
+  ```
+
+---
+
+### `POST /auth/mfa/verify/totp`
+
+- **Description:** Verifies TOTP code during setup or authentication.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "code": "123456",
+    "setup_mode": false
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "verified": true,
+    "message": "TOTP code verified successfully"
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "detail": "Invalid TOTP code"
+  }
+  ```
+
+---
+
+### `POST /auth/mfa/enable`
+
+- **Description:** Enables MFA for the user after successful TOTP verification.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "totp_code": "123456"
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "MFA enabled successfully",
+    "backup_codes": [
+      "123456789",
+      "987654321",
+      "456789123",
+      "789123456",
+      "321654987",
+      "654987321",
+      "147258369",
+      "963852741"
+    ]
+  }
+  ```
+
+---
+
+### `POST /auth/mfa/disable`
+
+- **Description:** Disables MFA for the user. Requires password confirmation.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "password": "userpassword123",
+    "totp_code": "123456"
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "MFA disabled successfully"
+  }
+  ```
+
+---
+
+### `POST /auth/mfa/regenerate-backup-codes`
+
+- **Description:** Generates new backup codes and invalidates old ones.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "totp_code": "123456"
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "backup_codes": [
+      "123456789",
+      "987654321",
+      "456789123",
+      "789123456",
+      "321654987",
+      "654987321",
+      "147258369",
+      "963852741"
+    ]
+  }
+  ```
+
+---
+
+## 1.2. OAuth 2.0 / OIDC Authentication with Google
+
+### `GET /auth/oauth/google/login`
+
+- **Description:** Redirects user to Google OAuth 2.0 authorization server.
+- **Query Parameters:**
+  - `redirect_uri` (string, optional): Post-login redirect URL. Defaults to dashboard.
+- **Success Response (302 Found):**
+  - Redirects to Google OAuth authorization URL
+  - URL format: `https://accounts.google.com/oauth/authorize?client_id=...&redirect_uri=...&scope=openid%20email%20profile&response_type=code&state=...`
+
+---
+
+### `POST /auth/oauth/google/callback`
+
+- **Description:** Handles OAuth callback from Google and exchanges authorization code for tokens.
+- **Request Body:**
+  ```json
+  {
+    "code": "authorization_code_from_google",
+    "state": "random_state_parameter"
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "token_type": "bearer",
+    "user": {
+      "id": "user_uuid_123",
+      "email": "user@gmail.com",
+      "full_name": "User Name",
+      "picture": "https://lh3.googleusercontent.com/...",
+      "google_id": "google_user_id_123",
+      "role": "executive",
+      "permissions": ["dashboard:read", "reports:read", "ai:chat"],
+      "mfa_enabled": false,
+      "first_login": false
+    }
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "detail": "Invalid authorization code or state parameter"
+  }
+  ```
+- **Error Response (403 Forbidden):**
+  ```json
+  {
+    "detail": "Google account not authorized for this system"
+  }
+  ```
+
+---
+
+### `POST /auth/oauth/google/link`
+
+- **Description:** Links existing user account with Google OAuth.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "google_access_token": "google_oauth_access_token"
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "Google account linked successfully",
+    "google_email": "user@gmail.com"
+  }
+  ```
+
+---
+
+### `DELETE /auth/oauth/google/unlink`
+
+- **Description:** Unlinks Google OAuth from user account.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "password": "userpassword123"
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "Google account unlinked successfully"
   }
   ```
 

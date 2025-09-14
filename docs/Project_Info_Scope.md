@@ -1,5 +1,7 @@
 # Project Information and Scope
 
+_Last updated: 14/09/2025_
+
 ## 1. Project Overview
 
 - **Project Name:** A-EMS (AI-Driven Enterprise Management System)
@@ -54,7 +56,15 @@
 - Containerization of the entire application stack using Docker
 - Integration with DeepSeek AI for intelligent business insights across all domains and comprehensive reporting
 - Advanced data visualization with interactive charts and real-time updates
-- Comprehensive user authentication and role-based access control
+- **Enterprise-Grade Authentication & Security System:**
+  - Multi-Factor Authentication (MFA) with TOTP and backup codes
+  - OAuth 2.0 / OIDC integration with Google for seamless authentication
+  - Comprehensive password management (change, reset, forgot password flows)
+  - Administrative user management with role-based access control (RBAC)
+  - Session management with device tracking and remote termination capabilities
+  - Security audit logging and compliance monitoring
+  - Brute force protection and account lockout mechanisms
+  - JWT-based authentication with secure token handling
 - Mobile-responsive design with accessibility compliance
 
 ### Out-of-Scope (for initial phase):

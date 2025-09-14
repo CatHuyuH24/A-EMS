@@ -1,82 +1,127 @@
-# A-EMS (AI-Driven Enter- **Backend:** Microservices architecture using Python & FastAPI. The backend is composed of domain-specific services (e.g., Auth, Sales, Finance) to ensure scalability and separation of concerns.
+# A-EMS (AI-Driven Enterprise Management System)
 
-- **Frontend:** Next.js, TypeScript, Tailwind CSS, and Recharts for data visualization.
-- **Database:** PostgreSQL.
-- **Infrastructure:** Docker and Docker Compose for containerization and orchestration.
-- **AI:** DeepSeek for natural language processing and insights.
+_Last updated: 14/09/2025_
 
-## Directory Structure
+A-EMS is a web application designed to serve as a "Digital Chief of Staff" for CEOs and senior leadership. It delivers comprehensive insights, real-time analytics, and AI-powered decision support through an intuitive dashboard and conversational assistant.
 
-The project is organized into a modular structure to support microservices development:
-
-````
-/
-├── backend/         # Contains all backend microservices
-│   └── services/    # Each business domain as a service
-├── frontend/        # Next.js/TypeScript Application
-├── infra/           # Docker Compose and infrastructure configurations
-├── docs/            # All project documentation
-└── README.md
-```ystem)
-
-A-EMS is a web application designed to be a "Digital Chief of Staff" for CEOs and senior leadership. It provides comprehensive insights and data-driven decision-making capabilities in real-time through an intuitive dashboard and an AI-powered chat assistant.
+---
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Project Vision](#project-vision)
+- [Overview](#overview)
+- [System Architecture](#system-architecture)
+- [Core Features](#core-features)
 - [Technology Stack](#technology-stack)
 - [Directory Structure](#directory-structure)
+- [UI/UX Guidelines](#uiux-guidelines)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
 - [License](#license)
+- [References](#references)
 
-## Introduction
+---
 
-This project aims to build a comprehensive enterprise management system from the ground up, leveraging a modern technology stack and an AI-driven development process. The system provides:
+## Overview
 
-- **Real-time Executive Dashboard** with comprehensive analytics across Sales, Finance, HR, Products, Risk Management, and Business Intelligence domains
-- **Advanced AI Assistant** (powered by DeepSeek) for natural language business intelligence queries across all domains
-- **Microservices Architecture** with domain-specific services for scalability and maintainability
-- **Comprehensive Business Intelligence** with custom report generation, scheduling, and export capabilities
-- **Enterprise Risk Management** with compliance monitoring, incident tracking, and regulatory reporting
-- **Product & Inventory Management** with analytics, lifecycle tracking, and demand forecasting
-- **Interactive Data Visualizations** with real-time updates and mobile responsiveness
+A-EMS transforms raw business data into actionable intelligence, empowering leaders with:
 
-## Project Vision
+- Holistic business insights across Sales, Finance, HR, Products, Risk, and Reporting
+- Predictive analytics and forecasting
+- Natural language query interface for complex analysis and reporting
+- Real-time performance monitoring and alerting
+- Data-driven recommendations and compliance insights
+- Enterprise-grade security and authentication
 
-To create a "Digital Chief of Staff" - an intelligent virtual assistant that empowers leaders with:
-- Holistic business insights across all operational domains (Sales, Finance, HR, Products, Risk, Reporting)
-- Predictive analytics and forecasting capabilities across all business areas
-- Natural language query interface for complex data analysis and report generation
-- Real-time performance monitoring and alerting with risk management integration
-- Data-driven decision support with actionable recommendations and compliance insights
-- Comprehensive reporting and business intelligence capabilities with automated distribution
+For a detailed project scope, see [Project Information and Scope](./docs/Project_Info_Scope.md).
+
+---
+
+## System Architecture
+
+A-EMS is built on a **microservices architecture** for scalability, resilience, and maintainability. The system is fully containerized using Docker and orchestrated with Docker Compose.
+
+**Key Components:**
+
+- **Frontend:** Next.js SPA for UI and user interaction
+- **API Gateway:** Central entry point for all client requests, handling routing and authentication
+- **Backend Microservices:** Python/FastAPI services for Auth, Sales, Finance, HR, Products, Risk, Reports, and AI Orchestration
+- **Database:** PostgreSQL for persistent storage
+- **AI Integration:** DeepSeek for natural language processing and business insights
+
+For architecture diagrams, data flow, and deployment details, see [System Architecture](./docs/System_Architecture.md).
+
+---
+
+## Core Features
+
+- **Executive Dashboard:** Real-time, customizable analytics across all business domains
+- **AI Chat Assistant:** Conversational interface for natural language queries, visualizations, and recommendations
+- **Comprehensive Reporting:** Custom report generation, scheduling, and export
+- **Enterprise-Grade Authentication & Security:**
+  - MFA (TOTP, backup codes)
+  - OAuth 2.0 / OIDC (Google)
+  - RBAC, session/device management, audit logging
+- **Risk & Compliance:** Monitoring, incident tracking, regulatory reporting
+- **Product & Inventory Management:** Analytics, lifecycle, demand forecasting
+- **Mobile-Responsive & Accessible Design**
+
+See [Project Information and Scope](./docs/Project_Info_Scope.md) for a full feature breakdown.
+
+---
 
 ## Technology Stack
 
-- **Backend:** Microservices architecture using Python & FastAPI.
-- **Frontend:** Next.js, TypeScript, Tailwind CSS, and Recharts for data visualization.
-- **Database:** PostgreSQL.
-- **Infrastructure:** Docker and Docker Compose for containerization and orchestration.
-- **AI:** DeepSeek for natural language processing and insights.
+- **Frontend:** Next.js, TypeScript, Tailwind CSS, Recharts
+- **Backend:** Python, FastAPI (microservices)
+- **Database:** PostgreSQL
+- **Infrastructure:** Docker, Docker Compose
+- **AI:** DeepSeek
+
+---
 
 ## Directory Structure
 
-The project is organized into the following main directories:
-
-````
-
+```
 /
-├── backend/ # Python/FastAPI Microservices
-├── frontend/ # Next.js/TypeScript Application
-├── infra/ # Docker Compose and infrastructure configurations
-├── docs/ # All project documentation
+├── backend/                  # Python/FastAPI Microservices
+│   ├── services/             # Domain-specific services (auth, sales, etc.)
+│   ├── shared/               # Shared libraries/modules
+│   └── Dockerfile
+├── frontend/                 # Next.js/TypeScript Application
+│   ├── app/
+│   ├── components/
+│   ├── lib/
+│   ├── public/
+│   └── Dockerfile
+├── infra/                    # Infrastructure configs (docker-compose.yml)
+├── docs/                     # Project documentation
+│   ├── Project_Info_Scope.md
+│   ├── Project_Plan.md
+│   ├── System_Architecture.md
+│   ├── UI_UX.md
+│   ├── API_Specification.md
+│   ├── User_Story.md
+│   ├── User_Journey.md
+│   ├── User_Acceptance_Criteria.md
+│   └── Endpoint_Status.md
 └── README.md
+```
 
-````
+---
 
-For more details, please refer to the [Project Information and Scope](./docs/Project_Info_Scope.md) document.
+## UI/UX Guidelines
+
+A-EMS prioritizes clarity, efficiency, and accessibility:
+
+- **Sidebar navigation** with quick access to all domains
+- **Dashboard**: Responsive grid of KPI cards, charts, and tables
+- **AI Chat**: Modern messaging interface with embedded visualizations
+- **Authentication**: Clean, multi-option login and MFA flows
+- **Accessibility**: WCAG 2.1 AA compliance, keyboard navigation, screen reader support
+
+For detailed wireframes, color palette, typography, and component specs, see [UI/UX Design Guidelines](./docs/UI_UX.md).
+
+---
 
 ## Getting Started
 
@@ -88,29 +133,41 @@ For more details, please refer to the [Project Information and Scope](./docs/Pro
 
 ### Installation & Running
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
+   `bash
+git clone https://github.com/CatHuyuH24/A-EMS.git
+cd A-EMS
+`
 
-    ```bash
-    git clone https://github.com/CatHuyuH24/A-EMS.git
-    cd A-EMS
-    ```
+2. **Launch the application stack:**
+   `bash
+docker-compose -f infra/docker-compose.yml up --build
+`
 
-2.  **Launch the application stack:**
-    _This command will build and start the frontend, backend, and database containers._
+3. **Access the application:** - Frontend: [http://localhost:3000](http://localhost:3000) - Backend API: [http://localhost:8000](http://localhost:8000)
 
-    ```bash
-    docker-compose -f infra/docker-compose.yml up --build
-    ```
-
-3.  **Access the application:**
-    - **Frontend:** `http://localhost:3000`
-    - **Backend API:** `http://localhost:8000`
+---
 
 ## Contributing
 
-Please read the [contributing guidelines](./docs/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+See [CONTRIBUTING.md](./docs/CONTRIBUTING.md) for guidelines on code of conduct and submitting pull requests.
+
+---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-````
+This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for details.
+
+---
+
+## References
+
+- [Project Information and Scope](./docs/Project_Info_Scope.md)
+- [System Architecture](./docs/System_Architecture.md)
+- [API Specification](./docs/API_Specification.md)
+- [UI/UX Design Guidelines](./docs/UI_UX.md)
+- [Project Plan](./docs/Project_Plan.md)
+- [User Stories](./docs/User_Story.md)
+- [User Journeys](./docs/User_Journey.md)
+- [User Acceptance Criteria](./docs/User_Acceptance_Criteria.md)
+- [Endpoint Status](./docs/Endpoint_Status.md)

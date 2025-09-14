@@ -1,5 +1,7 @@
 # UI/UX Design Guidelines
 
+_Last updated: 14/09/2025_
+
 ## 1. Design Philosophy
 
 - **Clarity & Simplicity:** The UI should be intuitive, clean, and uncluttered. The primary goal is to present complex information in a simple, digestible format.
@@ -17,6 +19,7 @@ The application will use a standard sidebar navigation layout.
   - AI Chat
   - Reports (Future)
   - Settings (Future)
+  - Account Settings (Profile, Security, MFA)
 - **Main Content Area (Right):** Displays the content of the selected page.
 
 ### 2.2. Executive Dashboard
@@ -86,6 +89,257 @@ This interface should feel familiar, like modern messaging apps.
 |         | [ Type your question...                                  ] |
 +----------------------------------------------------------------------+
 ```
+
+### 2.4. Authentication Interfaces
+
+#### 2.4.1. Login Page
+
+A clean, professional login interface with multiple authentication options.
+
+**Components:**
+
+- **Standard Login Form:** Email/password fields with validation
+- **Google OAuth Button:** "Sign in with Google" option
+- **MFA Challenge:** TOTP code input (appears after successful password verification)
+- **Password Reset Link:** "Forgot Password?" functionality
+- **Remember Me:** Session persistence option
+
+**Wireframe Sketch:**
+
+```
++----------------------------------------------------------------------+
+| A-EMS Logo                                      [Language Selector] |
++----------------------------------------------------------------------+
+|                                                                      |
+|                        Welcome to A-EMS                             |
+|                 Your Digital Chief of Staff                         |
+|                                                                      |
+|    +--------------------------------------------------------+        |
+|    |                    Sign In                             |        |
+|    |                                                        |        |
+|    |  Email Address                                         |        |
+|    |  [____________________________]                       |        |
+|    |                                                        |        |
+|    |  Password                                              |        |
+|    |  [____________________________]  [Show/Hide]         |        |
+|    |                                                        |        |
+|    |  [ ] Remember me                                       |        |
+|    |                                                        |        |
+|    |  [Sign In Button - Full Width]                        |        |
+|    |                                                        |        |
+|    |  -------------------- OR --------------------         |        |
+|    |                                                        |        |
+|    |  [🔵 Sign in with Google - Full Width]               |        |
+|    |                                                        |        |
+|    |  [Forgot Password?]                                    |        |
+|    +--------------------------------------------------------+        |
+|                                                                      |
++----------------------------------------------------------------------+
+```
+
+#### 2.4.2. MFA Challenge Interface
+
+Appears after successful password verification when MFA is enabled.
+
+**Wireframe Sketch:**
+
+```
++----------------------------------------------------------------------+
+|                    Two-Factor Authentication                         |
++----------------------------------------------------------------------+
+|                                                                      |
+|    +--------------------------------------------------------+        |
+|    |                                                        |        |
+|    |  Enter the 6-digit code from your authenticator app   |        |
+|    |                                                        |        |
+|    |  [___] [___] [___] [___] [___] [___]                   |        |
+|    |                                                        |        |
+|    |  [Verify Code Button]                                 |        |
+|    |                                                        |        |
+|    |  Can't access your authenticator?                     |        |
+|    |  [Use Backup Code]                                    |        |
+|    |                                                        |        |
+|    +--------------------------------------------------------+        |
+|                                                                      |
++----------------------------------------------------------------------+
+```
+
+#### 2.4.3. Account Settings - Security Tab
+
+**Components:**
+
+- **Password Management:** Change password form
+- **MFA Configuration:** Enable/disable, regenerate codes
+- **OAuth Connections:** Linked accounts management
+- **Session Management:** Active sessions list
+- **Security Activity:** Login history
+
+**Wireframe Sketch:**
+
+```
++----------------------------------------------------------------------+
+| Sidebar | Account Settings > Security                               |
+|---------+------------------------------------------------------------|
+|         |                                                            |
+| Settings| Password                                   [Change Password] |
+| Profile | ••••••••••••••••   Last changed: 30 days ago             |
+| Security|                                                            |
+| Privacy | Multi-Factor Authentication              [⚫ Enabled]      |
+|         | Authenticator App configured             [Manage MFA]     |
+|         | Backup codes: 6 remaining               [View Codes]     |
+|         |                                                            |
+|         | Connected Accounts                                         |
+|         | 🔵 Google (user@gmail.com)              [Disconnect]     |
+|         |                                         [+ Connect Account] |
+|         |                                                            |
+|         | Active Sessions                                            |
+|         | 🖥️  Desktop - Chrome (Current)          [Revoke All]     |
+|         | 📱  Mobile - Safari - 2h ago            [Revoke]         |
+|         |                                                            |
++----------------------------------------------------------------------+
+```
+
+#### 2.4.4. MFA Setup Wizard
+
+**Step 1: Choose Method**
+
+```
++----------------------------------------------------------------------+
+|                    Setup Two-Factor Authentication                   |
++----------------------------------------------------------------------+
+|                                                                      |
+|  Step 1 of 3: Choose Authentication Method                          |
+|                                                                      |
+|  ┌─────────────────────────────────────────────────────────────┐    |
+|  │  📱 Authenticator App (Recommended)                        │    |
+|  │  Use Google Authenticator, Authy, or similar app          │    |
+|  │                                            [Select]       │    |
+|  └─────────────────────────────────────────────────────────────┘    |
+|                                                                      |
+|  ┌─────────────────────────────────────────────────────────────┐    |
+|  │  💬 SMS Text Messages                                      │    |
+|  │  Receive codes via text message                           │    |
+|  │                                            [Select]       │    |
+|  └─────────────────────────────────────────────────────────────┘    |
+|                                                                      |
++----------------------------------------------------------------------+
+```
+
+**Step 2: Scan QR Code**
+
+```
++----------------------------------------------------------------------+
+|                    Setup Two-Factor Authentication                   |
++----------------------------------------------------------------------+
+|                                                                      |
+|  Step 2 of 3: Scan QR Code                                         |
+|                                                                      |
+|  1. Open your authenticator app                                     |
+|  2. Scan this QR code:                                              |
+|                                                                      |
+|     ┌─────────────────────┐                                        |
+|     │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │                                        |
+|     │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │                                        |
+|     │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │                                        |
+|     └─────────────────────┘                                        |
+|                                                                      |
+|  Can't scan? Enter this code manually:                             |
+|  [JBSWY3DPEHPK3PXP]                         [Copy]                 |
+|                                                                      |
+|                                             [Continue]               |
++----------------------------------------------------------------------+
+```
+
+**Step 3: Verify Setup**
+
+```
++----------------------------------------------------------------------+
+|                    Setup Two-Factor Authentication                   |
++----------------------------------------------------------------------+
+|                                                                      |
+|  Step 3 of 3: Verify Setup                                         |
+|                                                                      |
+|  Enter the 6-digit code from your authenticator app to verify       |
+|  the setup is working correctly:                                    |
+|                                                                      |
+|  [___] [___] [___] [___] [___] [___]                               |
+|                                                                      |
+|  [Complete Setup]                                                    |
+|                                                                      |
++----------------------------------------------------------------------+
+```
+
+#### 2.4.5. Password Change Form
+
+**Wireframe Sketch:**
+
+```
++----------------------------------------------------------------------+
+|                        Change Password                               |
++----------------------------------------------------------------------+
+|                                                                      |
+|  Current Password                                                    |
+|  [____________________________]  [Show/Hide]                       |
+|                                                                      |
+|  New Password                                                        |
+|  [____________________________]  [Show/Hide]                       |
+|  ⚠️ Must be at least 8 characters with uppercase, lowercase,        |
+|     number, and special character                                    |
+|                                                                      |
+|  Confirm New Password                                                |
+|  [____________________________]  [Show/Hide]                       |
+|                                                                      |
+|  [Cancel]                                      [Change Password]     |
+|                                                                      |
++----------------------------------------------------------------------+
+```
+
+#### 2.4.6. User Management (Admin Interface)
+
+**Components:**
+
+- **User List:** Table with search/filter capabilities
+- **Add User Form:** Role-based user creation without UI registration
+- **User Details:** Permission management, account status
+
+**Wireframe Sketch:**
+
+```
++----------------------------------------------------------------------+
+| Sidebar | User Management                                            |
+|---------+------------------------------------------------------------|
+|         |                                                            |
+| Users   | [Search Users...]                        [+ Add New User] |
+| Roles   |                                                            |
+| Audit   | ┌────────────────────────────────────────────────────────┐ |
+|         | │ Name              Email            Role      Status    │ |
+|         | ├────────────────────────────────────────────────────────┤ |
+|         | │ John CEO          ceo@company.com  Executive  Active   │ |
+|         | │ Jane CFO          cfo@company.com  Executive  Active   │ |
+|         | │ Bob Manager       bob@company.com  Manager    Pending  │ |
+|         | └────────────────────────────────────────────────────────┘ |
+|         |                                                            |
+|         | Add New User:                                              |
+|         | Full Name: [________________________]                     |
+|         | Email:     [________________________]                     |
+|         | Role:      [Executive ▼]                                  |
+|         | Department: [C-Suite ▼]                                   |
+|         | Permissions: [☑️Dashboard ☑️Reports ☑️AI Chat]            |
+|         | Options: [☑️Require MFA] [☑️Send Welcome Email]           |
+|         |                                                            |
+|         | [Cancel]                              [Create User]        |
+|         |                                                            |
++----------------------------------------------------------------------+
+```
+
+### 2.5. Responsive Design Considerations
+
+All authentication interfaces must be fully responsive and accessible:
+
+- **Mobile First:** Forms should work seamlessly on mobile devices
+- **Touch-Friendly:** Buttons and inputs sized appropriately for touch
+- **Accessibility:** WCAG 2.1 AA compliance with proper ARIA labels
+- **Progressive Enhancement:** Core functionality works without JavaScript
 
 ## 3. Design System & Style Guide
 

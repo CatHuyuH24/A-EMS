@@ -1,5 +1,7 @@
 # Detailed Project Plan (AI-Driven Development)
 
+_Last updated: 14/09/2025_
+
 ## 1. Introduction
 
 This document outlines the detailed plan for developing the A-EMS project, leveraging an AI-driven software development lifecycle (SDLC). The goal is to use AI assistants at every stage—from planning and design to coding, testing, and documentation—to accelerate development and improve quality.
@@ -32,7 +34,35 @@ This project will be executed in phases, with AI assisting at each step.
   4.  **API & Data Modeling (AI-Assisted):**
       - Draft the initial `API_Specification.md` and database schema designs with AI suggestions.
 
-### Phase 2: Backend Microservice Development
+### Phase 2: Authentication & Security Implementation
+
+- **Objective:** Build comprehensive authentication and security infrastructure.
+- **AI-Driven Workflow:**
+
+  1.  **Enhanced Auth Service Development:**
+
+      - Implement JWT-based authentication with refresh tokens
+      - Build MFA system with TOTP and backup code generation
+      - Integrate OAuth 2.0 / OIDC with Google authentication
+      - Implement password management (change, reset, forgot password)
+      - Build role-based access control (RBAC) system
+
+  2.  **Security Features Implementation:**
+
+      - Session management with device tracking
+      - Brute force protection and account lockout
+      - Security audit logging and monitoring
+      - Rate limiting and DDoS protection
+      - Secure JWT token handling and storage
+
+  3.  **Authentication UI Development:**
+      - Login/logout interfaces with MFA support
+      - Password management forms and flows
+      - Google OAuth integration components
+      - Admin user management dashboard
+      - Account security settings interface
+
+### Phase 3: Backend Microservice Development
 
 - **Objective:** Build the core backend services for each business domain.
 - **AI-Driven Workflow:**
@@ -40,17 +70,19 @@ This project will be executed in phases, with AI assisting at each step.
   1.  **Boilerplate Generation:** Use AI to generate boilerplate code for each FastAPI microservice (`Sales`, `Finance`, `HR`, etc.), including Dockerfiles and basic endpoints based on `API_Specification.md`.
   2.  **Logic Implementation:** Implement business logic for each service with AI providing code snippets, suggestions, and bug fixes.
   3.  **Database Integration:** Generate SQLAlchemy models and database interaction logic for each service, potentially within its own schema.
-  4.  **Unit & Integration Testing:** Generate test cases and testing scripts to ensure each microservice is reliable and meets its API contract.### Phase 3: Frontend Development
+  4.  **Unit & Integration Testing:** Generate test cases and testing scripts to ensure each microservice is reliable and meets its API contract.
+
+### Phase 4: Frontend Development
 
 - **Objective:** Develop the user-facing Next.js application.
 - **AI-Driven Workflow:**
   1.  **Component Scaffolding:** Use AI to generate React/TypeScript components based on the `UI_UX.md` document and Tailwind CSS.
-  2.  **Page & Layout Creation:** Build the main pages (Dashboard, Chat) and implement routing.
-  3.  **State Management:** Implement state management solutions (e.g., Zustand, Redux Toolkit) with AI guidance.
-  4.  **API Integration:** Connect the frontend to the backend APIs, with AI helping to write data-fetching hooks and handle responses.
+  2.  **Page & Layout Creation:** Build the main pages (Dashboard, Chat) and implement routing with authentication-aware navigation.
+  3.  **State Management:** Implement state management solutions (e.g., Zustand, Redux Toolkit) with AI guidance for authentication state.
+  4.  **API Integration:** Connect the frontend to the backend APIs, with AI helping to write data-fetching hooks and handle authenticated responses.
   5.  **Visualization:** Use AI to generate code for the `Recharts` library to build dashboard widgets.
 
-### Phase 4: AI & Docker Integration
+### Phase 5: AI & Docker Integration
 
 - **Objective:** Containerize the application and integrate the AI assistant.
 - **AI-Driven Workflow:**
@@ -60,9 +92,10 @@ This project will be executed in phases, with AI assisting at each step.
 
 ## 4. Timeline
 
-- **Phase 1:** 1-2 days
-- **Phase 2:** 1-2 weeks
-- **Phase 3:** 2-3 weeks
-- **Phase 4:** 1 week
+- **Phase 1:** 1-4 days (Foundation & System Design)
+- **Phase 2:** 1-2 weeks (Authentication & Security Implementation)
+- **Phase 3:** 2-3 weeks (Backend Microservice Development)
+- **Phase 4:** 1-2 weeks (Frontend Development)
+- **Phase 5:** 1-2 weeks (AI & Docker Integration)
 
-This timeline is aggressive and relies heavily on the effective use of AI development tools to meet targets.
+This timeline is aggressive and relies heavily on the effective use of AI development tools to meet targets. The authentication phase is critical and must be completed before proceeding with business logic implementation.

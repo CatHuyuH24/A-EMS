@@ -1,5 +1,7 @@
 # API Endpoint Implementation Status
 
+_Last updated: 14/09/2025_
+
 This document tracks the current implementation status of all API endpoints in the A-EMS system.
 
 ## Legend
@@ -13,11 +15,25 @@ This document tracks the current implementation status of all API endpoints in t
 
 ## Authentication Service (`/auth`)
 
-| Endpoint       | Method | Status | Priority | Notes                |
-| -------------- | ------ | ------ | -------- | -------------------- |
-| `/auth/login`  | POST   | 📋     | High     | JWT authentication   |
-| `/auth/logout` | POST   | 📋     | High     | Session invalidation |
-| `/auth/verify` | GET    | 📋     | High     | Token validation     |
+| Endpoint                            | Method | Status | Priority | Notes                        |
+| ----------------------------------- | ------ | ------ | -------- | ---------------------------- |
+| `/auth/login`                       | POST   | 📋     | High     | JWT authentication           |
+| `/auth/register`                    | POST   | 📋     | High     | Admin user creation          |
+| `/auth/logout`                      | POST   | 📋     | High     | Session invalidation         |
+| `/auth/verify`                      | GET    | 📋     | High     | Token validation             |
+| `/auth/change-password`             | POST   | 📋     | High     | User password management     |
+| `/auth/forgot-password`             | POST   | 📋     | Medium   | Password reset initiation    |
+| `/auth/reset-password`              | POST   | 📋     | Medium   | Password reset completion    |
+| `/auth/mfa/status`                  | GET    | 📋     | High     | MFA configuration status     |
+| `/auth/mfa/setup/totp`              | POST   | 📋     | High     | TOTP MFA setup               |
+| `/auth/mfa/verify/totp`             | POST   | 📋     | High     | TOTP code verification       |
+| `/auth/mfa/enable`                  | POST   | 📋     | High     | Enable MFA for user          |
+| `/auth/mfa/disable`                 | POST   | 📋     | Medium   | Disable MFA for user         |
+| `/auth/mfa/regenerate-backup-codes` | POST   | 📋     | Medium   | Generate new backup codes    |
+| `/auth/oauth/google/login`          | GET    | 📋     | High     | Google OAuth initiation      |
+| `/auth/oauth/google/callback`       | POST   | 📋     | High     | Google OAuth callback        |
+| `/auth/oauth/google/link`           | POST   | 📋     | Medium   | Link Google to existing user |
+| `/auth/oauth/google/unlink`         | DELETE | 📋     | Medium   | Unlink Google account        |
 
 ---
 
@@ -109,15 +125,15 @@ This document tracks the current implementation status of all API endpoints in t
 
 ### Overall Progress
 
-- **Total Endpoints**: 31
+- **Total Endpoints**: 48
 - **Implemented**: 0 (0%)
 - **In Progress**: 0 (0%)
-- **Planned**: 31 (100%)
+- **Planned**: 48 (100%)
 - **Blocked**: 0 (0%)
 
 ### Service Priority
 
-1. **High Priority**: Authentication, Core business endpoints (Sales/Finance/HR/Products/Risk overview)
+1. **High Priority**: Enhanced Authentication (login, MFA, OAuth), Core business endpoints (Sales/Finance/HR/Products/Risk overview)
 2. **Medium Priority**: Advanced analytics, reporting, specialized features
 3. **Low Priority**: Administrative features, extended functionality
 
@@ -129,5 +145,3 @@ This document tracks the current implementation status of all API endpoints in t
 4. Integrate AI orchestration across all services
 
 ---
-
-_Last Updated: 2023-09-12_
