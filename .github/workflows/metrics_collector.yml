@@ -45,8 +45,22 @@ jobs:
       run: |
         commits='${{ steps.commitinfo.outputs.commits }}'
         echo "$commits" | jq -c '.[]' | while read row; do
+          commit_date=$(echo "$row" | jq -r '.commit_date')
+          day_of_week=$(date -d "$commit_date" +%u)
+          hour_of_day=$(date -d "$commit_date" +%H)
+
           payload=$(echo "$row" | jq --arg secret "$SHARED_SECRET" \
-            '{commit_hash:.sha, author:.author, commit_timestamp:.commit_date, commit_message:.message, insertions:.insertions, deletions:.deletions, total_changes:(.insertions + .deletions), day_of_week:(.commit_date | fromdate | strftime("%u")), hour_of_day:(.commit_date | fromdate | strftime("%H")), secret:$secret}')
+            --arg dow "$day_of_week" --arg hod "$hour_of_day" \
+            '{commit_hash:.sha,
+              author:.author,
+              commit_timestamp:.commit_date,
+              commit_message:.message,
+              insertions:.insertions,
+              deletions:.deletions,
+              total_changes:(.insertions + .deletions),
+              day_of_week:$dow,
+              hour_of_day:$hod,
+              secret:$secret}')
           echo "Sending: $payload"
           curl -s -X POST -H "Content-Type: application/json" -d "$payload" "$WEBAPP_URL"
         done
