@@ -1,0 +1,66 @@
+name: Commit Metrics Collector
+
+on:
+  push:
+    branches:
+      - main   # chỉ track nhánh main
+
+permissions:
+  contents: read
+
+jobs:
+  collect-metrics:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Extract commit info
+      id: commitinfo
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const commits = context.payload.commits;
+          if (!commits || commits.length === 0) {
+            core.setFailed("No commits found in push event");
+          }
+          const results = [];
+          for (const c of commits) {
+            results.push({
+              sha: c.id,
+              author: c.author?.username || c.committer?.username || c.author?.name || "unknown",
+              commit_date: c.timestamp,
+              message: c.message,
+              insertions: c.added ? c.added.length : 0,
+              deletions: c.removed ? c.removed.length : 0
+            });
+          }
+          core.setOutput("commits", JSON.stringify(results));
+
+    - name: Send metrics to Google Sheet (Apps Script)
+      env:
+        WEBAPP_URL: ${{ secrets.SHEETS_WEBAPP_URL }}
+        SHARED_SECRET: ${{ secrets.SHEETS_SHARED_SECRET }}
+      run: |
+        commits='${{ steps.commitinfo.outputs.commits }}'
+        echo "$commits" | jq -c '.[]' | while read row; do
+          commit_date=$(echo "$row" | jq -r '.commit_date')
+          day_of_week=$(date -d "$commit_date" +%u)
+          hour_of_day=$(date -d "$commit_date" +%H)
+
+          payload=$(echo "$row" | jq --arg secret "$SHARED_SECRET" \
+            --arg dow "$day_of_week" --arg hod "$hour_of_day" \
+            '{commit_hash:.sha,
+              author:.author,
+              commit_timestamp:.commit_date,
+              commit_message:.message,
+              insertions:.insertions,
+              deletions:.deletions,
+              total_changes:(.insertions + .deletions),
+              day_of_week:$dow,
+              hour_of_day:$hod,
+              secret:$secret}')
+          echo "Sending: $payload"
+          curl -s -X POST -H "Content-Type: application/json" -d "$payload" "$WEBAPP_URL"
+        done
