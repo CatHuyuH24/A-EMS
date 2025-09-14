@@ -25,14 +25,18 @@ This project will be executed in phases, with AI assisting at each step.
 - **Objective:** Establish the project's technical and organizational foundation.
 - **Tasks:**
   1.  **Project Scaffolding (AI-Assisted):**
-      - `[Done]` Generate core documentation (`Project_Info_Scope.md`, `Project_Plan.md`, etc.) using an AI assistant based on the initial prompt.
-      - `[Done]` Create the initial directory structure (`backend`, `frontend`, `infra`, `docs`).
+      - Generate core documentation (`Project_Info_Scope.md`, `Project_Plan.md`, etc.) using an AI assistant based on the initial prompt.
+      - Create the initial directory structure (`backend`, `frontend`, `infra`, `docs`).
+      - Develop comprehensive logging strategy and implementation guide (`Logging_Guide.md`).
   2.  **System Architecture Design (AI-Assisted):**
       - Use AI to draft the `System_Architecture.md` document, outlining the microservices, data flow, and cloud deployment strategy.
+      - Integrate logging flows and monitoring architecture into system design.
   3.  **UI/UX Wireframing (AI-Assisted):**
       - Generate initial concepts and component breakdowns in `UI_UX.md` to guide frontend development.
+      - Define error handling and user notification patterns.
   4.  **API & Data Modeling (AI-Assisted):**
       - Draft the initial `API_Specification.md` and database schema designs with AI suggestions.
+      - Specify logging requirements and error response patterns for all endpoints.
 
 ### Phase 2: Authentication & Security Implementation
 
@@ -46,6 +50,7 @@ This project will be executed in phases, with AI assisting at each step.
       - Integrate OAuth 2.0 / OIDC with Google authentication
       - Implement password management (change, reset, forgot password)
       - Build role-based access control (RBAC) system
+      - **Logging Implementation:** Set up structured logging with correlation IDs for all auth operations
 
   2.  **Security Features Implementation:**
 
@@ -54,6 +59,7 @@ This project will be executed in phases, with AI assisting at each step.
       - Security audit logging and monitoring
       - Rate limiting and DDoS protection
       - Secure JWT token handling and storage
+      - **Security Monitoring:** Real-time alerting for authentication failures and suspicious activities
 
   3.  **Authentication UI Development:**
       - Login/logout interfaces with MFA support
@@ -61,6 +67,7 @@ This project will be executed in phases, with AI assisting at each step.
       - Google OAuth integration components
       - Admin user management dashboard
       - Account security settings interface
+      - **Error Handling:** Implement React Error Boundary and toast notification system for authentication flows
 
 ### Phase 3: Backend Microservice Development
 
@@ -70,7 +77,8 @@ This project will be executed in phases, with AI assisting at each step.
   1.  **Boilerplate Generation:** Use AI to generate boilerplate code for each FastAPI microservice (`Sales`, `Finance`, `HR`, etc.), including Dockerfiles and basic endpoints based on `API_Specification.md`.
   2.  **Logic Implementation:** Implement business logic for each service with AI providing code snippets, suggestions, and bug fixes.
   3.  **Database Integration:** Generate SQLAlchemy models and database interaction logic for each service, potentially within its own schema.
-  4.  **Unit & Integration Testing:** Generate test cases and testing scripts to ensure each microservice is reliable and meets its API contract.
+  4.  **Logging Integration:** Implement structured JSON logging with correlation ID middleware for all microservices, following patterns in `Logging_Guide.md`.
+  5.  **Unit & Integration Testing:** Generate test cases and testing scripts to ensure each microservice is reliable and meets its API contract.
 
 ### Phase 4: Frontend Development
 
@@ -80,15 +88,18 @@ This project will be executed in phases, with AI assisting at each step.
   2.  **Page & Layout Creation:** Build the main pages (Dashboard, Chat) and implement routing with authentication-aware navigation.
   3.  **State Management:** Implement state management solutions (e.g., Zustand, Redux Toolkit) with AI guidance for authentication state.
   4.  **API Integration:** Connect the frontend to the backend APIs, with AI helping to write data-fetching hooks and handle authenticated responses.
-  5.  **Visualization:** Use AI to generate code for the `Recharts` library to build dashboard widgets.
+  5.  **Error Handling & Notifications:** Implement comprehensive error handling with toast notifications and Global Error Boundary as specified in `Logging_Guide.md`.
+  6.  **Visualization:** Use AI to generate code for the `Recharts` library to build dashboard widgets.
 
 ### Phase 5: AI & Docker Integration
 
 - **Objective:** Containerize the application and integrate the AI assistant.
 - **AI-Driven Workflow:**
   1.  **Docker Compose:** Create and refine the `docker-compose.yml` file in the `infra` directory to orchestrate all services (backend, frontend, database).
-  2.  **AI Service Integration:** Develop the service responsible for communicating with the DeepSeek API. Use AI to assist with prompt engineering and API request/response handling.
-  3.  **End-to-End Testing:** Manually test the full application flow, from user login to asking a question to the AI and seeing data on the dashboard.
+  2.  **Docker Logging Configuration:** Implement centralized logging with proper Docker logging drivers and log rotation as specified in `Logging_Guide.md`.
+  3.  **AI Service Integration:** Develop the service responsible for communicating with the DeepSeek API. Use AI to assist with prompt engineering and API request/response handling.
+  4.  **Monitoring Setup:** Configure log aggregation, performance monitoring, and error tracking across all containerized services.
+  5.  **End-to-End Testing:** Manually test the full application flow, from user login to asking a question to the AI and seeing data on the dashboard, including error scenarios and logging verification.
 
 ## 4. Timeline
 

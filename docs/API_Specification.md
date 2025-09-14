@@ -6,6 +6,19 @@ This document provides a preliminary specification for the RESTful APIs that wil
 
 **Base URL:** `/api/v1`
 
+## Logging & Monitoring
+
+All API endpoints implement comprehensive logging for monitoring, debugging, and security purposes:
+
+- **Request Tracking**: Each API request includes correlation IDs for end-to-end tracing
+- **Security Logging**: Authentication attempts, authorization failures, and security events are logged
+- **Performance Monitoring**: Response times, error rates, and service health metrics are tracked
+- **Error Handling**: API errors return structured error responses and trigger appropriate frontend notifications
+
+For detailed logging implementation and error handling patterns, see [Logging Guide](./Logging_Guide.md).
+
+---
+
 ## 1. Auth Service (`/auth`)
 
 Handles user authentication and authorization.

@@ -65,6 +65,12 @@ _Last updated: 14/09/2025_
   - Security audit logging and compliance monitoring
   - Brute force protection and account lockout mechanisms
   - JWT-based authentication with secure token handling
+- **Comprehensive Logging & Monitoring System:**
+  - Structured JSON logging across all microservices with correlation ID tracking
+  - Centralized log aggregation through Docker logging drivers
+  - Frontend error handling with user-friendly toast notifications
+  - Real-time monitoring of system health, performance metrics, and security events
+  - Audit trails for compliance and debugging purposes
 - Mobile-responsive design with accessibility compliance
 
 ### Out-of-Scope (for initial phase):

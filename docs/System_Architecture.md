@@ -159,3 +159,87 @@ graph TD
 - **Containerization:** All services (frontend, backend microservices, database) will be packaged as **Docker** containers. This is defined in `Dockerfile`s within each service's directory.
 - **Orchestration:** `docker-compose.yml` in the `infra/` directory will define and link all the services, allowing the entire application stack to be brought up or down with a single command (`docker-compose up`).
 - **Environment:** This setup is ideal for local development and can be adapted for deployment to cloud platforms like AWS (ECS/EKS), Google Cloud (GKE), or Azure (AKS) using their respective container orchestration services.
+
+## 5. Logging Architecture & Flow
+
+### 5.1. Logging Principles
+
+The A-EMS system implements comprehensive logging across all components following these principles:
+
+- **Structured Logging**: All logs use JSON format for machine readability and consistent parsing
+- **Correlation IDs**: Every request is tracked with unique identifiers across all services
+- **Centralized Collection**: Docker logging drivers aggregate logs from all containers
+- **Security**: No sensitive data (PII, passwords, tokens) in logs
+
+### 5.2. Backend Logging Flow
+
+```mermaid
+graph TD
+    A[Frontend Request] --> B[API Gateway]
+    B --> |Generate Correlation ID| C[Service 1]
+    B --> |Forward Correlation ID| D[Service 2]
+    C --> |Structured JSON Logs| E[Docker Stdout]
+    D --> |Structured JSON Logs| F[Docker Stdout]
+    B --> |Request/Response Logs| G[Docker Stdout]
+    E --> H[Docker Log Driver]
+    F --> H
+    G --> H
+    H --> I[Centralized Log Storage]
+    I --> J[Log Analysis & Monitoring]
+```
+
+**Log Flow Process:**
+
+1. **Request Initiation**: Frontend sends request with optional correlation ID
+2. **Gateway Processing**: API Gateway generates or forwards correlation ID, logs request details
+3. **Service Processing**: Each microservice logs operations with correlation ID context
+4. **Container Logging**: All logs output to stdout/stderr (captured by Docker)
+5. **Log Aggregation**: Docker logging driver collects and formats logs
+6. **Storage & Monitoring**: Logs stored for analysis and real-time monitoring
+
+### 5.3. Frontend Error Handling Flow
+
+```mermaid
+graph TD
+    A[User Action] --> B[React Component]
+    B --> C[API Call]
+    C --> D{API Response}
+    D -->|Success| E[Update UI State]
+    D -->|Error| F[Error Boundary/Handler]
+    F --> G[Log Client Error]
+    F --> H[Show Toast Notification]
+    G --> I[Send to Backend Logger]
+    H --> J[User-Friendly Message]
+
+    K[Unhandled Error] --> L[Global Error Boundary]
+    L --> M[Log Critical Error]
+    L --> N[Show Fallback UI]
+    M --> I
+```
+
+**Frontend Error Types & Responses:**
+
+- **401 Unauthorized**: Redirect to login with session expired message
+- **403 Forbidden**: Warning toast with permission denied message
+- **422 Validation**: Contextual error toast with specific field issues
+- **500 Server Error**: Generic error toast with "try again later" message
+- **Network Error**: Connectivity issue notification
+
+### 5.4. Monitoring & Observability
+
+**Key Metrics Tracked:**
+
+- **Request Tracing**: End-to-end request flow with correlation IDs
+- **Performance Monitoring**: Response times, database query performance
+- **Error Rates**: Service-level error frequencies and patterns
+- **Security Events**: Authentication failures, suspicious activities
+- **Business Metrics**: User actions, feature usage analytics
+
+**Log Categories:**
+
+- **Application Logs**: Business logic, user actions, system operations
+- **Security Logs**: Authentication, authorization, security events
+- **Performance Logs**: Response times, resource usage, bottlenecks
+- **Audit Logs**: Data access, configuration changes, admin actions
+
+For detailed logging implementation guidelines, see [Logging Guide](./Logging_Guide.md).

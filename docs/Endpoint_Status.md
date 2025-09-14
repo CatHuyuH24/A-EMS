@@ -11,6 +11,17 @@ This document tracks the current implementation status of all API endpoints in t
 - 📋 **Planned**: Documented but not yet started
 - 🚫 **Blocked**: Cannot proceed due to dependencies
 
+## Implementation Notes
+
+All endpoints will include:
+
+- **Structured Logging**: JSON-formatted logs with correlation IDs for request tracking
+- **Error Handling**: Standardized error responses with appropriate HTTP status codes
+- **Security Logging**: Authentication and authorization events tracked for audit purposes
+- **Performance Monitoring**: Response time and error rate metrics for service health
+
+For complete logging and monitoring specifications, see [Logging Guide](./Logging_Guide.md).
+
 ---
 
 ## Authentication Service (`/auth`)

@@ -61,6 +61,11 @@ For architecture diagrams, data flow, and deployment details, see [System Archit
   - MFA (TOTP, backup codes)
   - OAuth 2.0 / OIDC (Google)
   - RBAC, session/device management, audit logging
+- **Comprehensive Logging & Monitoring:**
+  - Structured JSON logging with correlation ID tracking
+  - Centralized log aggregation and real-time monitoring
+  - User-friendly error notifications with toast messages
+  - Security and audit event tracking
 - **Risk & Compliance:** Monitoring, incident tracking, regulatory reporting
 - **Product & Inventory Management:** Analytics, lifecycle, demand forecasting
 - **Mobile-Responsive & Accessible Design**
@@ -166,6 +171,7 @@ This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for
 - [System Architecture](./docs/System_Architecture.md)
 - [API Specification](./docs/API_Specification.md)
 - [UI/UX Design Guidelines](./docs/UI_UX.md)
+- [Logging Guide](./docs/Logging_Guide.md)
 - [Project Plan](./docs/Project_Plan.md)
 - [User Stories](./docs/User_Story.md)
 - [User Journeys](./docs/User_Journey.md)

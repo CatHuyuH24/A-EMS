@@ -86,13 +86,56 @@ This interface should feel familiar, like modern messaging apps.
 |         |        +------------------+                               |
 |         |                                                            |
 |         |------------------------------------------------------------|
-|         | [ Type your question...                                  ] |
-+----------------------------------------------------------------------+
-```
+    |    |                                                        |        |
+    |    | [ Type your question...                                  ] |
+    +----------------------------------------------------------------------+
 
-### 2.4. Authentication Interfaces
+### 2.4. Error Handling & User Notifications
 
-#### 2.4.1. Login Page
+A-EMS implements comprehensive error handling with user-friendly notifications to ensure a smooth user experience even when issues occur.
+
+**Error Notification Principles:**
+- **User-Centric**: All error messages are written for business users, not technical staff
+- **Contextual**: Different error types receive appropriate notification styles
+- **Non-Blocking**: Errors don't prevent users from continuing their work
+- **Actionable**: Error messages include guidance on what users can do
+
+**Toast Notification System:**
+- **Position**: Top-right corner for visibility without blocking content
+- **Duration**: 4-6 seconds for most messages, persistent for critical issues
+- **Styling**: Consistent with overall design system
+- **Progressive Disclosure**: Summary first, details available on click
+
+**Error Types & User Experience:**
+
+1. **Authentication Errors (401)**:
+   - Clear message: "Your session has expired. Please log in again."
+   - Automatic redirect to login page
+   - Lock icon for visual recognition
+
+2. **Permission Errors (403)**:
+   - Warning-style toast with amber background
+   - Message: "You don't have permission to perform this action."
+   - Contact admin guidance when appropriate
+
+3. **Validation Errors (422)**:
+   - Contextual error highlighting on form fields
+   - Red border on invalid inputs
+   - Specific error messages below affected fields
+
+4. **System Errors (500+)**:
+   - Reassuring message: "Server error. Our team has been notified."
+   - Encourages retry without technical details
+   - Tool icon to indicate maintenance nature
+
+**Implementation Details:**
+For complete error handling implementation including React Error Boundaries, toast notification setup, and logging integration, see [Logging Guide](./Logging_Guide.md#frontend-logging--error-notification).
+
+### 2.5. Accessibility & Responsive Design
+
+### 2.6. Authentication Interfaces
+
+#### 2.6.1. Login Page
 
 A clean, professional login interface with multiple authentication options.
 
@@ -107,34 +150,36 @@ A clean, professional login interface with multiple authentication options.
 **Wireframe Sketch:**
 
 ```
+
 +----------------------------------------------------------------------+
-| A-EMS Logo                                      [Language Selector] |
+| A-EMS Logo [Language Selector] |
 +----------------------------------------------------------------------+
-|                                                                      |
-|                        Welcome to A-EMS                             |
-|                 Your Digital Chief of Staff                         |
-|                                                                      |
-|    +--------------------------------------------------------+        |
-|    |                    Sign In                             |        |
-|    |                                                        |        |
-|    |  Email Address                                         |        |
-|    |  [____________________________]                       |        |
-|    |                                                        |        |
-|    |  Password                                              |        |
-|    |  [____________________________]  [Show/Hide]         |        |
-|    |                                                        |        |
-|    |  [ ] Remember me                                       |        |
-|    |                                                        |        |
-|    |  [Sign In Button - Full Width]                        |        |
-|    |                                                        |        |
-|    |  -------------------- OR --------------------         |        |
-|    |                                                        |        |
-|    |  [🔵 Sign in with Google - Full Width]               |        |
-|    |                                                        |        |
-|    |  [Forgot Password?]                                    |        |
-|    +--------------------------------------------------------+        |
-|                                                                      |
+| |
+| Welcome to A-EMS |
+| Your Digital Chief of Staff |
+| |
+| +--------------------------------------------------------+ |
+| | Sign In | |
+| | | |
+| | Email Address | |
+| | [____________________________] | |
+| | | |
+| | Password | |
+| | [____________________________] [Show/Hide] | |
+| | | |
+| | [ ] Remember me | |
+| | | |
+| | [Sign In Button - Full Width] | |
+| | | |
+| | -------------------- OR -------------------- | |
+| | | |
+| | [🔵 Sign in with Google - Full Width] | |
+| | | |
+| | [Forgot Password?] | |
+| +--------------------------------------------------------+ |
+| |
 +----------------------------------------------------------------------+
+
 ```
 
 #### 2.4.2. MFA Challenge Interface
@@ -144,24 +189,26 @@ Appears after successful password verification when MFA is enabled.
 **Wireframe Sketch:**
 
 ```
+
 +----------------------------------------------------------------------+
-|                    Two-Factor Authentication                         |
+| Two-Factor Authentication |
 +----------------------------------------------------------------------+
-|                                                                      |
-|    +--------------------------------------------------------+        |
-|    |                                                        |        |
-|    |  Enter the 6-digit code from your authenticator app   |        |
-|    |                                                        |        |
-|    |  [___] [___] [___] [___] [___] [___]                   |        |
-|    |                                                        |        |
-|    |  [Verify Code Button]                                 |        |
-|    |                                                        |        |
-|    |  Can't access your authenticator?                     |        |
-|    |  [Use Backup Code]                                    |        |
-|    |                                                        |        |
-|    +--------------------------------------------------------+        |
-|                                                                      |
+| |
+| +--------------------------------------------------------+ |
+| | | |
+| | Enter the 6-digit code from your authenticator app | |
+| | | |
+| | [___] [___] [___] [___] [___] [___] | |
+| | | |
+| | [Verify Code Button] | |
+| | | |
+| | Can't access your authenticator? | |
+| | [Use Backup Code] | |
+| | | |
+| +--------------------------------------------------------+ |
+| |
 +----------------------------------------------------------------------+
+
 ```
 
 #### 2.4.3. Account Settings - Security Tab
@@ -177,26 +224,28 @@ Appears after successful password verification when MFA is enabled.
 **Wireframe Sketch:**
 
 ```
+
 +----------------------------------------------------------------------+
-| Sidebar | Account Settings > Security                               |
+| Sidebar | Account Settings > Security |
 |---------+------------------------------------------------------------|
-|         |                                                            |
-| Settings| Password                                   [Change Password] |
-| Profile | ••••••••••••••••   Last changed: 30 days ago             |
-| Security|                                                            |
-| Privacy | Multi-Factor Authentication              [⚫ Enabled]      |
-|         | Authenticator App configured             [Manage MFA]     |
-|         | Backup codes: 6 remaining               [View Codes]     |
-|         |                                                            |
-|         | Connected Accounts                                         |
-|         | 🔵 Google (user@gmail.com)              [Disconnect]     |
-|         |                                         [+ Connect Account] |
-|         |                                                            |
-|         | Active Sessions                                            |
-|         | 🖥️  Desktop - Chrome (Current)          [Revoke All]     |
-|         | 📱  Mobile - Safari - 2h ago            [Revoke]         |
-|         |                                                            |
+| | |
+| Settings| Password [Change Password] |
+| Profile | •••••••••••••••• Last changed: 30 days ago |
+| Security| |
+| Privacy | Multi-Factor Authentication [⚫ Enabled] |
+| | Authenticator App configured [Manage MFA] |
+| | Backup codes: 6 remaining [View Codes] |
+| | |
+| | Connected Accounts |
+| | 🔵 Google (user@gmail.com) [Disconnect] |
+| | [+ Connect Account] |
+| | |
+| | Active Sessions |
+| | 🖥️ Desktop - Chrome (Current) [Revoke All] |
+| | 📱 Mobile - Safari - 2h ago [Revoke] |
+| | |
 +----------------------------------------------------------------------+
+
 ```
 
 #### 2.4.4. MFA Setup Wizard
@@ -204,69 +253,75 @@ Appears after successful password verification when MFA is enabled.
 **Step 1: Choose Method**
 
 ```
+
 +----------------------------------------------------------------------+
-|                    Setup Two-Factor Authentication                   |
+| Setup Two-Factor Authentication |
 +----------------------------------------------------------------------+
-|                                                                      |
-|  Step 1 of 3: Choose Authentication Method                          |
-|                                                                      |
-|  ┌─────────────────────────────────────────────────────────────┐    |
-|  │  📱 Authenticator App (Recommended)                        │    |
-|  │  Use Google Authenticator, Authy, or similar app          │    |
-|  │                                            [Select]       │    |
-|  └─────────────────────────────────────────────────────────────┘    |
-|                                                                      |
-|  ┌─────────────────────────────────────────────────────────────┐    |
-|  │  💬 SMS Text Messages                                      │    |
-|  │  Receive codes via text message                           │    |
-|  │                                            [Select]       │    |
-|  └─────────────────────────────────────────────────────────────┘    |
-|                                                                      |
+| |
+| Step 1 of 3: Choose Authentication Method |
+| |
+| ┌─────────────────────────────────────────────────────────────┐ |
+| │ 📱 Authenticator App (Recommended) │ |
+| │ Use Google Authenticator, Authy, or similar app │ |
+| │ [Select] │ |
+| └─────────────────────────────────────────────────────────────┘ |
+| |
+| ┌─────────────────────────────────────────────────────────────┐ |
+| │ 💬 SMS Text Messages │ |
+| │ Receive codes via text message │ |
+| │ [Select] │ |
+| └─────────────────────────────────────────────────────────────┘ |
+| |
 +----------------------------------------------------------------------+
+
 ```
 
 **Step 2: Scan QR Code**
 
 ```
+
 +----------------------------------------------------------------------+
-|                    Setup Two-Factor Authentication                   |
+| Setup Two-Factor Authentication |
 +----------------------------------------------------------------------+
-|                                                                      |
-|  Step 2 of 3: Scan QR Code                                         |
-|                                                                      |
-|  1. Open your authenticator app                                     |
-|  2. Scan this QR code:                                              |
-|                                                                      |
-|     ┌─────────────────────┐                                        |
-|     │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │                                        |
-|     │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │                                        |
-|     │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │                                        |
-|     └─────────────────────┘                                        |
-|                                                                      |
-|  Can't scan? Enter this code manually:                             |
-|  [JBSWY3DPEHPK3PXP]                         [Copy]                 |
-|                                                                      |
-|                                             [Continue]               |
+| |
+| Step 2 of 3: Scan QR Code |
+| |
+| 1. Open your authenticator app |
+| 2. Scan this QR code: |
+| |
+| ┌─────────────────────┐ |
+| │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │ |
+| │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │ |
+| │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │ |
+| └─────────────────────┘ |
+| |
+| Can't scan? Enter this code manually: |
+| [JBSWY3DPEHPK3PXP] [Copy] |
+| |
+| [Continue] |
 +----------------------------------------------------------------------+
+
 ```
 
 **Step 3: Verify Setup**
 
 ```
+
 +----------------------------------------------------------------------+
-|                    Setup Two-Factor Authentication                   |
+| Setup Two-Factor Authentication |
 +----------------------------------------------------------------------+
-|                                                                      |
-|  Step 3 of 3: Verify Setup                                         |
-|                                                                      |
-|  Enter the 6-digit code from your authenticator app to verify       |
-|  the setup is working correctly:                                    |
-|                                                                      |
-|  [___] [___] [___] [___] [___] [___]                               |
-|                                                                      |
-|  [Complete Setup]                                                    |
-|                                                                      |
+| |
+| Step 3 of 3: Verify Setup |
+| |
+| Enter the 6-digit code from your authenticator app to verify |
+| the setup is working correctly: |
+| |
+| [___] [___] [___] [___] [___] [___] |
+| |
+| [Complete Setup] |
+| |
 +----------------------------------------------------------------------+
+
 ```
 
 #### 2.4.5. Password Change Form
@@ -274,24 +329,26 @@ Appears after successful password verification when MFA is enabled.
 **Wireframe Sketch:**
 
 ```
+
 +----------------------------------------------------------------------+
-|                        Change Password                               |
+| Change Password |
 +----------------------------------------------------------------------+
-|                                                                      |
-|  Current Password                                                    |
-|  [____________________________]  [Show/Hide]                       |
-|                                                                      |
-|  New Password                                                        |
-|  [____________________________]  [Show/Hide]                       |
-|  ⚠️ Must be at least 8 characters with uppercase, lowercase,        |
-|     number, and special character                                    |
-|                                                                      |
-|  Confirm New Password                                                |
-|  [____________________________]  [Show/Hide]                       |
-|                                                                      |
-|  [Cancel]                                      [Change Password]     |
-|                                                                      |
+| |
+| Current Password |
+| [____________________________] [Show/Hide] |
+| |
+| New Password |
+| [____________________________] [Show/Hide] |
+| ⚠️ Must be at least 8 characters with uppercase, lowercase, |
+| number, and special character |
+| |
+| Confirm New Password |
+| [____________________________] [Show/Hide] |
+| |
+| [Cancel] [Change Password] |
+| |
 +----------------------------------------------------------------------+
+
 ```
 
 #### 2.4.6. User Management (Admin Interface)
@@ -305,31 +362,33 @@ Appears after successful password verification when MFA is enabled.
 **Wireframe Sketch:**
 
 ```
+
 +----------------------------------------------------------------------+
-| Sidebar | User Management                                            |
+| Sidebar | User Management |
 |---------+------------------------------------------------------------|
-|         |                                                            |
-| Users   | [Search Users...]                        [+ Add New User] |
-| Roles   |                                                            |
-| Audit   | ┌────────────────────────────────────────────────────────┐ |
-|         | │ Name              Email            Role      Status    │ |
-|         | ├────────────────────────────────────────────────────────┤ |
-|         | │ John CEO          ceo@company.com  Executive  Active   │ |
-|         | │ Jane CFO          cfo@company.com  Executive  Active   │ |
-|         | │ Bob Manager       bob@company.com  Manager    Pending  │ |
-|         | └────────────────────────────────────────────────────────┘ |
-|         |                                                            |
-|         | Add New User:                                              |
-|         | Full Name: [________________________]                     |
-|         | Email:     [________________________]                     |
-|         | Role:      [Executive ▼]                                  |
-|         | Department: [C-Suite ▼]                                   |
-|         | Permissions: [☑️Dashboard ☑️Reports ☑️AI Chat]            |
-|         | Options: [☑️Require MFA] [☑️Send Welcome Email]           |
-|         |                                                            |
-|         | [Cancel]                              [Create User]        |
-|         |                                                            |
+| | |
+| Users | [Search Users...] [+ Add New User] |
+| Roles | |
+| Audit | ┌────────────────────────────────────────────────────────┐ |
+| | │ Name Email Role Status │ |
+| | ├────────────────────────────────────────────────────────┤ |
+| | │ John CEO ceo@company.com Executive Active │ |
+| | │ Jane CFO cfo@company.com Executive Active │ |
+| | │ Bob Manager bob@company.com Manager Pending │ |
+| | └────────────────────────────────────────────────────────┘ |
+| | |
+| | Add New User: |
+| | Full Name: [________________________] |
+| | Email: [________________________] |
+| | Role: [Executive ▼] |
+| | Department: [C-Suite ▼] |
+| | Permissions: [☑️Dashboard ☑️Reports ☑️AI Chat] |
+| | Options: [☑️Require MFA] [☑️Send Welcome Email] |
+| | |
+| | [Cancel] [Create User] |
+| | |
 +----------------------------------------------------------------------+
+
 ```
 
 ### 2.5. Responsive Design Considerations
@@ -526,3 +585,4 @@ All authentication interfaces must be fully responsive and accessible:
 - **Chart Animations:** 800ms ease-out transitions
 - **KPI Updates:** Highlight with subtle background flash
 - **Real-time Data:** Smooth value transitions, not instant jumps
+```
