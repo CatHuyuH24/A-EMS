@@ -65,3 +65,16 @@ jobs:
                 commit_id: c.id,
                 message: c.message,
                 author: c.author.name,
+                commit_dt,
+                week_start,
+                insertions: totalInsertions,
+                deletions: totalDeletions,
+                files_changed: totalFiles
+              });
+            }
+
+            core.setOutput("commit_metrics", JSON.stringify(results, null, 2));
+
+      - name: Print results
+        run: |
+          echo "${{ steps.commitinfo.outputs.commit_metrics }}"
