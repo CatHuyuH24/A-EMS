@@ -26,49 +26,26 @@ jobs:
             core.setFailed("No commits found in push event");
           }
 
-          const results = commits.map(c => {
-            const ts = new Date(c.timestamp); // parse ISO
-            // commit_dt in YYYY-MM-DD HH:mm:ss (RFC3339 without timezone)
-            const commit_dt = ts.getFullYear() + "-" +
-              String(ts.getMonth()+1).padStart(2,"0") + "-" +
-              String(ts.getDate()).padStart(2,"0") + " " +
-              String(ts.getHours()).padStart(2,"0") + ":" +
-              String(ts.getMinutes()).padStart(2,"0") + ":" +
-              String(ts.getSeconds()).padStart(2,"0");
+          const results = [];
+          for (const c of commits) {
+            // fetch commit details to get line-level stats
+            const { data } = await github.rest.repos.getCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: c.id
+            });
 
-            // week_start (Monday of that week)
+            const ts = new Date(c.timestamp);
+            const commit_dt = ts.getFullYear() + "-" +
+              String(ts.getMonth() + 1).padStart(2, "0") + "-" +
+              String(ts.getDate()).padStart(2, "0") + " " +
+              String(ts.getHours()).padStart(2, "0") + ":" +
+              String(ts.getMinutes()).padStart(2, "0") + ":" +
+              String(ts.getSeconds()).padStart(2, "0");
+
             const dow = (ts.getDay() === 0 ? 7 : ts.getDay()); // Sunday=0 → 7
             const monday = new Date(ts);
             monday.setDate(ts.getDate() - dow + 1);
             const week_start = monday.getFullYear() + "-" +
-              String(monday.getMonth()+1).padStart(2,"0") + "-" +
-              String(monday.getDate()).padStart(2,"0");
-
-            return {
-              sha: c.id,
-              author: c.author?.username || c.committer?.username || c.author?.name || "unknown",
-              commit_timestamp: c.timestamp,
-              commit_dt,
-              message: c.message,
-              insertions: c.added ? c.added.length : 0,
-              deletions: c.removed ? c.removed.length : 0,
-              total_changes: (c.added ? c.added.length : 0) + (c.removed ? c.removed.length : 0),
-              day_of_week: dow,
-              hour_of_day: ts.getHours(),
-              week_start
-            };
-          });
-
-          core.setOutput("commits", JSON.stringify(results));
-
-    - name: Send metrics to Google Sheet (Apps Script)
-      env:
-        WEBAPP_URL: ${{ secrets.SHEETS_WEBAPP_URL }}
-        SHARED_SECRET: ${{ secrets.SHEETS_SHARED_SECRET }}
-      run: |
-        commits='${{ steps.commitinfo.outputs.commits }}'
-        echo "$commits" | jq -c '.[]' | while read row; do
-          payload=$(echo "$row" | jq --arg secret "$SHARED_SECRET" '. + {secret:$secret}')
-          echo "Sending: $payload"
-          curl -s -X POST -H "Content-Type: application/json" -d "$payload" "$WEBAPP_URL"
-        done
+              String(monday.getMonth() + 1).padStart(2, "0") + "-" +
+              String(monday.getDate()).padStart
