@@ -87,7 +87,16 @@ graph TD
     - **Products Service:** Complete product management including inventory tracking, product analytics, lifecycle management, catalog management, and demand forecasting.
     - **Risk Management Service:** Enterprise risk assessment including compliance monitoring, incident management, regulatory reporting, and risk analytics with early warning systems.
     - **Reports Service:** Comprehensive reporting capabilities including custom report generation, scheduling, export functionality, and real-time dashboard visualization from multiple data sources.
-    - **AI Orchestrator Service:** Acts as a bridge between the user's query and the DeepSeek AI model. It fetches context from other services and performs intelligent data aggregation before querying the AI.
+    - **AI Orchestrator Service:** Advanced AI interaction management with comprehensive features including:
+      - **Multi-turn Conversations:** Context-aware chat sessions with memory persistence
+      - **Session Management:** Conversation history tracking and context preservation
+      - **Smart Context Aggregation:** Intelligent data gathering from multiple business services
+      - **Response Optimization:** Chart generation, insights extraction, and recommendation engines
+      - **User Feedback Loop:** Quality improvement through rating and feedback collection
+      - **Contextual Suggestions:** Proactive query recommendations based on user role and history
+      - **Real-time Streaming:** Optional SSE-based streaming for enhanced user experience
+      - **Analytics & Monitoring:** Usage patterns, performance metrics, and quality analytics
+      - **DeepSeek Integration:** Advanced prompt engineering and response processing
 4.  **PostgreSQL Database:** The primary relational database. While shown as a single instance for simplicity, in a true microservice architecture, each service might have its own dedicated database or schema.
 5.  **DeepSeek AI:** An external, third-party service that provides the core natural language processing and generation capabilities.
 
@@ -134,15 +143,44 @@ graph TD
 5.  **Auth Service** sends welcome email with temporary password to new user.
 6.  New user must change password and setup MFA on first login.
 
-### Example 2: User Asks the AI a Question
+### Example 2: Enhanced AI Chat Interaction Flow
+
+#### Multi-turn Conversation with Context
 
 1.  User types "Compare our sales in Q1 vs Q2" into the chat interface on the **Frontend**.
-2.  Frontend sends the authenticated request (with JWT) to the **API Gateway**, which routes it to the **AI Orchestrator Service**.
-3.  The **AI Orchestrator Service** calls the **Sales Service** via the API Gateway to fetch sales data for Q1 and Q2.
-4.  It then constructs a detailed prompt (e.g., "Given the following sales data [...], compare Q1 and Q2.").
-5.  The prompt is sent to the external **DeepSeek AI API**.
-6.  DeepSeek processes the request and returns a natural language answer with analysis.
-7.  The **AI Orchestrator Service** forwards the answer back to the **Frontend**, which displays it to the user.
+2.  Frontend sends the authenticated request (with JWT and session_id) to the **API Gateway**, which routes it to the **AI Orchestrator Service**.
+3.  **AI Orchestrator Service** performs intelligent context gathering:
+
+- Retrieves conversation history for session continuity
+- Calls **Sales Service** via API Gateway to fetch Q1 and Q2 sales data
+- Calls **Finance Service** for related financial context
+- Aggregates user permissions to determine data access scope
+
+4.  **AI Orchestrator Service** constructs comprehensive prompt with business context and sends to **DeepSeek AI**.
+5.  **DeepSeek AI** processes the request and returns structured analysis with recommendations.
+6.  **AI Orchestrator Service** processes the response:
+
+- Generates chart data specifications for frontend rendering
+- Extracts key insights and recommendations
+- Creates contextual follow-up suggestions
+- Stores conversation in session history
+
+7.  Enhanced response is returned to **Frontend** including:
+
+- Natural language analysis
+- Chart visualization data
+- Key insights and recommendations
+- Suggested follow-up questions
+
+8.  **Frontend** renders the complete response with interactive visualizations.
+
+#### Context Management and Follow-up
+
+9.  User asks follow-up question: "What drove the increase in Q2?"
+10. **AI Orchestrator Service** maintains context from previous exchange:
+    - References previous Q1/Q2 comparison
+    - Accesses deeper sales and market data
+    - Provides contextual analysis without requiring context restatement
 
 ### Example 3: Password Change Flow
 

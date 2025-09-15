@@ -475,29 +475,120 @@ Provides comprehensive access to sales-related data, performance metrics, foreca
 #### `GET /sales/overview`
 
 - **Description:** Retrieves key sales metrics and KPIs for a given period.
+- **Authentication:** Requires valid JWT token in Authorization header.
 - **Query Parameters:**
   - `period` (string, optional): "daily", "weekly", "monthly", "quarterly", "yearly". Defaults to "monthly".
+  - `region` (string, optional): Filter by specific geographical region
+  - `team_id` (string, optional): Filter by specific sales team
 - **Success Response (200 OK):**
   ```json
   {
+    "period": "monthly",
+    "period_start": "2025-09-01",
+    "period_end": "2025-09-30",
     "total_revenue": 1250000,
+    "revenue_change_percentage": 12.5,
     "new_deals": 45,
-    "win_rate": "28%",
+    "deals_change_percentage": 8.2,
+    "win_rate": 0.28,
+    "win_rate_change_percentage": 3.1,
     "average_deal_size": 27777,
     "pipeline_value": 890000,
-    "conversion_rate": "3.2%",
+    "conversion_rate": 0.032,
     "customer_acquisition_cost": 1200,
-    "customer_lifetime_value": 15000
+    "customer_lifetime_value": 15000,
+    "top_performers": [
+      {
+        "sales_rep_id": "rep_001",
+        "name": "John Smith",
+        "revenue": 185000,
+        "deals_closed": 8
+      }
+    ],
+    "regional_breakdown": [
+      { "region": "North", "revenue": 450000, "percentage": 36.0 },
+      { "region": "South", "revenue": 380000, "percentage": 30.4 },
+      { "region": "West", "revenue": 420000, "percentage": 33.6 }
+    ]
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "detail": "Invalid period specified. Must be one of: daily, weekly, monthly, quarterly, yearly",
+    "error_code": "INVALID_PERIOD"
+  }
+  ```
+- **Error Response (403 Forbidden):**
+  ```json
+  {
+    "detail": "Insufficient permissions to access sales data",
+    "error_code": "SALES_ACCESS_DENIED"
+  }
+  ```
+- **Error Response (404 Not Found):**
+  ```json
+  {
+    "detail": "Sales data not found for the specified period or region",
+    "error_code": "SALES_DATA_NOT_FOUND"
   }
   ```
 
 #### `GET /sales/performance`
 
 - **Description:** Retrieves sales performance data over time for trend analysis.
+- **Authentication:** Requires valid JWT token in Authorization header.
 - **Query Parameters:**
-  - `startDate` (string, ISO 8601)
-  - `endDate` (string, ISO 8601)
-  - `granularity` (string): "daily", "weekly", "monthly".
+  - `start_date` (string, ISO 8601, required): Start date for performance analysis
+  - `end_date` (string, ISO 8601, required): End date for performance analysis
+  - `granularity` (string, optional): "daily", "weekly", "monthly". Defaults to "weekly"
+  - `metrics` (array, optional): Specific metrics to include ["revenue", "deals", "conversion"]
+- **Success Response (200 OK):**
+  ```json
+  {
+    "period": {
+      "start": "2025-07-01",
+      "end": "2025-09-30",
+      "granularity": "weekly"
+    },
+    "data_points": [
+      {
+        "period": "2025-07-01",
+        "revenue": 285000,
+        "deals_closed": 12,
+        "conversion_rate": 0.034,
+        "pipeline_additions": 15
+      },
+      {
+        "period": "2025-07-08",
+        "revenue": 320000,
+        "deals_closed": 14,
+        "conversion_rate": 0.038,
+        "pipeline_additions": 18
+      }
+    ],
+    "summary": {
+      "total_revenue": 3250000,
+      "total_deals": 156,
+      "average_conversion_rate": 0.036,
+      "growth_rate": 0.125
+    }
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "detail": "Invalid date range. End date must be after start date",
+    "error_code": "INVALID_DATE_RANGE"
+  }
+  ```
+- **Error Response (422 Unprocessable Entity):**
+  ```json
+  {
+    "detail": "Date range too large. Maximum allowed range is 2 years",
+    "error_code": "DATE_RANGE_TOO_LARGE"
+  }
+  ```
 - **Success Response (200 OK):**
   ```json
   {
@@ -610,72 +701,155 @@ Provides comprehensive access to sales-related data, performance metrics, foreca
 
 Provides comprehensive access to financial data, KPIs, budgeting, cash flow, and expense management.
 
-#### `GET /finance/kpis`
+#### `GET /finance/overview`
 
-- **Description:** Retrieves top-level financial KPIs and health indicators.
+- **Description:** Retrieves top-level financial KPIs and health indicators for executive dashboard.
+- **Authentication:** Requires valid JWT token in Authorization header.
 - **Query Parameters:**
-  - `period` (string, optional): "monthly", "quarterly", "yearly". Defaults to "monthly".
+  - `period` (string, optional): "monthly", "quarterly", "yearly". Defaults to "monthly"
+  - `currency` (string, optional): ISO currency code (USD, EUR, etc.). Defaults to company base currency
+  - `include_projections` (boolean, optional): Include forward-looking projections. Defaults to false
 - **Success Response (200 OK):**
   ```json
   {
-    "kpis": [
-      {
-        "name": "Gross Margin",
-        "value": "65%",
-        "change": "+1.2%",
-        "target": "70%"
+    "period": "monthly",
+    "period_start": "2025-09-01",
+    "period_end": "2025-09-30",
+    "currency": "USD",
+    "kpis": {
+      "gross_margin": {
+        "value": 0.65,
+        "change_percentage": 1.2,
+        "target": 0.7,
+        "status": "below_target"
       },
-      {
-        "name": "Net Profit",
+      "net_profit": {
         "value": 450000,
-        "change": "+8.1%",
-        "target": 500000
+        "change_percentage": 8.1,
+        "target": 500000,
+        "status": "approaching_target"
       },
-      {
-        "name": "Operating Margin",
-        "value": "18%",
-        "change": "+0.8%",
-        "target": "20%"
+      "operating_margin": {
+        "value": 0.18,
+        "change_percentage": 0.8,
+        "target": 0.2,
+        "status": "below_target"
       },
-      { "name": "EBITDA", "value": 890000, "change": "+12%", "target": 1000000 }
-    ],
+      "ebitda": {
+        "value": 890000,
+        "change_percentage": 12.0,
+        "target": 1000000,
+        "status": "on_track"
+      }
+    },
     "financial_health_score": 85,
-    "cash_runway_months": 18
+    "cash_runway_months": 18,
+    "burn_rate_monthly": 125000,
+    "revenue_growth_rate": 0.15,
+    "debt_to_equity_ratio": 0.42
+  }
+  ```
+- **Error Response (403 Forbidden):**
+  ```json
+  {
+    "detail": "Insufficient permissions to access financial data",
+    "error_code": "FINANCE_ACCESS_DENIED"
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "detail": "Invalid currency code specified",
+    "error_code": "INVALID_CURRENCY"
   }
   ```
 
 #### `GET /finance/cash-flow`
 
 - **Description:** Retrieves detailed cash flow analysis and projections.
+- **Authentication:** Requires valid JWT token in Authorization header.
 - **Query Parameters:**
-  - `period` (string, optional): "monthly", "quarterly"
+  - `period` (string, optional): "monthly", "quarterly", "yearly". Defaults to "monthly"
+  - `include_forecast` (boolean, optional): Include 6-month cash flow forecast. Defaults to false
+  - `breakdown_level` (string, optional): "summary", "detailed". Defaults to "summary"
 - **Success Response (200 OK):**
   ```json
   {
-    "current_cash": 2500000,
+    "period": "monthly",
+    "current_cash_position": 2500000,
     "cash_flow": {
-      "operating": 350000,
-      "investing": -125000,
-      "financing": 50000,
-      "net": 275000
-    },
-    "monthly_data": [
-      {
-        "month": "2023-07",
-        "inflow": 1200000,
-        "outflow": 950000,
-        "net": 250000
+      "operating_activities": {
+        "value": 350000,
+        "change_percentage": 8.5,
+        "breakdown": {
+          "revenue_received": 1250000,
+          "operating_expenses": -675000,
+          "tax_payments": -125000,
+          "interest_payments": -25000
+        }
       },
-      {
-        "month": "2023-08",
-        "inflow": 1350000,
-        "outflow": 1025000,
-        "net": 325000
+      "investing_activities": {
+        "value": -125000,
+        "change_percentage": -15.2,
+        "breakdown": {
+          "capital_expenditures": -100000,
+          "asset_disposals": 15000,
+          "investments": -40000
+        }
+      },
+      "financing_activities": {
+        "value": 50000,
+        "change_percentage": 25.0,
+        "breakdown": {
+          "debt_issuance": 75000,
+          "debt_repayment": -20000,
+          "dividend_payments": -5000
+        }
       }
-    ],
-    "burn_rate": 180000,
-    "runway_months": 18
+    },
+    "net_cash_flow": 275000,
+    "cash_runway_analysis": {
+      "current_burn_rate": 125000,
+      "runway_months": 18,
+      "projected_cash_depletion": "2027-03-15"
+    }
   }
+  ```
+- **Error Response (403 Forbidden):**
+  ```json
+  {
+    "detail": "Insufficient permissions to access cash flow data",
+    "error_code": "CASH_FLOW_ACCESS_DENIED"
+  }
+  ```
+- **Error Response (503 Service Unavailable):**
+  ```json
+  {
+    "detail": "Financial data service temporarily unavailable",
+    "error_code": "FINANCE_SERVICE_UNAVAILABLE"
+  }
+  ```
+      "net": 275000
+  },
+  "monthly_data": [
+  {
+  "month": "2023-07",
+  "inflow": 1200000,
+  "outflow": 950000,
+  "net": 250000
+  },
+  {
+  "month": "2023-08",
+  "inflow": 1350000,
+  "outflow": 1025000,
+  "net": 325000
+  }
+  ],
+  "burn_rate": 180000,
+  "runway_months": 18
+  }
+  ```
+
   ```
 
 #### `GET /finance/expenses`
@@ -1547,33 +1721,334 @@ Provides comprehensive reporting capabilities including report generation, sched
 
 ## 3. AI Orchestrator Service (`/ai`)
 
-Handles interactions with the AI assistant.
+Handles interactions with the AI assistant, providing advanced conversational capabilities, context management, and intelligent business insights.
 
 ---
 
 ### `POST /ai/chat`
 
-- **Description:** Sends a user's natural language query to the AI and gets a response.
+- **Description:** Sends a user's natural language query to the AI and gets a response. Supports multi-turn conversations with context preservation.
+- **Authentication:** Requires valid JWT token in Authorization header.
 - **Request Body:**
   ```json
   {
     "query": "What were our total sales in Q2?",
-    "session_id": "session_uuid_abc"
+    "session_id": "session_uuid_abc123",
+    "context_reset": false,
+    "visualization_preference": "auto",
+    "response_format": "comprehensive"
   }
   ```
 - **Success Response (200 OK):**
-  The response can be complex and may include text, data, or instructions for the frontend to render a chart.
   ```json
   {
-    "response_type": "composite", // or "text", "chart"
-    "text_response": "Sales for Q2 were $450,000. Here is the breakdown by region:",
+    "message_id": "msg_456def",
+    "session_id": "session_uuid_abc123",
+    "response_type": "composite",
+    "text_response": "Sales for Q2 were $450,000, representing a 12% increase from Q1 ($402,000). Here is the breakdown by region:",
     "chart_data": {
       "type": "bar",
+      "title": "Q2 Sales by Region",
       "data": [
-        { "region": "North", "sales": 200000 },
-        { "region": "South", "sales": 150000 },
-        { "region": "West", "sales": 100000 }
+        { "region": "North", "sales": 200000, "percentage": 44.4 },
+        { "region": "South", "sales": 150000, "percentage": 33.3 },
+        { "region": "West", "sales": 100000, "percentage": 22.2 }
+      ],
+      "config": {
+        "x_axis": "region",
+        "y_axis": "sales",
+        "color_scheme": "business"
+      }
+    },
+    "insights": [
+      "North region shows strongest performance with 44% of total sales",
+      "Year-over-year growth in Q2 is 18% above industry average"
+    ],
+    "follow_up_suggestions": [
+      "What were the main drivers of North region's strong performance?",
+      "How do Q2 results compare to our annual targets?",
+      "Show me the sales trend over the last 12 months"
+    ],
+    "processing_time_ms": 2340,
+    "confidence_score": 0.95,
+    "data_sources": ["sales_service", "finance_service"],
+    "context_maintained": true
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "detail": "Query cannot be empty",
+    "error_code": "INVALID_QUERY"
+  }
+  ```
+- **Error Response (403 Forbidden):**
+  ```json
+  {
+    "detail": "Insufficient permissions to access AI chat functionality",
+    "error_code": "AI_ACCESS_DENIED"
+  }
+  ```
+- **Error Response (429 Too Many Requests):**
+  ```json
+  {
+    "detail": "AI query rate limit exceeded. Please wait before sending another request",
+    "error_code": "RATE_LIMIT_EXCEEDED",
+    "retry_after_seconds": 60
+  }
+  ```
+- **Error Response (503 Service Unavailable):**
+  ```json
+  {
+    "detail": "AI service temporarily unavailable. Please try again later",
+    "error_code": "AI_SERVICE_UNAVAILABLE"
+  }
+  ```
+
+---
+
+### `GET /ai/history`
+
+- **Description:** Retrieves the chat conversation history for a specific session or user.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Query Parameters:**
+  - `session_id` (string, optional): Specific session ID to retrieve
+  - `limit` (integer, optional, default=50): Maximum number of messages to return
+  - `offset` (integer, optional, default=0): Number of messages to skip
+  - `date_from` (string, optional): Filter messages from this date (ISO 8601 format)
+  - `date_to` (string, optional): Filter messages to this date (ISO 8601 format)
+- **Success Response (200 OK):**
+  ```json
+  {
+    "session_id": "session_uuid_abc123",
+    "total_messages": 24,
+    "messages": [
+      {
+        "message_id": "msg_456def",
+        "timestamp": "2025-09-16T14:30:00Z",
+        "type": "user",
+        "content": "What were our total sales in Q2?",
+        "metadata": {
+          "ip_address": "192.168.1.100",
+          "user_agent": "Mozilla/5.0..."
+        }
+      },
+      {
+        "message_id": "msg_789ghi",
+        "timestamp": "2025-09-16T14:30:02Z",
+        "type": "ai",
+        "content": "Sales for Q2 were $450,000...",
+        "response_type": "composite",
+        "processing_time_ms": 2340,
+        "confidence_score": 0.95,
+        "data_sources": ["sales_service", "finance_service"]
+      }
+    ],
+    "pagination": {
+      "current_page": 1,
+      "total_pages": 1,
+      "has_next": false,
+      "has_previous": false
+    }
+  }
+  ```
+- **Error Response (403 Forbidden):**
+  ```json
+  {
+    "detail": "Access denied to chat history",
+    "error_code": "HISTORY_ACCESS_DENIED"
+  }
+  ```
+- **Error Response (404 Not Found):**
+  ```json
+  {
+    "detail": "Session not found or expired",
+    "error_code": "SESSION_NOT_FOUND"
+  }
+  ```
+
+---
+
+### `POST /ai/feedback`
+
+- **Description:** Allows users to provide feedback on AI responses for quality improvement and audit purposes.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "message_id": "msg_789ghi",
+    "session_id": "session_uuid_abc123",
+    "rating": "thumbs_up",
+    "feedback_type": "accuracy",
+    "comment": "Very helpful and accurate analysis",
+    "specific_issues": []
+  }
+  ```
+- **Success Response (201 Created):**
+  ```json
+  {
+    "feedback_id": "fb_123xyz",
+    "message": "Feedback recorded successfully",
+    "timestamp": "2025-09-16T14:35:00Z"
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "detail": "Invalid rating value. Must be one of: thumbs_up, thumbs_down, neutral",
+    "error_code": "INVALID_RATING"
+  }
+  ```
+- **Error Response (404 Not Found):**
+  ```json
+  {
+    "detail": "Message not found or does not belong to user",
+    "error_code": "MESSAGE_NOT_FOUND"
+  }
+  ```
+
+---
+
+### `POST /ai/context/reset`
+
+- **Description:** Resets the conversation context for a session, allowing users to start a new topic without previous context interference.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "session_id": "session_uuid_abc123",
+    "preserve_history": true
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "Context reset successfully",
+    "session_id": "session_uuid_abc123",
+    "timestamp": "2025-09-16T14:40:00Z",
+    "previous_context_archived": true
+  }
+  ```
+- **Error Response (404 Not Found):**
+  ```json
+  {
+    "detail": "Session not found",
+    "error_code": "SESSION_NOT_FOUND"
+  }
+  ```
+
+---
+
+### `GET /ai/suggestions`
+
+- **Description:** Returns suggested queries or next actions based on current context, user role, and available data.
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Query Parameters:**
+  - `session_id` (string, optional): Session ID for contextual suggestions
+  - `category` (string, optional): Filter suggestions by business domain
+  - `limit` (integer, optional, default=5): Maximum number of suggestions
+- **Success Response (200 OK):**
+  ```json
+  {
+    "suggestions": [
+      {
+        "id": "sug_001",
+        "query": "What were the main drivers of North region's strong performance?",
+        "category": "sales",
+        "relevance_score": 0.95,
+        "description": "Follow-up analysis based on previous Q2 sales discussion",
+        "expected_response_type": "analytical"
+      },
+      {
+        "id": "sug_002",
+        "query": "Show me employee satisfaction trends for this quarter",
+        "category": "hr",
+        "relevance_score": 0.87,
+        "description": "Recommended based on your role and recent HR activity",
+        "expected_response_type": "chart"
+      }
+    ],
+    "context_based": true,
+    "personalization_applied": true
+  }
+  ```
+
+---
+
+### `POST /ai/stream` (Optional - Advanced Feature)
+
+- **Description:** Initiates a streaming conversation for real-time AI responses using Server-Sent Events (SSE).
+- **Authentication:** Requires valid JWT token in Authorization header.
+- **Request Body:**
+  ```json
+  {
+    "query": "Provide a detailed analysis of our quarterly performance",
+    "session_id": "session_uuid_abc123",
+    "stream_type": "incremental"
+  }
+  ```
+- **Response:** Server-Sent Events stream
+- **Content-Type:** `text/event-stream`
+- **Example Stream Events:**
+
+  ```
+  data: {"type": "start", "message_id": "msg_stream_001"}
+
+  data: {"type": "token", "content": "Based on the quarterly data, "}
+
+  data: {"type": "token", "content": "our revenue increased by 15% compared to the previous quarter..."}
+
+  data: {"type": "chart_start", "chart_type": "line"}
+
+  data: {"type": "chart_data", "data": [{"month": "Jul", "revenue": 150000}]}
+
+  data: {"type": "complete", "total_tokens": 245, "processing_time_ms": 4500}
+  ```
+
+---
+
+### `GET /ai/analytics`
+
+- **Description:** Provides analytics and insights about AI usage patterns for system optimization and user behavior analysis.
+- **Authentication:** Requires admin-level JWT token in Authorization header.
+- **Query Parameters:**
+  - `date_from` (string, optional): Start date for analytics period
+  - `date_to` (string, optional): End date for analytics period
+  - `user_id` (string, optional): Filter by specific user
+- **Success Response (200 OK):**
+  ```json
+  {
+    "period": {
+      "from": "2025-09-01T00:00:00Z",
+      "to": "2025-09-16T23:59:59Z"
+    },
+    "total_queries": 1247,
+    "unique_users": 23,
+    "average_response_time_ms": 2100,
+    "top_categories": [
+      { "category": "sales", "count": 456, "percentage": 36.6 },
+      { "category": "finance", "count": 312, "percentage": 25.0 },
+      { "category": "hr", "count": 234, "percentage": 18.8 }
+    ],
+    "user_satisfaction": {
+      "average_rating": 4.2,
+      "total_feedback": 187,
+      "positive_percentage": 84.5
+    },
+    "error_rates": {
+      "total_errors": 23,
+      "error_percentage": 1.8,
+      "common_errors": [
+        { "error_code": "DATA_UNAVAILABLE", "count": 12 },
+        { "error_code": "TIMEOUT", "count": 8 }
       ]
     }
+  }
+  ```
+- **Error Response (403 Forbidden):**
+  ```json
+  {
+    "detail": "Insufficient permissions to access AI analytics",
+    "error_code": "ANALYTICS_ACCESS_DENIED"
   }
   ```

@@ -42,11 +42,17 @@ A-EMS is built on a **microservices architecture** for scalability, resilience, 
 
 **Key Components:**
 
-- **Frontend:** Next.js SPA for UI and user interaction
-- **API Gateway:** Central entry point for all client requests, handling routing and authentication
-- **Backend Microservices:** Python/FastAPI services for Auth, Sales, Finance, HR, Products, Risk, Reports, and AI Orchestration
-- **Database:** PostgreSQL for persistent storage
-- **AI Integration:** DeepSeek for natural language processing and business insights
+- **Frontend:** Next.js SPA with advanced chat interface and real-time streaming support
+- **API Gateway:** Central routing with authentication, rate limiting, and request correlation
+- **Backend Microservices:** Python/FastAPI services for Auth, Sales, Finance, HR, Products, Risk, Reports, and enhanced AI Orchestration
+- **AI Orchestrator Service:** Advanced conversational AI with:
+  - Multi-turn conversation management and context preservation
+  - Real-time streaming responses with WebSocket/SSE support
+  - Session history and conversation analytics
+  - Contextual business data integration and intelligent prompt engineering
+  - Feedback loops for continuous improvement and quality tracking
+- **Database:** PostgreSQL with conversation persistence and analytics tracking
+- **AI Integration:** DeepSeek with sophisticated prompt engineering and business context injection
 
 For architecture diagrams, data flow, and deployment details, see [System Architecture](./docs/System_Architecture.md).
 
@@ -54,21 +60,47 @@ For architecture diagrams, data flow, and deployment details, see [System Archit
 
 ## Core Features
 
-- **Executive Dashboard:** Real-time, customizable analytics across all business domains
-- **AI Chat Assistant:** Conversational interface for natural language queries, visualizations, and recommendations
-- **Comprehensive Reporting:** Custom report generation, scheduling, and export
-- **Enterprise-Grade Authentication & Security:**
-  - MFA (TOTP, backup codes)
-  - OAuth 2.0 / OIDC (Google)
-  - RBAC, session/device management, audit logging
-- **Comprehensive Logging & Monitoring:**
-  - Structured JSON logging with correlation ID tracking
-  - Centralized log aggregation and real-time monitoring
-  - User-friendly error notifications with toast messages
-  - Security and audit event tracking
+### 🎯 Executive Dashboard
+
+- **Real-time Analytics:** Customizable dashboards across all business domains
+- **Interactive Visualizations:** Dynamic charts and KPIs with drill-down capabilities
+- **Performance Monitoring:** Live tracking of critical business metrics
+- **Custom Report Generation:** Automated scheduling and export functionality
+
+### 🤖 Advanced AI Assistant
+
+- **Multi-Turn Conversations:** Context-aware chat with session continuity
+- **Natural Language Queries:** Ask complex business questions in plain English
+- **Real-Time Streaming:** Live response generation for improved user experience
+- **Contextual Suggestions:** Intelligent follow-up questions and analysis recommendations
+- **Conversation Analytics:** Usage patterns and interaction quality tracking
+- **Feedback System:** Continuous learning from user interactions
+- **Business Context Integration:** Deep understanding of your enterprise data
+- **Interactive Visualizations:** AI-generated charts and insights embedded in chat responses
+
+### 🔐 Enterprise-Grade Security
+
+- **Multi-Factor Authentication:** TOTP, backup codes, and device management
+- **OAuth 2.0 / OIDC Integration:** Seamless Google authentication
+- **Role-Based Access Control (RBAC):** Granular permissions and security policies
+- **Session Management:** Comprehensive device tracking and security monitoring
+- **Audit Logging:** Complete security event tracking and compliance reporting
+
+### 📊 Comprehensive Business Intelligence
+
+- **Sales Analytics:** Revenue tracking, pipeline management, performance forecasting
+- **Financial Insights:** Cash flow, profitability, budget variance analysis
+- **HR Metrics:** Employee performance, retention, recruitment analytics
 - **Risk & Compliance:** Monitoring, incident tracking, regulatory reporting
-- **Product & Inventory Management:** Analytics, lifecycle, demand forecasting
-- **Mobile-Responsive & Accessible Design**
+- **Product Management:** Lifecycle analytics, inventory optimization, demand forecasting
+
+### 🔧 Advanced Technical Features
+
+- **Structured Logging:** JSON-formatted logs with correlation ID tracking
+- **Centralized Monitoring:** Real-time system health and performance tracking
+- **Error Handling:** Comprehensive error management with user-friendly notifications
+- **Mobile-Responsive Design:** Optimized experience across all devices
+- **Accessibility Compliance:** WCAG 2.1 AA standards with keyboard navigation support
 
 See [Project Information and Scope](./docs/Project_Info_Scope.md) for a full feature breakdown.
 

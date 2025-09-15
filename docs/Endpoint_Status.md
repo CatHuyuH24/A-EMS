@@ -48,6 +48,20 @@ For complete logging and monitoring specifications, see [Logging Guide](./Loggin
 
 ---
 
+## AI Orchestrator Service (`/ai`)
+
+| Endpoint            | Method | Status | Priority | Notes                                    |
+| ------------------- | ------ | ------ | -------- | ---------------------------------------- |
+| `/ai/chat`          | POST   | 📋     | High     | Multi-turn conversations, visualizations |
+| `/ai/history`       | GET    | 📋     | High     | Chat conversation history retrieval      |
+| `/ai/feedback`      | POST   | 📋     | Medium   | User feedback on AI responses            |
+| `/ai/context/reset` | POST   | 📋     | Medium   | Reset conversation context               |
+| `/ai/suggestions`   | GET    | 📋     | Medium   | Contextual query suggestions             |
+| `/ai/stream`        | POST   | 📋     | Low      | Real-time streaming responses (SSE)      |
+| `/ai/analytics`     | GET    | 📋     | Low      | AI usage analytics (admin only)          |
+
+---
+
 ## Sales Service (`/sales`)
 
 | Endpoint             | Method | Status | Priority | Notes                      |
@@ -55,8 +69,8 @@ For complete logging and monitoring specifications, see [Logging Guide](./Loggin
 | `/sales/overview`    | GET    | 📋     | High     | Sales KPI dashboard        |
 | `/sales/pipeline`    | GET    | 📋     | High     | Sales funnel analytics     |
 | `/sales/customers`   | GET    | 📋     | High     | Customer relationship data |
+| `/sales/performance` | GET    | 📋     | High     | Performance trend analysis |
 | `/sales/forecasting` | GET    | 📋     | Medium   | Predictive sales analytics |
-| `/sales/performance` | GET    | 📋     | Medium   | Individual/team metrics    |
 | `/sales/territories` | GET    | 📋     | Medium   | Geographic sales analysis  |
 
 ---
