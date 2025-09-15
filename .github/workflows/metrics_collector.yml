@@ -13,39 +13,55 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Extract commit info
-      id: commitinfo
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const commits = context.payload.commits;
-          if (!commits || commits.length === 0) {
-            core.setFailed("No commits found in push event");
-          }
+      - name: Extract commit info
+        id: commitinfo
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const commits = context.payload.commits;
+            if (!commits || commits.length === 0) {
+              core.setFailed("No commits found in push event");
+            }
 
-          const results = [];
-          for (const c of commits) {
-            // fetch commit details to get line-level stats
-            const { data } = await github.rest.repos.getCommit({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: c.id
-            });
+            const results = [];
+            for (const c of commits) {
+              // fetch commit details to get line-level stats
+              const { data } = await github.rest.repos.getCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: c.id
+              });
 
-            const ts = new Date(c.timestamp);
-            const commit_dt = ts.getFullYear() + "-" +
-              String(ts.getMonth() + 1).padStart(2, "0") + "-" +
-              String(ts.getDate()).padStart(2, "0") + " " +
-              String(ts.getHours()).padStart(2, "0") + ":" +
-              String(ts.getMinutes()).padStart(2, "0") + ":" +
-              String(ts.getSeconds()).padStart(2, "0");
+              const ts = new Date(c.timestamp);
+              const commit_dt = ts.getFullYear() + "-" +
+                String(ts.getMonth() + 1).padStart(2, "0") + "-" +
+                String(ts.getDate()).padStart(2, "0") + " " +
+                String(ts.getHours()).padStart(2, "0") + ":" +
+                String(ts.getMinutes()).padStart(2, "0") + ":" +
+                String(ts.getSeconds()).padStart(2, "0");
 
-            const dow = (ts.getDay() === 0 ? 7 : ts.getDay()); // Sunday=0 → 7
-            const monday = new Date(ts);
-            monday.setDate(ts.getDate() - dow + 1);
-            const week_start = monday.getFullYear() + "-" +
-              String(monday.getMonth() + 1).padStart(2, "0") + "-" +
-              String(monday.getDate()).padStart
+              const dow = (ts.getDay() === 0 ? 7 : ts.getDay()); // Sunday=0 → 7
+              const monday = new Date(ts);
+              monday.setDate(ts.getDate() - dow + 1);
+              const week_start = monday.getFullYear() + "-" +
+                String(monday.getMonth() + 1).padStart(2, "0") + "-" +
+                String(monday.getDate()).padStart(2, "0");
+
+              // aggregate stats
+              let totalInsertions = 0;
+              let totalDeletions = 0;
+              let totalFiles = 0;
+
+              for (const f of data.files) {
+                totalInsertions += f.additions;
+                totalDeletions += f.deletions;
+                totalFiles++;
+              }
+
+              results.push({
+                commit_id: c.id,
+                message: c.message,
+                author: c.author.name,
