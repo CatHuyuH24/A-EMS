@@ -73,8 +73,16 @@ jobs:
               });
             }
 
-            core.setOutput("commit_metrics", JSON.stringify(results, null, 2));
+            core.setOutput("commits", JSON.stringify(results));
 
-      - name: Print results
+      - name: Send metrics to Google Sheet (Apps Script)
+        env:
+          WEBAPP_URL: ${{ secrets.SHEETS_WEBAPP_URL }}
+          SHARED_SECRET: ${{ secrets.SHEETS_SHARED_SECRET }}
         run: |
-          echo "${{ steps.commitinfo.outputs.commit_metrics }}"
+          commits='${{ steps.commitinfo.outputs.commits }}'
+          echo "$commits" | jq -c '.[]' | while read row; do
+            payload=$(echo "$row" | jq --arg secret "$SHARED_SECRET" '. + {secret:$secret}')
+            echo "Sending: $payload"
+            curl -s -X POST -H "Content-Type: application/json" -d "$payload" "$WEBAPP_URL"
+          done
