@@ -67,6 +67,8 @@ jobs:
                 author: c.author.name,
                 commit_dt,
                 week_start,
+                day_of_week: dow,
+                hour_of_day: ts.getHours(),
                 insertions: totalInsertions,
                 deletions: totalDeletions,
                 files_changed: totalFiles
