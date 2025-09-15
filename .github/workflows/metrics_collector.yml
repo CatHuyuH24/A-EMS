@@ -71,6 +71,7 @@ jobs:
                 hour_of_day: ts.getHours(),
                 insertions: totalInsertions,
                 deletions: totalDeletions,
+                total_changes: totalInsertions + totalDeletions,
                 files_changed: totalFiles
               });
             }
