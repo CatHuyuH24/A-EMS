@@ -62,13 +62,14 @@ jobs:
               }
 
               results.push({
-                commit_id: c.id,
-                message: c.message,
-                author: c.author.name,
+                commit_hash: c.id,
+                commit_timestamp: c.timestamp,
                 commit_dt,
                 week_start,
                 day_of_week: dow,
                 hour_of_day: ts.getHours(),
+                author: c.author.name,
+                message: c.message,
                 insertions: totalInsertions,
                 deletions: totalDeletions,
                 total_changes: totalInsertions + totalDeletions,
