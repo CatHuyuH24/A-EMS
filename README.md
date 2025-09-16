@@ -45,13 +45,18 @@ A-EMS is built on a **microservices architecture** for scalability, resilience, 
 - **Frontend:** Next.js SPA with advanced chat interface and real-time streaming support
 - **API Gateway:** Central routing with authentication, rate limiting, and request correlation
 - **Backend Microservices:** Python/FastAPI services for Auth, Sales, Finance, HR, Products, Risk, Reports, and enhanced AI Orchestration
+- **Database Infrastructure:**
+  - PostgreSQL 15+ with Docker containerization and PgBouncer connection pooling
+  - Database-per-Service pattern with shared core entities (authentication, tenants)
+  - Enterprise security with row-level security policies and data encryption
+  - Performance optimization with strategic indexing, partitioning, and query optimization
+  - Automated backup and recovery systems with point-in-time recovery
 - **AI Orchestrator Service:** Advanced conversational AI with:
   - Multi-turn conversation management and context preservation
   - Real-time streaming responses with WebSocket/SSE support
   - Session history and conversation analytics
   - Contextual business data integration and intelligent prompt engineering
   - Feedback loops for continuous improvement and quality tracking
-- **Database:** PostgreSQL with conversation persistence and analytics tracking
 - **AI Integration:** DeepSeek with sophisticated prompt engineering and business context injection
 
 For architecture diagrams, data flow, and deployment details, see [System Architecture](./docs/System_Architecture.md).
@@ -94,7 +99,18 @@ For architecture diagrams, data flow, and deployment details, see [System Archit
 - **Risk & Compliance:** Monitoring, incident tracking, regulatory reporting
 - **Product Management:** Lifecycle analytics, inventory optimization, demand forecasting
 
-### 🔧 Advanced Technical Features
+### �️ Enterprise Database Architecture
+
+- **PostgreSQL 15+:** Advanced database engine with full Docker containerization
+- **Database-per-Service Pattern:** Microservices-optimized architecture with shared core entities
+- **Performance Optimization:** Strategic indexing, time-series partitioning, and query optimization
+- **Security & Compliance:** Row-level security policies, data encryption, and comprehensive audit trails
+- **Connection Pooling:** PgBouncer for optimal performance and resource management
+- **Backup & Recovery:** Automated backup systems with point-in-time recovery capabilities
+- **Migration Management:** Version-controlled database migrations with rollback support
+- **Multi-Tenant Ready:** Enterprise-grade tenant isolation and scalability
+
+### �🔧 Advanced Technical Features
 
 - **Structured Logging:** JSON-formatted logs with correlation ID tracking
 - **Centralized Monitoring:** Real-time system health and performance tracking
@@ -109,40 +125,127 @@ See [Project Information and Scope](./docs/Project_Info_Scope.md) for a full fea
 ## Technology Stack
 
 - **Frontend:** Next.js, TypeScript, Tailwind CSS, Recharts
-- **Backend:** Python, FastAPI (microservices)
-- **Database:** PostgreSQL
-- **Infrastructure:** Docker, Docker Compose
-- **AI:** DeepSeek
+- **Backend:** Python, FastAPI (microservices architecture)
+- **Database:** PostgreSQL 15+ with advanced enterprise features
+- **Database Infrastructure:** PgBouncer connection pooling, automated backups, performance monitoring
+- **Infrastructure:** Docker containerization, Docker Compose orchestration
+- **AI:** DeepSeek integration with intelligent context management
 
 ---
 
 ## Directory Structure
 
+### Enterprise Microservices Architecture
+
+The project follows a comprehensive microservices architecture optimized for scalability, maintainability, and AI-driven development:
+
 ```
 /
-├── backend/                  # Python/FastAPI Microservices
-│   ├── services/             # Domain-specific services (auth, sales, etc.)
-│   ├── shared/               # Shared libraries/modules
-│   └── Dockerfile
-├── frontend/                 # Next.js/TypeScript Application
-│   ├── app/
-│   ├── components/
-│   ├── lib/
-│   ├── public/
-│   └── Dockerfile
-├── infra/                    # Infrastructure configs (docker-compose.yml)
-├── docs/                     # Project documentation
-│   ├── Project_Info_Scope.md
-│   ├── Project_Plan.md
-│   ├── System_Architecture.md
-│   ├── UI_UX.md
-│   ├── API_Specification.md
-│   ├── User_Story.md
-│   ├── User_Journey.md
-│   ├── User_Acceptance_Criteria.md
-│   └── Endpoint_Status.md
-└── README.md
+├── backend/                           # Python/FastAPI Microservices Ecosystem
+│   ├── services/                      # Domain-specific microservices
+│   │   ├── auth_service/              # Authentication & Security
+│   │   │   ├── app/                   # FastAPI application
+│   │   │   │   ├── api/               # REST endpoints
+│   │   │   │   ├── core/              # Business logic
+│   │   │   │   ├── models/            # SQLAlchemy models
+│   │   │   │   ├── schemas/           # Pydantic schemas
+│   │   │   │   └── services/          # Service layer
+│   │   │   ├── tests/                 # Unit & integration tests
+│   │   │   ├── migrations/            # Database migrations
+│   │   │   └── Dockerfile
+│   │   ├── sales_service/             # Sales Domain (CRM, Pipeline, Analytics)
+│   │   ├── finance_service/           # Finance Domain (Budget, Expenses, KPIs)
+│   │   ├── hr_service/                # HR Domain (Employees, Recruitment)
+│   │   ├── products_service/          # Products Domain (Catalog, Inventory)
+│   │   ├── risk_service/              # Risk & Compliance Management
+│   │   ├── reports_service/           # Reporting & Analytics Engine
+│   │   └── ai_service/                # AI Orchestrator (Chat, Context Management)
+│   ├── shared/                        # Shared Libraries & Utilities
+│   │   ├── database/                  # Database utilities & migrations
+│   │   │   ├── base.py                # Base database classes
+│   │   │   ├── connection.py          # Connection pooling
+│   │   │   ├── migrations/            # Migration management
+│   │   │   └── models/                # Shared models (Users, Tenants)
+│   │   ├── auth/                      # Authentication utilities
+│   │   ├── logging/                   # Structured logging
+│   │   ├── middleware/                # Shared middleware
+│   │   └── utils/                     # Common utilities
+│   ├── api_gateway/                   # API Gateway & Load Balancer
+│   └── scripts/                       # Development & deployment scripts
+├── frontend/                          # Next.js/TypeScript SPA
+│   ├── app/                           # Next.js 13+ app directory
+│   │   ├── (auth)/                    # Authentication routes
+│   │   ├── dashboard/                 # Executive dashboard
+│   │   ├── chat/                      # AI Chat interface
+│   │   └── api/                       # API route handlers
+│   ├── components/                    # React components library
+│   │   ├── ui/                        # Base UI components
+│   │   ├── auth/                      # Authentication components
+│   │   ├── dashboard/                 # Dashboard widgets
+│   │   ├── chat/                      # Chat interface
+│   │   └── charts/                    # Data visualization
+│   ├── lib/                           # Utilities & API clients
+│   ├── hooks/                         # Custom React hooks
+│   ├── store/                         # State management
+│   └── styles/                        # Tailwind CSS styles
+├── infra/                            # Infrastructure & DevOps
+│   ├── docker/                       # Docker configurations
+│   │   ├── docker-compose.yml        # Complete application stack
+│   │   ├── docker-compose.dev.yml    # Development environment
+│   │   └── docker-compose.prod.yml   # Production configuration
+│   ├── database/                     # Database infrastructure
+│   │   ├── init/                     # Database initialization scripts
+│   │   │   ├── 01-extensions.sql     # PostgreSQL extensions
+│   │   │   ├── 02-schemas.sql        # Database schemas
+│   │   │   ├── 03-functions.sql      # Custom functions
+│   │   │   └── 04-seed-data.sql      # Development data
+│   │   ├── scripts/                  # Database management
+│   │   │   ├── backup.sh             # Automated backups
+│   │   │   ├── restore.sh            # Recovery procedures
+│   │   │   ├── health_check.sh       # Health monitoring
+│   │   │   └── performance_monitor.sh # Performance tracking
+│   │   ├── config/                   # Database configurations
+│   │   │   ├── postgresql.conf       # PostgreSQL settings
+│   │   │   ├── pg_hba.conf          # Access control
+│   │   │   └── pgbouncer.ini        # Connection pooling
+│   │   └── Dockerfile.postgres       # Custom PostgreSQL image
+│   ├── monitoring/                   # Observability stack
+│   │   ├── prometheus/               # Metrics collection
+│   │   ├── grafana/                  # Visualization dashboards
+│   │   └── docker-compose.monitoring.yml
+│   └── scripts/                      # Infrastructure automation
+├── docs/                             # Comprehensive Documentation
+│   ├── architecture/                 # System architecture docs
+│   │   ├── System_Architecture.md
+│   │   ├── Database_Schema.md        # Complete database design
+│   │   └── Data_Dictionary.md        # Data specifications
+│   ├── api/                          # API documentation
+│   ├── development/                  # Developer guides
+│   ├── deployment/                   # Deployment guides
+│   └── [Additional documentation files...]
+├── tests/                            # Comprehensive testing suite
+│   ├── integration/                  # Cross-service integration tests
+│   ├── e2e/                         # End-to-end testing
+│   └── performance/                  # Load & performance testing
+├── .github/workflows/                # CI/CD automation
+├── scripts/                          # Project-wide automation
+│   ├── setup.sh                      # Initial setup
+│   ├── dev.sh                        # Development environment
+│   ├── test.sh                       # Test runner
+│   └── clean.sh                      # Resource cleanup
+└── [Configuration files...]
 ```
+
+### Architecture Highlights:
+
+- **🏗️ Microservices**: Each business domain has its own independent service
+- **🗄️ Database-per-Service**: Dedicated PostgreSQL schemas with shared core entities
+- **🐳 Docker-First**: Complete containerization with development/production configs
+- **🤖 AI-Ready**: Dedicated AI service with conversation management and context persistence
+- **🔐 Enterprise Security**: Comprehensive authentication, authorization, and audit systems
+- **📊 Observability**: Built-in monitoring, logging, and performance tracking
+- **🚀 CI/CD Ready**: GitHub Actions integration for automated deployment
+- **📚 Documentation**: Extensive documentation for enterprise maintenance
 
 ---
 
@@ -164,24 +267,132 @@ For detailed wireframes, color palette, typography, and component specs, see [UI
 
 ### Prerequisites
 
-- Docker
-- Node.js
-- Python
+- **Docker & Docker Compose** 24.0+ (for containerized deployment)
+- **Node.js** 18+ (for local frontend development)
+- **Python** 3.11+ (for local backend development)
+- **PostgreSQL** 15+ client tools (optional, for direct database access)
+- **Git** (for version control)
 
-### Installation & Running
+### Quick Start
 
 1. **Clone the repository:**
-   `bash
-git clone https://github.com/CatHuyuH24/A-EMS.git
-cd A-EMS
-`
 
-2. **Launch the application stack:**
-   `bash
-docker-compose -f infra/docker-compose.yml up --build
-`
+   ```bash
+   git clone https://github.com/CatHuyuH24/A-EMS.git
+   cd A-EMS
+   ```
 
-3. **Access the application:** - Frontend: [http://localhost:3000](http://localhost:3000) - Backend API: [http://localhost:8000](http://localhost:8000)
+2. **Environment setup:**
+
+   ```bash
+   # Copy environment templates
+   cp .env.example .env
+   cp infra/docker/.env.example infra/docker/.env
+
+   # Edit environment variables (database passwords, API keys, etc.)
+   ```
+
+3. **Initialize the complete application stack:**
+
+   ```bash
+   # Start all services (database, backend, frontend)
+   docker-compose -f infra/docker/docker-compose.yml up --build
+   ```
+
+4. **Database initialization (first run):**
+
+   ```bash
+   # Wait for PostgreSQL to be ready, then run migrations
+   docker-compose -f infra/docker/docker-compose.yml exec backend python -m shared.database.migrations.run_migrations
+
+   # Optional: Load development seed data
+   docker-compose -f infra/docker/docker-compose.yml exec backend python -m shared.database.seeds.run_seeds
+   ```
+
+5. **Access the application:**
+   - **Frontend**: [http://localhost:3000](http://localhost:3000)
+   - **Backend API**: [http://localhost:8000](http://localhost:8000)
+   - **API Documentation**: [http://localhost:8000/docs](http://localhost:8000/docs)
+   - **Database**: `localhost:5432` (Direct) / `localhost:6432` (PgBouncer)
+
+### Development Workflow
+
+#### Database Management
+
+```bash
+# Connect to database via PgBouncer (recommended)
+psql -h localhost -p 6432 -U aems_user -d aems_db
+
+# Direct PostgreSQL connection
+psql -h localhost -p 5432 -U aems_user -d aems_db
+
+# Run database migrations
+docker-compose -f infra/docker/docker-compose.yml exec backend python -m shared.database.migrations.run_migrations
+
+# Create database backup
+docker-compose -f infra/docker/docker-compose.yml exec postgres pg_dump -U aems_user aems_db > backup_$(date +%Y%m%d).sql
+
+# Monitor database performance
+docker-compose -f infra/docker/docker-compose.yml exec postgres psql -U aems_user -d aems_db -c "SELECT * FROM pg_stat_activity;"
+```
+
+#### Service Management
+
+```bash
+# Start specific services only
+docker-compose -f infra/docker/docker-compose.yml up postgres pgbouncer auth_service
+
+# Scale specific service
+docker-compose -f infra/docker/docker-compose.yml up --scale sales_service=2
+
+# View service logs
+docker-compose -f infra/docker/docker-compose.yml logs -f ai_service
+
+# Restart specific service
+docker-compose -f infra/docker/docker-compose.yml restart finance_service
+```
+
+#### Health Checks & Monitoring
+
+```bash
+# Database connectivity check
+docker-compose -f infra/docker/docker-compose.yml exec postgres pg_isready -U aems_user -d aems_db
+
+# Run comprehensive health checks
+./infra/database/scripts/health_check.sh
+
+# Monitor system resources
+docker-compose -f infra/docker/docker-compose.yml top
+
+# View application metrics
+curl http://localhost:8000/health
+```
+
+#### Development Mode
+
+```bash
+# Development environment with hot reload
+docker-compose -f infra/docker/docker-compose.yml -f infra/docker/docker-compose.dev.yml up
+
+# Run tests
+./scripts/test.sh
+
+# Clean development environment
+./scripts/clean.sh
+```
+
+### Production Deployment
+
+```bash
+# Production deployment
+docker-compose -f infra/docker/docker-compose.yml -f infra/docker/docker-compose.prod.yml up -d
+
+# Enable monitoring stack
+docker-compose -f infra/monitoring/docker-compose.monitoring.yml up -d
+
+# Set up automated backups
+./infra/scripts/setup_backups.sh
+```
 
 ---
 
@@ -201,6 +412,8 @@ This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for
 
 - [Project Information and Scope](./docs/Project_Info_Scope.md)
 - [System Architecture](./docs/System_Architecture.md)
+- [Database Schema](./docs/Database_Schema.md)
+- [Data Dictionary](./docs/Data_Dictionary.md)
 - [API Specification](./docs/API_Specification.md)
 - [UI/UX Design Guidelines](./docs/UI_UX.md)
 - [Logging Guide](./docs/Logging_Guide.md)

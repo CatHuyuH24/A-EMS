@@ -1,4 +1,14 @@
-# Detailed Project Plan (AI-Driven Development)
+# Detailed Project Plan (AI-Driven Developme - Define comprehensive error handling patterns (400, 403, 404, 422, 429, 503) for all services
+
+      - Define logging requirements and structured response formats across all endpoints
+
+5.  **Database Architecture Design (AI-Assisted):**
+    - Design comprehensive database schema supporting microservices architecture (`Database_Schema.md`)
+    - Implement database-per-service pattern with shared core entities (tenants, users, authentication)
+    - Create performance optimization strategy including indexing, partitioning, and query optimization
+    - Design security architecture with row-level security policies and data encryption
+    - Implement backup and recovery strategy with automated migration management
+    - Configure Docker-native database deployment with PgBouncer connection pooling)
 
 _Last updated: 14/09/2025_
 
@@ -45,30 +55,42 @@ This project will be executed in phases, with AI assisting at each step.
       - Specify comprehensive error handling patterns (400, 403, 404, 422, 429, 503) for all services
       - Define logging requirements and structured response formats across all endpoints
 
-### Phase 2: Authentication & Security Implementation
+### Phase 2: Database Infrastructure & Authentication Implementation
 
-- **Objective:** Build comprehensive authentication and security infrastructure.
+- **Objective:** Build comprehensive database infrastructure and authentication security systems.
 - **AI-Driven Workflow:**
 
-  1.  **Enhanced Auth Service Development:**
+  1.  **Database Infrastructure Setup:**
+
+      - Implement PostgreSQL 15+ containerized deployment with Docker
+      - Configure PgBouncer connection pooling for optimal performance
+      - Set up database migration system with version control and rollback capabilities
+      - Implement comprehensive backup and recovery automation
+      - Create database monitoring and health check systems
+      - **Performance Optimization:** Strategic indexing, partitioning for time-series data, and query optimization
+      - **Security Implementation:** Row-level security policies, data encryption at rest/transit, and audit logging
+
+  2.  **Enhanced Auth Service Development:**
 
       - Implement JWT-based authentication with refresh tokens
       - Build MFA system with TOTP and backup code generation
       - Integrate OAuth 2.0 / OIDC with Google authentication
       - Implement password management (change, reset, forgot password)
       - Build role-based access control (RBAC) system
+      - **Database Integration:** Connect authentication to PostgreSQL with tenant isolation and audit trails
       - **Logging Implementation:** Set up structured logging with correlation IDs for all auth operations
 
-  2.  **Security Features Implementation:**
+  3.  **Security Features Implementation:**
 
       - Session management with device tracking
       - Brute force protection and account lockout
       - Security audit logging and monitoring
       - Rate limiting and DDoS protection
       - Secure JWT token handling and storage
+      - **Database Security:** Implement row-level security policies and encrypted sensitive data storage
       - **Security Monitoring:** Real-time alerting for authentication failures and suspicious activities
 
-  3.  **Authentication UI Development:**
+  4.  **Authentication UI Development:**
       - Login/logout interfaces with MFA support
       - Password management forms and flows
       - Google OAuth integration components
@@ -83,9 +105,15 @@ This project will be executed in phases, with AI assisting at each step.
 
   1.  **Boilerplate Generation:** Use AI to generate boilerplate code for each FastAPI microservice (`Sales`, `Finance`, `HR`, etc.), including Dockerfiles and basic endpoints based on `API_Specification.md`.
   2.  **Logic Implementation:** Implement business logic for each service with AI providing code snippets, suggestions, and bug fixes.
-  3.  **Database Integration:** Generate SQLAlchemy models and database interaction logic for each service, potentially within its own schema.
-  4.  **Logging Integration:** Implement structured JSON logging with correlation ID middleware for all microservices, following patterns in `Logging_Guide.md`.
-  5.  **Unit & Integration Testing:** Generate test cases and testing scripts to ensure each microservice is reliable and meets its API contract.
+  3.  **Database Integration:** Implement service-specific database schemas following the Database-per-Service pattern defined in `Database_Schema.md`:
+      - **Sales Service:** Customer management, pipeline tracking, and sales analytics with optimized queries
+      - **Finance Service:** Financial metrics, budget planning, and expense management with audit trails
+      - **HR Service:** Employee management, recruitment pipeline, and workforce analytics
+      - **Products Service:** Product catalog, inventory management, and performance tracking
+      - **Risk Service:** Risk assessments, compliance monitoring, and comprehensive audit logging
+  4.  **Performance Optimization:** Implement database connection pooling, query optimization, and caching strategies for each service.
+  5.  **Logging Integration:** Implement structured JSON logging with correlation ID middleware for all microservices, following patterns in `Logging_Guide.md`.
+  6.  **Unit & Integration Testing:** Generate test cases and testing scripts to ensure each microservice is reliable and meets its API contract with proper database integration testing.
 
 ### Phase 4: Frontend Development
 
@@ -112,7 +140,11 @@ This project will be executed in phases, with AI assisting at each step.
       - **Context Management:** Develop sophisticated context window management for long conversations
       - **Performance Optimization:** Implement response caching and intelligent context pruning
       - **DeepSeek Integration:** Advanced prompt engineering with business context injection
-  2.  **Docker Compose & Orchestration:** Create comprehensive `docker-compose.yml` file orchestrating all services including AI service, database persistence for conversations, and monitoring stack.
+  2.  **Docker Compose & Orchestration:** Create comprehensive `docker-compose.yml` file orchestrating all services including:
+      - Database infrastructure (PostgreSQL + PgBouncer)
+      - AI service with conversation persistence and analytics database
+      - Complete monitoring stack with database performance monitoring
+      - Automated backup systems and health checks
   3.  **Docker Logging Configuration:** Implement centralized logging with proper Docker logging drivers, log rotation, and correlation ID tracking across AI service interactions.
   4.  **Monitoring & Analytics Setup:**
       - Configure comprehensive monitoring for AI service performance and usage patterns
@@ -127,23 +159,24 @@ This project will be executed in phases, with AI assisting at each step.
 ## 4. Timeline
 
 - **Phase 1:** 1-4 days (Foundation & System Design)
-- **Phase 2:** 1-2 weeks (Authentication & Security Implementation)
+- **Phase 2:** 2-3 weeks (Database Infrastructure & Authentication Implementation)
 - **Phase 3:** 2-3 weeks (Backend Microservice Development)
 - **Phase 4:** 1-2 weeks (Frontend Development)
 - **Phase 5:** 2-3 weeks (Enhanced AI Integration & Deployment)
 
 **Enhanced Timeline Considerations:**
 
+- Database Infrastructure phase expanded due to comprehensive PostgreSQL deployment, performance optimization, and security implementation
 - AI Integration phase extended due to advanced features including multi-turn conversations, streaming responses, analytics, and feedback systems
 - Additional time allocated for comprehensive testing of AI conversation flows and performance optimization
 - Timeline assumes effective use of AI development tools and iterative enhancement based on user feedback
-- Authentication and AI services are critical dependencies that must be completed sequentially before business logic implementation
+- Database and authentication systems are critical dependencies that must be completed sequentially before business logic implementation
 
 **Key Milestones:**
 
-- **Week 1:** Complete system architecture and API specification with enhanced AI endpoints
-- **Week 3:** Functional authentication system with security audit logging
-- **Week 6:** All backend microservices operational with comprehensive error handling
-- **Week 8:** Frontend integration complete with advanced dashboard and chat interfaces
-- **Week 11:** Full AI integration with multi-turn conversations, streaming, and analytics operational
-- **Week 12:** Production deployment with monitoring, logging, and performance optimization complete
+- **Week 1:** Complete system architecture, API specification, and comprehensive database schema design
+- **Week 4:** Functional database infrastructure with authentication system and security audit logging
+- **Week 7:** All backend microservices operational with comprehensive error handling and database integration
+- **Week 9:** Frontend integration complete with advanced dashboard and chat interfaces
+- **Week 12:** Full AI integration with multi-turn conversations, streaming, and analytics operational
+- **Week 13:** Production deployment with monitoring, logging, performance optimization, and database backup systems complete
