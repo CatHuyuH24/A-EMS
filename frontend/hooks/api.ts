@@ -1,53 +1,16 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { api, LoginRequest } from '@/lib/api'
-import { useAuthStore } from '@/store/auth-store'
-import { toast } from 'react-hot-toast'
+// Re-export all hooks from individual modules for convenience// Re-export all hooks from individual modules for convenience// Re-export all hooks from individual modules for convenience
 
-// Query Keys
-export const QUERY_KEYS = {
-  // Auth
-  me: ['auth', 'me'],
-  
-  // Dashboard
-  overview: ['dashboard', 'overview'],
-  metrics: (timeframe?: string) => ['dashboard', 'metrics', timeframe],
-  
-  // Chat
-  chatHistory: (sessionId: string) => ['chat', 'history', sessionId],
-  suggestions: ['chat', 'suggestions'],
-  
-  // Sales
-  salesMetrics: ['sales', 'metrics'],
-  customers: (params?: any) => ['sales', 'customers', params],
-  pipeline: ['sales', 'pipeline'],
-  
-  // Finance
-  financeMetrics: ['finance', 'metrics'],
-  budgets: ['finance', 'budgets'],
-  expenses: (params?: any) => ['finance', 'expenses', params],
-  
-  // HR
-  hrMetrics: ['hr', 'metrics'],
-  employees: (params?: any) => ['hr', 'employees', params],
-  
-  // Reports
-  reports: (params?: any) => ['reports', params],
-  report: (id: string) => ['reports', id],
-} as const
+export * from './auth';
 
-// Auth Hooks
-export const useLogin = () => {
-  const { login: setAuthData } = useAuthStore()
+export * from './chat';export * from './auth';
+export * from './auth'
 
-  return useMutation({
-    mutationFn: async (data: LoginRequest) => {
-      const response = await api.auth.login(data)
-      return response.data
-    },
-    onSuccess: (data) => {
-      // Update auth store
-      setAuthData(data.user, data.accessToken, data.refreshToken)
-      // Set token in API client
+export * from './dashboard';
+export * from './chat' ;
+export * from './chat' 
+
+export * from './dashboard';
+export * from './dashboard';
       api.setAuthToken(data.accessToken)
       toast.success('Login successful!')
     },
